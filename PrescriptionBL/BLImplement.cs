@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace PrescriptionBL
 {
-    class BLImplement: IBL
+    class BLImplement : IBL
     {
-        IDal dal = DalFactory.getDal();
         //------------ Administrators ---------------
         void IBL.addAdministrator(Administrator administrator)
         {
@@ -43,6 +42,10 @@ namespace PrescriptionBL
             throw new NotImplementedException();
         }
         IEnumerable<Doctor> IBL.getAllDoctors()
+        {
+            throw new NotImplementedException();
+        }
+        IEnumerable<Prescription> IBL.allPrescriptionByDoctor(Doctor doctor)
         {
             throw new NotImplementedException();
         }
@@ -92,6 +95,11 @@ namespace PrescriptionBL
         {
             throw new NotImplementedException();
         }
+        IEnumerable<Prescription> IBL.allPrescriptionFromPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //------------ Specialties ---------------
         void IBL.addSpecialty(Specialty specialty)
