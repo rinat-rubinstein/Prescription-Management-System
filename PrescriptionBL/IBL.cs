@@ -23,6 +23,7 @@ namespace PrescriptionBL
         void deleteDoctor(Doctor doctor);
         void updateDoctor(Doctor doctor);
         IEnumerable<Doctor> getAllDoctors();
+        IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor);
 
         //------------ Medicines ---------------
         void addMedicine(Medicine medicine);
@@ -39,6 +40,7 @@ namespace PrescriptionBL
         //------------ Prescriptions ---------------
         void addPrescription(Prescription prescription);
         IEnumerable<Prescription> getAllPrescriptions();
+        IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient);
 
         //------------ Specialties ---------------
         void addSpecialty(Specialty specialty);
