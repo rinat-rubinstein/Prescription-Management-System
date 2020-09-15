@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BLImplement.cs" />
     <Compile Include="IBL.cs" />
+    <Compile Include="ImagesTagsLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
