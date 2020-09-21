@@ -1,6 +1,8 @@
 ﻿using PrescriptionBE;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,97 +14,237 @@ namespace PrescriptionDAL
         //------------ Administrators ---------------
         void IDal.addAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
+            {
+                throw new Exception("This administrator exists already");
+            }
+            else
+            {
+                db.Administrators.Add(administrator);
+            }
+
         }
         void IDal.deleteAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Administrators.ToList().Exists(admin=> admin.Id==administrator.Id))
+            {
+                db.Administrators.Remove(administrator);
+            }
+            else
+            {
+                throw new Exception("This administrator does not exist");
+            }
         }
         void IDal.updateAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
+            {
+                db.Administrators.AddOrUpdate(administrator);
+            }
+            else
+            {
+                throw new Exception("This administrator does not exist");
+            }
         }
         IEnumerable<Administrator> IDal.getAllAdministrators()
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            return db.Administrators;
         }
 
         //------------ Doctors ---------------
         void IDal.addDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Doctors.ToList().Exists(doc=>doc.Id==doctor.Id))
+            {
+                throw new Exception("This doctor exists already");
+            }
+            else
+            {
+                db.Doctors.Add(doctor);
+            }
         }
         void IDal.deleteDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+            {
+                db.Doctors.Remove(doctor);
+            }
+            else
+            {
+                throw new Exception("This doctor does not exist");
+            }
         }
         void IDal.updateDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+            {
+                db.Doctors.AddOrUpdate(doctor);
+            }
+            else
+            {
+                throw new Exception("This doctor does not exist");
+            }
         }
         IEnumerable<Doctor> IDal.getAllDoctors()
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            return db.Doctors;
         }
 
         //------------ Medicines ---------------
         void IDal.addMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+            {
+                throw new Exception("This medicine exists already");
+            }
+            else
+            {
+                db.Medicines.Add(medicine);
+            }
         }
         void IDal.deleteMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+            {
+                db.Medicines.Remove(medicine);
+            }
+            else
+            {
+                throw new Exception("This medicine does not exist");
+            }
         }
         void IDal.updateMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+            {
+                db.Medicines.AddOrUpdate(medicine);
+            }
+            else
+            {
+                throw new Exception("This medicine does not exist");
+            }
         }
         IEnumerable<Medicine> IDal.getAllMedicines()
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            return db.Medicines;
         }
 
         //------------ Patients ---------------
         void IDal.addPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+            {
+                throw new Exception("This patient exists already");
+            }
+            else
+            {
+                db.Patients.Add(patient);
+            }
         }
         void IDal.deletePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+            {
+                db.Patients.Remove(patient);
+            }
+            else
+            {
+                throw new Exception("This patient does not exist");
+            }
         }
         void IDal.updatePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+            {
+                db.Patients.AddOrUpdate(patient);
+            }
+            else
+            {
+                throw new Exception("This patient does not exist");
+            }
         }
         IEnumerable<Patient> IDal.getAllPatients()
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            return db.Patients;
         }
 
         //------------ Prescriptions ---------------
         void IDal.addPrescription(Prescription prescription)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if(db.Prescriptions.ToList().Exists(prs=> prs.Id==prescription.Id))
+            {
+                throw new Exception("This prescription exsits already");
+            }
+            else
+            {
+                db.Prescriptions.Add(prescription);
+            }
         }
         IEnumerable<Prescription> IDal.getAllPrescriptions()
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            return db.Prescriptions;
         }
 
         //------------ Specialties ---------------
         void IDal.addSpecialty(Specialty specialty)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Specialties.ToList().Exists(spc => spc.Id == specialty.Id))
+            {
+                throw new Exception("This specialty exsits already");
+            }
+            else
+            {
+                db.Specialties.Add(specialty);
+            }
         }
         void IDal.deleteSpecialty(Specialty specialty)
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            if (db.Prescriptions.ToList().Exists(spc => spc.Id == specialty.Id))
+            {
+                throw new Exception("This specialty exsits already");
+            }
+            else
+            {
+                db.Specialties.Add(specialty);
+            }
         }
         IEnumerable<Specialty> IDal.getAllSpecialties()
         {
-            throw new NotImplementedException();
+            PrescriptionContext db = new PrescriptionContext();
+            return db.Specialties;
         }
+    }
+    public class PrescriptionContext:DbContext
+    {
+        public PrescriptionContext() : base() { }
+        public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
+
+
+
     }
 }
