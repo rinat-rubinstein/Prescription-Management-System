@@ -14,7 +14,6 @@ namespace PrescriptionBE
         public string GenericName { get; set; }
         public List<string> ActiveIngredients { get; set; }
         public List<string> PortionProperties { get; set; }
-        public string ImageUrl { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name}";

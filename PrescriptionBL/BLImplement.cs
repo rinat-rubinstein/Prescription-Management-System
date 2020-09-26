@@ -10,109 +10,228 @@ namespace PrescriptionBL
 {
     class BLImplement : IBL
     {
+        PrescriptionDAL.IDal dal = new PrescriptionDAL.DalImplement();
         //------------ Administrators ---------------
         void IBL.addAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.addAdministrator(administrator);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.deleteAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.deleteAdministrator(administrator);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         void IBL.updateAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.updateAdministrator(administrator);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         IEnumerable<Administrator> IBL.getAllAdministrators()
         {
-            throw new NotImplementedException();
+            return dal.getAllAdministrators();
         }
 
         //------------ Doctors ---------------
         void IBL.addDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.addDoctor(doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.deleteDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.deleteDoctor(doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.updateDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.addDoctor(doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         IEnumerable<Doctor> IBL.getAllDoctors()
         {
-            throw new NotImplementedException();
+            return dal.getAllDoctors();
         }
         IEnumerable<Prescription> IBL.allPrescriptionByDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.Id);
         }
 
         //------------ Medicines ---------------
         void IBL.addMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.addMedicine(medicine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.deleteMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.deleteMedicine(medicine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.updateMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.updateMedicine(medicine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         IEnumerable<Medicine> IBL.getAllMedicines()
         {
-            throw new NotImplementedException();
+            return dal.getAllMedicines();
         }
 
         //------------ Patients ---------------
         void IBL.addPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.addPatient(patient);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.deletePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.deletePatient(patient);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.updatePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.updatePatient(patient);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         IEnumerable<Patient> IBL.getAllPatients()
         {
-            throw new NotImplementedException();
+            return dal.getAllPatients();
         }
 
         //------------ Prescriptions ---------------
         void IBL.addPrescription(Prescription prescription)
         {
-            throw new NotImplementedException();
+            //Checks if the doctor's license is valid
+            if (dal.getAllDoctors().ToList().Find(d => d.Id == prescription.Id).License.ExpirationDate >= DateTime.Today)
+            {
+                try
+                {
+                    dal.addPrescription(prescription);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                throw new Exception("The the doctor's license is not valid ");
+            }
         }
         IEnumerable<Prescription> IBL.getAllPrescriptions()
         {
-            throw new NotImplementedException();
+            return dal.getAllPrescriptions();
         }
         IEnumerable<Prescription> IBL.allPrescriptionFromPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.Id);
         }
 
 
         //------------ Specialties ---------------
         void IBL.addSpecialty(Specialty specialty)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.addSpecialty(specialty);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         void IBL.deleteSpecialty(Specialty specialty)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dal.deleteSpecialty(specialty);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         IEnumerable<Specialty> IBL.getAllSpecialties()
         {
-            throw new NotImplementedException();
+            return dal.getAllSpecialties();
         }
+
+        
+
     }
 }

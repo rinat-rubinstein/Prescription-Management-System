@@ -17,6 +17,7 @@ namespace PrescriptionBL
         void deleteAdministrator(Administrator administrator);
         void updateAdministrator(Administrator administrator);
         IEnumerable<Administrator> getAllAdministrators();
+        
 
         //------------ Doctors ---------------
         void addDoctor(Doctor doctor);

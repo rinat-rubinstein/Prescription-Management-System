@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrescriptionDAL
 {
-    class DalImplement: IDal
+   public class DalImplement: IDal
     {
         //------------ Administrators ---------------
         void IDal.addAdministrator(Administrator administrator)
@@ -22,7 +22,9 @@ namespace PrescriptionDAL
             else
             {
                 db.Administrators.Add(administrator);
+                db.SaveChanges();
             }
+           
 
         }
         void IDal.deleteAdministrator(Administrator administrator)
@@ -31,6 +33,8 @@ namespace PrescriptionDAL
             if (db.Administrators.ToList().Exists(admin=> admin.Id==administrator.Id))
             {
                 db.Administrators.Remove(administrator);
+                db.SaveChanges();
+
             }
             else
             {
@@ -43,6 +47,7 @@ namespace PrescriptionDAL
             if (db.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
             {
                 db.Administrators.AddOrUpdate(administrator);
+                db.SaveChanges();
             }
             else
             {
@@ -66,6 +71,7 @@ namespace PrescriptionDAL
             else
             {
                 db.Doctors.Add(doctor);
+                db.SaveChanges();
             }
         }
         void IDal.deleteDoctor(Doctor doctor)
@@ -74,6 +80,7 @@ namespace PrescriptionDAL
             if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
             {
                 db.Doctors.Remove(doctor);
+                db.SaveChanges();
             }
             else
             {
@@ -86,6 +93,7 @@ namespace PrescriptionDAL
             if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
             {
                 db.Doctors.AddOrUpdate(doctor);
+                db.SaveChanges();
             }
             else
             {
@@ -109,6 +117,7 @@ namespace PrescriptionDAL
             else
             {
                 db.Medicines.Add(medicine);
+                db.SaveChanges();
             }
         }
         void IDal.deleteMedicine(Medicine medicine)
@@ -117,6 +126,7 @@ namespace PrescriptionDAL
             if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
             {
                 db.Medicines.Remove(medicine);
+                db.SaveChanges();
             }
             else
             {
@@ -129,6 +139,7 @@ namespace PrescriptionDAL
             if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
             {
                 db.Medicines.AddOrUpdate(medicine);
+                db.SaveChanges();
             }
             else
             {
@@ -152,6 +163,7 @@ namespace PrescriptionDAL
             else
             {
                 db.Patients.Add(patient);
+                db.SaveChanges();
             }
         }
         void IDal.deletePatient(Patient patient)
@@ -160,6 +172,7 @@ namespace PrescriptionDAL
             if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
             {
                 db.Patients.Remove(patient);
+                db.SaveChanges();
             }
             else
             {
@@ -172,6 +185,7 @@ namespace PrescriptionDAL
             if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
             {
                 db.Patients.AddOrUpdate(patient);
+                db.SaveChanges();
             }
             else
             {
@@ -195,6 +209,7 @@ namespace PrescriptionDAL
             else
             {
                 db.Prescriptions.Add(prescription);
+                db.SaveChanges();
             }
         }
         IEnumerable<Prescription> IDal.getAllPrescriptions()
@@ -214,6 +229,7 @@ namespace PrescriptionDAL
             else
             {
                 db.Specialties.Add(specialty);
+                db.SaveChanges();
             }
         }
         void IDal.deleteSpecialty(Specialty specialty)
@@ -226,6 +242,7 @@ namespace PrescriptionDAL
             else
             {
                 db.Specialties.Add(specialty);
+                db.SaveChanges();
             }
         }
         IEnumerable<Specialty> IDal.getAllSpecialties()

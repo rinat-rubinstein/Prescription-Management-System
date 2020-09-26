@@ -11,6 +11,7 @@ namespace PrescriptionBE
         public int Id { get; set; }
         public string Name { get; set; }
         public int Special { get; set; }
+        public DoctorLicense License { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name} special:{Special}";
