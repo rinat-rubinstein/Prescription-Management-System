@@ -9,7 +9,7 @@ namespace PrescriptionBE
     public class Prescription
     {
         public int Id { get; set; }
-        public int medicine { get; set; }
+        public List<int> medicine { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Doctor { get; set; }

@@ -2,117 +2,314 @@
 using PrescriptionDAL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PrescriptionBL
 {
     class BLImplement : IBL
     {
+        
         //------------ Administrators ---------------
-        void IBL.addAdministrator(Administrator administrator)
+        public void addAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addAdministrator(administrator);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.deleteAdministrator(Administrator administrator)
+        public void deleteAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.deleteAdministrator(administrator);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
-        void IBL.updateAdministrator(Administrator administrator)
+        public void updateAdministrator(Administrator administrator)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.updateAdministrator(administrator);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
-        IEnumerable<Administrator> IBL.getAllAdministrators()
+        public IEnumerable<Administrator> getAllAdministrators()
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllAdministrators();
         }
 
         //------------ Doctors ---------------
-        void IBL.addDoctor(Doctor doctor)
+        public void addDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addDoctor(doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.deleteDoctor(Doctor doctor)
+        public void deleteDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.deleteDoctor(doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.updateDoctor(Doctor doctor)
+        public void updateDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addDoctor(doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        IEnumerable<Doctor> IBL.getAllDoctors()
+        public IEnumerable<Doctor> getAllDoctors()
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllDoctors();
         }
-        IEnumerable<Prescription> IBL.allPrescriptionByDoctor(Doctor doctor)
+        public IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.Id);
         }
 
         //------------ Medicines ---------------
-        void IBL.addMedicine(Medicine medicine)
+        public void addMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addMedicine(medicine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.deleteMedicine(Medicine medicine)
+        public void addMedicine(Medicine medicine, HttpPostedFileBase file)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
+                Path.GetFileName(file.FileName));
+                if (!validMedicinePicture(filePath))
+                    throw new Exception("the picture does not contain a medicine");
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addMedicine(medicine, file);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.updateMedicine(Medicine medicine)
+        public void deleteMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.deleteMedicine(medicine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        IEnumerable<Medicine> IBL.getAllMedicines()
+        public void updateMedicine(Medicine medicine)
+        {
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.updateMedicine(medicine);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void updateMedicinePicture(int medicineId, HttpPostedFileBase file)
+        {
+            try
+            {
+                string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
+                Path.GetFileName(file.FileName));
+                if (!validMedicinePicture(filePath))
+                    throw new Exception("the picture does not contain a medicine");
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.updateMedicinePicture(medicineId,file);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public string getMedicinePicture(int medicinId)
+        {
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                return dal.getMedicinePicture(medicinId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<Medicine> getAllMedicines()
+        {
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllMedicines();
+        }
+
+        /// <summary>
+        /// check if the picture is of medicine, using IMAGA api (chanale this for you...)
+        /// </summary>
+        /// <returns></returns>
+        private bool validMedicinePicture(string path)
         {
             throw new NotImplementedException();
         }
 
         //------------ Patients ---------------
-        void IBL.addPatient(Patient patient)
+        public void addPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addPatient(patient);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.deletePatient(Patient patient)
+        public void deletePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.deletePatient(patient);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.updatePatient(Patient patient)
+        public void updatePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.updatePatient(patient);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        IEnumerable<Patient> IBL.getAllPatients()
+        public IEnumerable<Patient> getAllPatients()
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllPatients();
         }
 
         //------------ Prescriptions ---------------
-        void IBL.addPrescription(Prescription prescription)
+        public void addPrescription(Prescription prescription)
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            //Checks if the doctor's license is valid
+            if (dal.getAllDoctors().ToList().Find(d => d.Id == prescription.Id).License.ExpirationDate >= DateTime.Today)
+            {
+                try
+                {
+                    dal.addPrescription(prescription);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                throw new Exception("The the doctor's license is not valid ");
+            }
         }
-        IEnumerable<Prescription> IBL.getAllPrescriptions()
+        public IEnumerable<Prescription> getAllPrescriptions()
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllPrescriptions();
         }
-        IEnumerable<Prescription> IBL.allPrescriptionFromPatient(Patient patient)
+        public IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient)
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.Id);
         }
 
 
         //------------ Specialties ---------------
-        void IBL.addSpecialty(Specialty specialty)
+        public void addSpecialty(Specialty specialty)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.addSpecialty(specialty);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        void IBL.deleteSpecialty(Specialty specialty)
+        public void deleteSpecialty(Specialty specialty)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IDal dal = new PrescriptionDAL.DalImplement();
+                dal.deleteSpecialty(specialty);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        IEnumerable<Specialty> IBL.getAllSpecialties()
+        public IEnumerable<Specialty> getAllSpecialties()
         {
-            throw new NotImplementedException();
+            IDal dal = new PrescriptionDAL.DalImplement();
+            return dal.getAllSpecialties();
         }
+
+        
+
     }
 }

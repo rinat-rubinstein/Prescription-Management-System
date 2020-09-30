@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PrescriptionBL
 {
@@ -13,38 +14,42 @@ namespace PrescriptionBL
     public interface IBL
     {
         //------------ Administrators ---------------
-        void addAdministrator(Administrator administrator);
-        void deleteAdministrator(Administrator administrator);
-        void updateAdministrator(Administrator administrator);
-        IEnumerable<Administrator> getAllAdministrators();
+        public void addAdministrator(Administrator administrator);
+        public void deleteAdministrator(Administrator administrator);
+        public void updateAdministrator(Administrator administrator);
+        public IEnumerable<Administrator> getAllAdministrators();
+
 
         //------------ Doctors ---------------
-        void addDoctor(Doctor doctor);
-        void deleteDoctor(Doctor doctor);
-        void updateDoctor(Doctor doctor);
-        IEnumerable<Doctor> getAllDoctors();
-        IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor);
+        public void addDoctor(Doctor doctor);
+        public void deleteDoctor(Doctor doctor);
+        public void updateDoctor(Doctor doctor);
+        public IEnumerable<Doctor> getAllDoctors();
+        public IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor);
 
         //------------ Medicines ---------------
-        void addMedicine(Medicine medicine);
-        void deleteMedicine(Medicine medicine);
-        void updateMedicine(Medicine medicine);
-        IEnumerable<Medicine> getAllMedicines();
+        public void addMedicine(Medicine medicine);
+        public void addMedicine(Medicine medicine, HttpPostedFileBase file);
+        public void deleteMedicine(Medicine medicine);
+        public void updateMedicine(Medicine medicine);
+        public void updateMedicinePicture(int medicineId, HttpPostedFileBase file);
+        public string getMedicinePicture(int medicinId);
+        public IEnumerable<Medicine> getAllMedicines();
 
         //------------ Patients ---------------
-        void addPatient(Patient patient);
-        void deletePatient(Patient patient);
-        void updatePatient(Patient patient);
-        IEnumerable<Patient> getAllPatients();
+        public void addPatient(Patient patient);
+        public void deletePatient(Patient patient);
+        public void updatePatient(Patient patient);
+        public IEnumerable<Patient> getAllPatients();
 
         //------------ Prescriptions ---------------
-        void addPrescription(Prescription prescription);
-        IEnumerable<Prescription> getAllPrescriptions();
-        IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient);
+        public void addPrescription(Prescription prescription);
+        public IEnumerable<Prescription> getAllPrescriptions();
+        public IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient);
 
         //------------ Specialties ---------------
-        void addSpecialty(Specialty specialty);
-        void deleteSpecialty(Specialty specialty);
-        IEnumerable<Specialty> getAllSpecialties();
+        public void addSpecialty(Specialty specialty);
+        public void deleteSpecialty(Specialty specialty);
+        public IEnumerable<Specialty> getAllSpecialties();
     }
 }
