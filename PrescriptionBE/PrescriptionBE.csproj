@@ -47,6 +47,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="DoctorLicense.cs" />
     <Compile Include="GoogleDriveFile.cs" />
+    <Compile Include="ImageDetails.cs" />
     <Compile Include="Medicine.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Prescription.cs" />

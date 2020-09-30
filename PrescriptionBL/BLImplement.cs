@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI;
 
 namespace PrescriptionBL
 {
@@ -199,9 +200,32 @@ namespace PrescriptionBL
         /// <returns></returns>
         private bool validMedicinePicture(string path)
         {
-            throw new NotImplementedException();
+            List<string> tagsPictures = GetPicturesTags(path);
+            foreach (var item in tagsPictures)
+            {
+                if (item == "medicine" || item == "drug" || item == "pill" || item == "medicines" || item == "drugs" || item == "pills")
+                    return true;
+            }
+            return false;
         }
-
+        public List<string> GetPicturesTags(string path)
+        {
+            List<string> Result = new List<string>();
+            ImageDetails DrugImage = new ImageDetails(path);
+            IDal dal = new PrescriptionDAL.DalImplement();
+            dal.GetPicturesTags(DrugImage);
+            var threshold = 40.0;
+            foreach (var item in DrugImage.Details)
+            {
+                if (item.Value > threshold)
+                {
+                    Result.Add(item.Key);
+                }
+                else
+                    break;
+            }
+            return Result;
+        }
         //------------ Patients ---------------
         public void addPatient(Patient patient)
         {
