@@ -13,10 +13,9 @@ namespace PrescriptionDAL
 {
     class MedicinesInteractionsHelper
     {
-        IDal dal = new PrescriptionDAL.DalImplement();
-        private string checkDrugs(string medicine, long id, DateTime start, DateTime end)
-            {
-
+        private string checkDrugs(string medicine, long id, DateTime start, DateTime end) //שם תרופה, תז פציינט, תאריך התחלה, תאריך סיום
+        {
+                IDal dal = new PrescriptionDAL.DalImplement();
                 string ndc = (from x in dal.getAllMedicines() where x.Name == medicine select x.GenericName).First();
                 string siteContent = string.Empty;
                 string url = "https://rxnav.nlm.nih.gov/REST/rxcui?idtype=NDC&id=" + ndc;
@@ -45,10 +44,8 @@ namespace PrescriptionDAL
                     {
                     if (!((p.StartDate < start && p.EndDate < start) || (p.StartDate > end)))//משתמש בתרופה אחרת במקביל לתרופה החדשה
                     {
-                        foreach (int med in p.medicine)
-                        {
-                            Medicine m = (from x in dal.getAllMedicines() where x.Id == med select x).First();
-                            url = "https://rxnav.nlm.nih.gov/REST/rxcui?idtype=NDC&id=" + m.GenericName;
+                        Medicine m = (from x in dal.getAllMedicines() where x.Id == p.medicine select x).First();
+                        url = "https://rxnav.nlm.nih.gov/REST/rxcui?idtype=NDC&id=" + m.GenericName;
                             request = (HttpWebRequest)WebRequest.Create(url);
                             request.AutomaticDecompression = DecompressionMethods.GZip;
 
@@ -64,7 +61,6 @@ namespace PrescriptionDAL
                                 rxcuis.Add(xnList[0]["rxnormId"].InnerText);
 
                         }
-                    }
                     }
                     string tmp = string.Empty;
                     for (int i = 0; i < rxcuis.Count; i++)
