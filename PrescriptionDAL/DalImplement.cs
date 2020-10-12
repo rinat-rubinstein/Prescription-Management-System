@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,17 +31,21 @@ namespace PrescriptionDAL
         }
         public void deleteAdministrator(Administrator administrator)
         {
-            PrescriptionContext db = new PrescriptionContext();
-            if (db.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
+            using (var context = new PrescriptionContext())
             {
-                db.Administrators.Remove(administrator);
-                db.SaveChanges();
+                if (context.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
+                {
+                    var deletedAdministrator = context.Administrators.Where(a => a.Id == administrator.Id).FirstOrDefault();
+                    context.Administrators.Remove(deletedAdministrator);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("This administrator does not exist");
+                }
+            }
 
-            }
-            else
-            {
-                throw new Exception("This administrator does not exist");
-            }
+
         }
         public void updateAdministrator(Administrator administrator)
         {
@@ -77,15 +82,18 @@ namespace PrescriptionDAL
         }
         public void deleteDoctor(Doctor doctor)
         {
-            PrescriptionContext db = new PrescriptionContext();
-            if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+            using (var context = new PrescriptionContext())
             {
-                db.Doctors.Remove(doctor);
-                db.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("This doctor does not exist");
+                if (context.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+                {
+                    var deletedDoctor = context.Doctors.Where(doc => doc.Id == doctor.Id).FirstOrDefault();
+                    context.Doctors.Remove(deletedDoctor);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("This doctor does not exist");
+                }
             }
         }
         public void updateDoctor(Doctor doctor)
@@ -129,17 +137,20 @@ namespace PrescriptionDAL
         }
         public void deleteMedicine(Medicine medicine)
         {
-            PrescriptionContext db = new PrescriptionContext();
-            if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+            using (var context = new PrescriptionContext())
             {
-                db.Medicines.Remove(medicine);
-                db.SaveChanges();
-                GoogleDriveAPIHelper gd = new GoogleDriveAPIHelper();
-                gd.deleteFile(medicine.Id.ToString());
-            }
-            else
-            {
-                throw new Exception("This medicine does not exist");
+                if (context.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+                {
+                    var deletedMedicine = context.Medicines.Where(m => m.Id == medicine.Id).FirstOrDefault();
+                    context.Medicines.Remove(deletedMedicine);
+                    context.SaveChanges();
+                    GoogleDriveAPIHelper gd = new GoogleDriveAPIHelper();
+                    gd.deleteFile(medicine.Id.ToString());
+                }
+                else
+                {
+                    throw new Exception("This medicine does not exist");
+                }
             }
         }
         public void updateMedicine(Medicine medicine)
@@ -171,7 +182,7 @@ namespace PrescriptionDAL
             PrescriptionContext db = new PrescriptionContext();
             return db.Medicines;
         }
-        
+
         //------------ Patients ---------------
         public void addPatient(Patient patient)
         {
@@ -188,17 +199,21 @@ namespace PrescriptionDAL
         }
         public void deletePatient(Patient patient)
         {
-            PrescriptionContext db = new PrescriptionContext();
-            if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+            using (var context = new PrescriptionContext())
             {
-                db.Patients.Remove(patient);
-                db.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("This patient does not exist");
+                if (context.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+                {
+                    var deletedPatient = context.Patients.Where(pt => pt.Id == patient.Id).FirstOrDefault();
+                    context.Patients.Remove(deletedPatient);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("This patient does not exist");
+                }
             }
         }
+
         public void updatePatient(Patient patient)
         {
             PrescriptionContext db = new PrescriptionContext();
@@ -254,15 +269,18 @@ namespace PrescriptionDAL
         }
         public void deleteSpecialty(Specialty specialty)
         {
-            PrescriptionContext db = new PrescriptionContext();
-            if (db.Prescriptions.ToList().Exists(spc => spc.Id == specialty.Id))
+            using (var context = new PrescriptionContext())
             {
-                throw new Exception("This specialty exsits already");
-            }
-            else
-            {
-                db.Specialties.Add(specialty);
-                db.SaveChanges();
+                if (context.Specialties.ToList().Exists(s => s.Id == specialty.Id))
+                {
+                    var deletedSpecialty = context.Specialties.Where(pt => pt.Id == specialty.Id).FirstOrDefault();
+                    context.Specialties.Remove(deletedSpecialty);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("This patient does not exist");
+                }
             }
         }
         public IEnumerable<Specialty> getAllSpecialties()
@@ -275,15 +293,22 @@ namespace PrescriptionDAL
     }
     public class PrescriptionContext : DbContext
     {
-        public PrescriptionContext() : base() { }
+        public PrescriptionContext() : base("PrescriptionContext") { }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
-
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<PrescriptionContext>(new DropCreateDatabaseIfModelChanges<PrescriptionContext>());
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+        private void FixEfProviderServicesProblem()
+        {
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }
 
     }
 }

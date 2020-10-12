@@ -51,5 +51,7 @@ namespace PrescriptionBL
         public void addSpecialty(Specialty specialty);
         public void deleteSpecialty(Specialty specialty);
         public IEnumerable<Specialty> getAllSpecialties();
+        public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate);
+        public bool isAdministrator(string username, string password);
     }
 }
