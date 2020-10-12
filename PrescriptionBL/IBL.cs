@@ -35,6 +35,7 @@ namespace PrescriptionBL
         public void updateMedicinePicture(int medicineId, HttpPostedFileBase file);
         public string getMedicinePicture(int medicinId);
         public IEnumerable<Medicine> getAllMedicines();
+        public List<string> GetPicturesTags(string path);
 
         //------------ Patients ---------------
         public void addPatient(Patient patient);
