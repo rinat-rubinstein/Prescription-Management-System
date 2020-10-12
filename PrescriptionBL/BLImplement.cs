@@ -11,9 +11,10 @@ using System.Web.UI;
 
 namespace PrescriptionBL
 {
-    class BLImplement : IBL
+  public  class BLImplement : IBL
     {
-        
+        IDal dal = new PrescriptionDAL.DalImplement();
+
         //------------ Administrators ---------------
         public void addAdministrator(Administrator administrator)
         {
@@ -31,7 +32,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.deleteAdministrator(administrator);
             }
             catch (Exception ex)
@@ -44,7 +44,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateAdministrator(administrator);
             }
             catch (Exception ex)
@@ -55,7 +54,6 @@ namespace PrescriptionBL
         }
         public IEnumerable<Administrator> getAllAdministrators()
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllAdministrators();
         }
 
@@ -64,7 +62,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.addDoctor(doctor);
             }
             catch (Exception ex)
@@ -76,7 +73,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.deleteDoctor(doctor);
             }
             catch (Exception ex)
@@ -88,8 +84,7 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
-                dal.addDoctor(doctor);
+                dal.updateDoctor(doctor);
             }
             catch (Exception ex)
             {
@@ -98,12 +93,10 @@ namespace PrescriptionBL
         }
         public IEnumerable<Doctor> getAllDoctors()
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllDoctors();
         }
         public IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor)
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.Id);
         }
 
@@ -112,7 +105,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.addMedicine(medicine);
             }
             catch (Exception ex)
@@ -128,7 +120,6 @@ namespace PrescriptionBL
                 Path.GetFileName(file.FileName));
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.addMedicine(medicine, file);
             }
             catch (Exception ex)
@@ -140,7 +131,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.deleteMedicine(medicine);
             }
             catch (Exception ex)
@@ -152,7 +142,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateMedicine(medicine);
             }
             catch (Exception ex)
@@ -168,7 +157,6 @@ namespace PrescriptionBL
                 Path.GetFileName(file.FileName));
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateMedicinePicture(medicineId,file);
             }
             catch (Exception ex)
@@ -180,7 +168,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 return dal.getMedicinePicture(medicinId);
             }
             catch (Exception ex)
@@ -190,7 +177,6 @@ namespace PrescriptionBL
         }
         public IEnumerable<Medicine> getAllMedicines()
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllMedicines();
         }
 
@@ -231,7 +217,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.addPatient(patient);
             }
             catch (Exception ex)
@@ -243,7 +228,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.deletePatient(patient);
             }
             catch (Exception ex)
@@ -255,7 +239,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updatePatient(patient);
             }
             catch (Exception ex)
@@ -265,16 +248,14 @@ namespace PrescriptionBL
         }
         public IEnumerable<Patient> getAllPatients()
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllPatients();
         }
 
         //------------ Prescriptions ---------------
         public void addPrescription(Prescription prescription)
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             //Checks if the doctor's license is valid
-            if (dal.getAllDoctors().ToList().Find(d => d.Id == prescription.Id).License.ExpirationDate >= DateTime.Today)
+            if (dal.getAllDoctors().ToList().Find(d => d.Id == prescription.Doctor).LicenseExpirationDate >= DateTime.Today)
             {
                 try
                 {
@@ -292,12 +273,10 @@ namespace PrescriptionBL
         }
         public IEnumerable<Prescription> getAllPrescriptions()
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllPrescriptions();
         }
         public IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient)
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.Id);
         }
 
@@ -307,7 +286,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.addSpecialty(specialty);
             }
             catch (Exception ex)
@@ -319,7 +297,6 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
                 dal.deleteSpecialty(specialty);
             }
             catch (Exception ex)
@@ -329,11 +306,18 @@ namespace PrescriptionBL
         }
         public IEnumerable<Specialty> getAllSpecialties()
         {
-            IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllSpecialties();
         }
 
-        
+        public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
+        {
+            int medicineId = dal.getAllMedicines().FirstOrDefault(m => m.Name == medicine).Id;
+            return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine.Exists(m => m == medicineId));
+        }
 
+        public bool isAdministrator(string password, string username)
+        {
+            return dal.getAllAdministrators().ToList().Exists(admin => admin.Password == password && admin.UserName == username);
+        }
     }
 }
