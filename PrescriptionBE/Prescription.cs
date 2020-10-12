@@ -17,7 +17,7 @@ namespace PrescriptionBE
         public string Cause { get; set; }
         public override string ToString()
         {
-            return $"id:{Id} medicineId:{medicine} startDate:{StartDate} endDate:{EndDate} doctorId:{Doctor} patientId:{Patient}";
+            return ($"id:{Id} medicineId:{medicine} startDate:{StartDate} endDate:{EndDate} doctorId:{Doctor} patientId:{Patient}");
         }
     }
 }
