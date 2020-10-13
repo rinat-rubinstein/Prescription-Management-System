@@ -1,4 +1,6 @@
-﻿using PrescriptionBE;
+﻿using Newtonsoft.Json;
+using PrescriptionBE;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -213,7 +215,7 @@ namespace PrescriptionDAL
                 }
             }
         }
-
+    
         public void updatePatient(Patient patient)
         {
             PrescriptionContext db = new PrescriptionContext();

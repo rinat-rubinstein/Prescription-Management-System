@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrescriptionBE
+namespace PrescriptionDAL.MedicineInteraction
 {
-    //empty for now, put here any enum you will need in the project
+    class DrugAPI
+    {
+    }
 }
