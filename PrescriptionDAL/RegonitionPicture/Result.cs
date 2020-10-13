@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrescriptionBE
+namespace PrescriptionDAL.RegonitionPicture
 {
-    //empty for now, put here any enum you will need in the project
+    class Result
+    {
+        public List<Tag> tags { get; set; }
+    }
 }
