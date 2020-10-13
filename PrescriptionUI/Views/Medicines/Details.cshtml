@@ -16,10 +16,8 @@
 
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>MedicineViewModel</h4>
+    <h4>Medicine Details:</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -44,6 +42,20 @@
 
         <dd>
             @Html.DisplayFor(model => model.GenericName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveIngredients)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveIngredients)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PortionProperties)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortionProperties)
         </dd>
 
     </dl>

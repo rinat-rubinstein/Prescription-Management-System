@@ -1,4 +1,5 @@
 ﻿using PrescriptionBE;
+using PrescriptionBL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +15,9 @@ namespace PrescriptionUI.Models
         public string Producer { get; set; }
         [DisplayName("Generic Name")]
         public string GenericName { get; set; }
-        public List<string> ActiveIngredients { get; set; }
-        public List<string> PortionProperties { get; set; }
+        public string ActiveIngredients { get; set; }
+        public string PortionProperties { get; set; }
+        public string Picture { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name}";
@@ -27,14 +29,17 @@ namespace PrescriptionUI.Models
             ActiveIngredients = null;
             PortionProperties = null;
             GenericName = null;
+            Picture = null;
         }
         public MedicineViewModel(Medicine medicine)
         {
+            IBL bl = new BLImplement();
             Id = medicine.Id;
             Name = medicine.Name;
             GenericName = medicine.GenericName;
             this.PortionProperties = medicine.PortionProperties;
             this.Producer = medicine.Producer;
+            Picture = bl.getMedicinePicture(Id);
         }
     }
 }

@@ -21,7 +21,12 @@ namespace PrescriptionUI.Controllers
         public ActionResult Index()
         {
             IBL bl = new BLImplement();
-            return View(bl.getAllMedicines());
+            List<MedicineViewModel> lst = new List<MedicineViewModel>();
+            foreach (var item in bl.getAllMedicines())
+            {
+                lst.Add(new MedicineViewModel(item));
+            }
+            return View(lst);
         }
 
         // GET: Medicines/Details/5
@@ -32,7 +37,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+            Medicine medicine = bl.getAllMedicines().FirstOrDefault(x => x.Id == id);
             if (medicine == null)
             {
                 return HttpNotFound();
@@ -53,26 +58,30 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
+        public ActionResult Create(FormCollection collection)//[Bind(Include = "Id,Name,Producer,GenericName,ActiveIngredients,PortionProperties")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
                 IBL bl = new BLImplement();
                 Medicine medicine = new Medicine()
                 {
-                    Name = mvm.Name,
-                    GenericName = mvm.GenericName,
-                    ActiveIngredients = mvm.ActiveIngredients,
-                    PortionProperties = mvm.PortionProperties,
-                    Producer = mvm.Producer
+                    Name = collection["Name"],
+                    GenericName = collection["GenericName"],
+                    ActiveIngredients = collection["ActiveIngredients"],
+                    PortionProperties = collection["PortionProperties"],
+                    Producer = collection["Producer"]
                     
                 };
+                var img = collection["MImage"].ToString();
+                var path = Server.MapPath(Url.Content($"~/images/{img}"));
+                bl.addMedicine(medicine, path);
                 bl.addMedicine(medicine);
                 return RedirectToAction("Index");
             }
 
-            return View(medicineViewModel);
+            return View(new MedicineViewModel());
         }
+ 
 
         // GET: Medicines/Edit/5
         public ActionResult Edit(int? id)
@@ -87,14 +96,7 @@ namespace PrescriptionUI.Controllers
             {
                 return HttpNotFound();
             }
-            MedicineViewModel mvm = new MedicineViewModel()
-            {
-                Name = medicine.Name,
-                GenericName = medicine.GenericName,
-                ActiveIngredients = medicine.ActiveIngredients,
-                Producer = medicine.Producer,
-                PortionProperties = medicine.PortionProperties
-            };
+            MedicineViewModel mvm = new MedicineViewModel(medicine);
             return View(mvm);
         }
 
@@ -103,14 +105,37 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel medicineViewModel)
+        public ActionResult Edit(FormCollection collection)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
-                //db.Entry(medicineViewModel).State = EntityState.Modified;
-                return RedirectToAction("Index");
+                IBL bl = new BLImplement();
+                Medicine medicine = new Medicine()
+                {
+                    Name = collection["Name"],
+                    GenericName = collection["GenericName"],
+                    ActiveIngredients = collection["ActiveIngredients"],
+                    PortionProperties = collection["PortionProperties"],
+                    Producer = collection["Producer"]
+
+                };
+                var img = collection["MImage"].ToString();
+               
+                
+                    var path = Server.MapPath(Url.Content($"~/images/{img}"));
+                try
+                {
+                    bl.updateMedicine(medicine, path);
+                    ViewBag.Message = String.Format("The Medicine successfully updated");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = String.Format(ex.Message);
+                    return RedirectToAction("Index");
+                }
             }
-            return View(medicineViewModel);
+            return View(new MedicineViewModel());
         }
 
         // GET: Medicines/Delete/5
@@ -134,20 +159,19 @@ namespace PrescriptionUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            IBL bl = new BLImplement();
-            Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
-            bl.deleteMedicine(medicine);
-            return RedirectToAction("Index");
-        }
-/*
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                db.Dispose();
+                IBL bl = new BLImplement();
+                Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+                bl.deleteMedicine(medicine);
+                return RedirectToAction("Index");
             }
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                ViewBag.Message = String.Format(ex.Message);
+                return RedirectToAction("Index");
+            }
         }
-*/
+            
     }
 }
