@@ -186,7 +186,8 @@ namespace PrescriptionBL
         /// <returns></returns>
         private bool validMedicinePicture(string path)
         {
-            List<string> tagsPictures = GetPicturesTags(path);
+            RecognitionPicture r = new RecognitionPicture();
+            List<string> tagsPictures =r.GetPicturesTags(path);
             foreach (var item in tagsPictures)
             {
                 if (item == "medicine" || item == "drug" || item == "pill" || item == "medicines" || item == "drugs" || item == "pills")
@@ -194,24 +195,7 @@ namespace PrescriptionBL
             }
             return false;
         }
-        public List<string> GetPicturesTags(string path)
-        {
-            List<string> Result = new List<string>();
-            ImageDetails DrugImage = new ImageDetails(path);
-            IDal dal = new PrescriptionDAL.DalImplement();
-            dal.GetPicturesTags(DrugImage);
-            var threshold = 40.0;
-            foreach (var item in DrugImage.Details)
-            {
-                if (item.Value > threshold)
-                {
-                    Result.Add(item.Key);
-                }
-                else
-                    break;
-            }
-            return Result;
-        }
+       
         //------------ Patients ---------------
         public void addPatient(Patient patient)
         {
