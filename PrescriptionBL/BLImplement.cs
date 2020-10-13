@@ -10,9 +10,8 @@ using System.Web;
 
 namespace PrescriptionBL
 {
-    class BLImplement : IBL
-    {
-        
+    public class BLImplement : IBL
+    {               
         //------------ Administrators ---------------
         public void addAdministrator(Administrator administrator)
         {
@@ -107,6 +106,12 @@ namespace PrescriptionBL
         }
 
         //------------ Medicines ---------------
+        public Medicine getMedicine(int medicineID)
+        {
+            return (from i in this.getAllMedicines()
+                    where i.Id == medicineID
+                    select i).FirstOrDefault();
+        }
         public void addMedicine(Medicine medicine)
         {
             try
@@ -309,7 +314,82 @@ namespace PrescriptionBL
             return dal.getAllSpecialties();
         }
 
-        
+        //------------ Statistics ---------------
+        private int[,] medicinTokenWeekAgo(IEnumerable<int> medicinesID)
+        {
+            int[,] weekmat = new int[medicinesID.Count(), 1];
+            DateTime weekAgo = DateTime.Today.AddDays(-7);
+            int i = 0;
+            foreach (var medicineID in medicinesID)
+            {
+                weekmat[i, 0] = (from prescription in this.getAllPrescriptions()
+                                 where prescription.medicine == medicineID
+                                 && ((prescription.StartDate <= weekAgo && prescription.EndDate > weekAgo) || (prescription.StartDate > weekAgo && prescription.StartDate < DateTime.Today))
+                                 select prescription).Count();
+                i++;
+            }
+            return weekmat;
+        }
+        /// <summary>
+        /// calculate the total number of patients take one of the medicines the func reseives to the last X months
+        /// </summary>
+        /// <param name="medicinesID">list of medicines to calculate</param>
+        /// <param name="X">to the last X months</param>
+        /// <returns></returns>
+        private int[][] medicinTokenXMonthAgo(IEnumerable<int> medicinesID, int X, ref string[] medicineNamesArr)
+        {
+            int[][] XMonthAgoMat = new int[medicinesID.Count()][];
+            int i = 0;
+            //initialize the matrix to 0
+            for (i = 0; i < medicinesID.Count(); i++)
+            {
+                XMonthAgoMat[i] = new int[X];
+                for (int j = 0; j < X; j++)
+                {
+                    XMonthAgoMat[i][j] = 0;
+                }
+            }
+            DateTime XMonthAgo = DateTime.Today.AddMonths(-X);
+            i = 0;
+            foreach (var medicineID in medicinesID)
+            {
+                medicineNamesArr[i] = this.getMedicine(medicineID).Name;
+                foreach (var prescription in this.getAllPrescriptions())
+                {
+                    if (prescription.medicine == medicineID && ((prescription.StartDate <= XMonthAgo && prescription.EndDate > XMonthAgo) || (prescription.StartDate > XMonthAgo && prescription.StartDate < DateTime.Today)))
+                    {
+                        int beginMonth = X - this.GetMonthsBetween(prescription.StartDate, DateTime.Now) - 1;
+                        int endMonth = X - this.GetMonthsBetween(prescription.EndDate, DateTime.Now) - 1;
+
+                        for (int j = beginMonth; j <= endMonth; j++)
+                        {
+                            if (j >= 0 && j < X)
+                            {
+                                XMonthAgoMat[i][j]++;
+                            }
+                        }
+                    }
+                }
+                i++;
+            }
+            return XMonthAgoMat;
+        }
+        private int GetMonthsBetween(DateTime start, DateTime end)
+        {
+            return ((end.Month + end.Year * 12) - (start.Month + start.Year * 12));
+        }
+        /// <summary>
+        /// send empty string[] for the 'medicineNamesArr', we will fill it with the appropriate data
+        /// </summary>
+        /// <param name="medicinesID"></param>
+        /// <param name="numMonthAgo"></param>
+        /// <param name="medicineNamesArr"></param>
+        /// <returns></returns>
+        public int[][] MedicinesStatistics(IEnumerable<int> medicinesID, int numMonthAgo, ref string[] medicineNamesArr)
+        {
+            medicineNamesArr = new string[medicinesID.Count()];
+            return medicinTokenXMonthAgo(medicinesID, numMonthAgo, ref medicineNamesArr);
+        }
 
     }
 }
