@@ -35,6 +35,7 @@ namespace PrescriptionBL
         public void updateMedicinePicture(int medicineId, HttpPostedFileBase file);
         public string getMedicinePicture(int medicinId);
         public IEnumerable<Medicine> getAllMedicines();
+        public List<string> GetPicturesTags(string path);
 
         //------------ Patients ---------------
         public void addPatient(Patient patient);
@@ -52,7 +53,12 @@ namespace PrescriptionBL
         public void deleteSpecialty(Specialty specialty);
         public IEnumerable<Specialty> getAllSpecialties();
 
+
         //------------ Statistics ---------------
         public int[][] MedicinesStatistics(IEnumerable<int> medicinesID, int numMonthAgo, ref string[] medicineNamesArr);
+
+        public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate);
+        public bool isAdministrator(string username, string password);
+
     }
 }
