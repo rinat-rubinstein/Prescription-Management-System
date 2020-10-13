@@ -85,9 +85,25 @@
     <Compile Include="DalImplement.cs" />
     <Compile Include="GoogleDriveAPIHelper.cs" />
     <Compile Include="IDal.cs" />
-    <Compile Include="MedicinesInteractionsHelper.cs" />
+    <Compile Include="MedicineInteraction\DrugAPI.cs" />
+    <Compile Include="MedicineInteraction\FullInteractionType.cs" />
+    <Compile Include="MedicineInteraction\FullInteractionTypeGroup.cs" />
+    <Compile Include="MedicineInteraction\InteractionConcept.cs" />
+    <Compile Include="MedicineInteraction\InteractionPair.cs" />
+    <Compile Include="MedicineInteraction\MedicineInteractionHelper.cs" />
+    <Compile Include="MedicineInteraction\MinConcept.cs" />
+    <Compile Include="MedicineInteraction\MinConceptItem.cs" />
+    <Compile Include="MedicineInteraction\RootMedicionInteraction.cs" />
+    <Compile Include="MedicineInteraction\SourceConceptItem.cs" />
+    <Compile Include="MedicineInteraction\UserInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TagsRecognitionPicture.cs" />
+    <Compile Include="RegonitionPicture\PicuresTags.cs" />
+    <Compile Include="RegonitionPicture\Result.cs" />
+    <Compile Include="RegonitionPicture\Root.cs" />
+    <Compile Include="RegonitionPicture\Status.cs" />
+    <Compile Include="RegonitionPicture\Tag.cs" />
+    <Compile Include="RegonitionPicture\Tag2.cs" />
+    <Compile Include="RegonitionPicture\TagsRecognitionPicture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrescriptionBE\PrescriptionBE.csproj">
