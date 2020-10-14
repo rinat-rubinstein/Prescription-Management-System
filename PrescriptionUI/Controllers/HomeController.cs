@@ -5,6 +5,7 @@ using PrescriptionUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -134,6 +135,20 @@ namespace PrescriptionUI.Controllers
                 ViewBag.Message = String.Format(ex.Message);
                 return View("prescriptionIssuance");
             }
+        }
+        public ActionResult medicalHistory(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IBL bl = new BLImplement();
+            //-----------
+            //var lst=bl.getPrescriptionById(id);
+            //return RedirectToAction("Index",Prescription,lst);
+            //----------
+            //TODO: create the right Prescription Controller
+            return View();
         }
     }
 }

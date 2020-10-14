@@ -29,7 +29,8 @@
                                         @Html.DisplayFor(modelItem => item.Id)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("prescription Issuance", "prescriptionIssuance",new { id = item.Id }) 
+                                        @Html.ActionLink("prescription Issuance", "prescriptionIssuance", new { id = item.Id }) |
+                                        @Html.ActionLink("medical history", "medicalHistory", new { id = item.Id })
                                     </td>
                                 </tr>
                             }
