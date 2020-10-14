@@ -215,7 +215,7 @@ namespace PrescriptionDAL
                 }
             }
         }
-    
+
         public void updatePatient(Patient patient)
         {
             PrescriptionContext db = new PrescriptionContext();

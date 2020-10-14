@@ -52,7 +52,6 @@ namespace PrescriptionBL
         public void deleteSpecialty(Specialty specialty);
         public IEnumerable<Specialty> getAllSpecialties();
 
-
         //------------ Statistics ---------------
         public int[][] MedicinesStatistics(IEnumerable<int> medicinesID, int numMonthAgo, ref string[] medicineNamesArr);
 

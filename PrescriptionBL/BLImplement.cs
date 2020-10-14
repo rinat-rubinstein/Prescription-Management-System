@@ -12,6 +12,7 @@ using System.Web.UI;
 namespace PrescriptionBL
 {
 
+
     public class BLImplement : IBL
     {               
 
@@ -163,7 +164,9 @@ namespace PrescriptionBL
                 Path.GetFileName(file.FileName));
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
+
                 dal.updateMedicinePicture(medicineId,file);
+
             }
             catch (Exception ex)
             {
