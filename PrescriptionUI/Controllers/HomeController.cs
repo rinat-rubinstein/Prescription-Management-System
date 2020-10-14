@@ -66,7 +66,7 @@ namespace PrescriptionUI.Controllers
             try
             {
                 IBL bl = new BLImplement();
-               // bl.isDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
+               bl.isDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
                 return RedirectToAction("DoctorOptions");
             }
             catch (Exception ex)
@@ -105,7 +105,7 @@ namespace PrescriptionUI.Controllers
                     Cause = pfpm.prescription.Cause
                 };
                 bl.addPrescription(prescription);
-                ViewBag.Message = String.Format("The prescription is successfully added.");
+                ViewBag.Message = String.Format("The prescription for {0} is successfully added.",pfpm.Patient.Name);
                 return RedirectToAction("DoctorOptions");
             }
             catch (Exception ex)

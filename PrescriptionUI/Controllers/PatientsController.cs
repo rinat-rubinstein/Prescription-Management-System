@@ -57,21 +57,21 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] PatientViewModel patientViewModel)
+        public ActionResult Create([Bind(Include = "Id,Name")] PatientViewModel pvm)
         {
             if (ModelState.IsValid)
             {
                 Patient patient = new Patient()
                 {
-                    Name = patientViewModel.Name,
-                    Prescriptions = patientViewModel.Prescriptions
+                    Name = pvm.Name,
+                    Prescriptions = pvm.Prescriptions
                 };
                 IBL bl = new BLImplement();
                 bl.addPatient(patient);
                 return RedirectToAction("Index");
             }
 
-            return View(patientViewModel);
+            return View(pvm);
         }
 
         // GET: Patient/Edit/5
@@ -82,7 +82,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Patient patient = new Patient();//bl.getPtient(id);
+            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
             PatientViewModel patientViewModel = new PatientViewModel()
             {
                 Name = patient.Name,
@@ -100,20 +100,27 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-      /*  public ActionResult Edit([Bind(Include = "Id,Name")] PatientViewModel patientViewModel)
+       public ActionResult Edit([Bind(Include = "Id,Name")] PatientViewModel pvm)
         {
             IBL bl = new BLImplement();
             try
             {
-                bl.ExsistPtient(Id);
+                var patient = new Patient()
+                {
+                    Id = pvm.Id,
+                    Name = pvm.Name
+                };
+                bl.updatePatient(patient);
+                ViewBag.Message = String.Format("{0} is successfully updated",pvm.Name);
             }
             catch (Exception ex)
             {
                 ViewBag.Message = String.Format(ex.Message);
-                return View("LogInPatient");// אחרי שקופצת השגיאה החזרתי בחזרה לview ממנו הגיעה השגיאה
+                return View("Edit");
 
             }
-        }*/
+            return View("Index");
+        }
 
 
         // GET: Patient/Delete/5
@@ -123,7 +130,7 @@ namespace PrescriptionUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PatientViewModel patientViewModel = new PatientViewModel();//db.PatientViewModels.Find(id);
+            PatientViewModel patientViewModel = new PatientViewModel();
             if (patientViewModel == null)
             {
                 return HttpNotFound();
@@ -136,10 +143,20 @@ namespace PrescriptionUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            IBL bl = new BLImplement();
-            Patient patient = new Patient();//db.Patient.Find(id);
-            bl.deletePatient(patient);// db.PatientViewModels.Remove(patientViewModel);
-            return RedirectToAction("Index");
+            try
+            {
+                IBL bl = new BLImplement();
+                Patient patient = new Patient();
+                bl.deletePatient(patient);
+                ViewBag.Message = String.Format("The patient {0} is successfully delete",patient.Name);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = String.Format(ex.Message);
+                return RedirectToAction("Index");
+            }
+
         }
 
       /*  protected override void Dispose(bool disposing)
