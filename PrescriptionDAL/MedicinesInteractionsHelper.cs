@@ -39,7 +39,7 @@ namespace PrescriptionDAL
                     rxcui = xnList[0]["rxnormId"].InnerText;
                     //find all the other drugs the patient use
                     List<string> rxcuis = new List<string>();
-                    List<Prescription> allPrescription = (from x in dal.getAllPrescriptions() where x.Patient == id select x).ToList();
+                    List<Prescription> allPrescription = (from x in dal.getAllPrescriptions() where x.Patient == id.ToString() select x).ToList();
                     foreach (Prescription p in allPrescription)
                     {
                     if (!((p.StartDate < start && p.EndDate < start) || (p.StartDate > end)))//משתמש בתרופה אחרת במקביל לתרופה החדשה
