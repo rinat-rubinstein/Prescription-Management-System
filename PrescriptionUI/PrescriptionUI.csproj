@@ -44,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -85,22 +91,273 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="vegefoods\about.html" />
+    <Content Include="vegefoods\blog-single.html" />
+    <Content Include="vegefoods\blog.html" />
+    <Content Include="vegefoods\cart.html" />
+    <Content Include="vegefoods\checkout.html" />
+    <Content Include="vegefoods\contact.html" />
+    <Content Include="vegefoods\css\ajax-loader.gif" />
+    <Content Include="vegefoods\css\animate.css" />
+    <Content Include="vegefoods\css\aos.css" />
+    <Content Include="vegefoods\css\bootstrap-datepicker.css" />
+    <Content Include="vegefoods\css\bootstrap.min.css" />
+    <Content Include="vegefoods\css\bootstrap\bootstrap-grid.css" />
+    <Content Include="vegefoods\css\bootstrap\bootstrap-reboot.css" />
+    <Content Include="vegefoods\css\css\bootstrap-reboot.css" />
+    <Content Include="vegefoods\css\css\mixins\_text-hide.css" />
+    <Content Include="vegefoods\css\flaticon.css" />
+    <Content Include="vegefoods\css\icomoon.css" />
+    <Content Include="vegefoods\css\ionicons.min.css" />
+    <Content Include="vegefoods\css\jquery.timepicker.css" />
+    <Content Include="vegefoods\css\magnific-popup.css" />
+    <Content Include="vegefoods\css\open-iconic-bootstrap.min.css" />
+    <Content Include="vegefoods\css\owl.carousel.min.css" />
+    <Content Include="vegefoods\css\owl.theme.default.min.css" />
+    <Content Include="vegefoods\css\style.css" />
+    <Content Include="vegefoods\fonts\flaticon\backup.txt" />
+    <Content Include="vegefoods\fonts\flaticon\font\flaticon.css" />
+    <Content Include="vegefoods\fonts\flaticon\font\flaticon.html" />
+    <Content Include="vegefoods\fonts\flaticon\font\Flaticon.svg" />
+    <Content Include="vegefoods\fonts\icomoon\icomoon.svg" />
+    <Content Include="vegefoods\fonts\ionicons\css\ionicons.min.css" />
+    <Content Include="vegefoods\fonts\ionicons\fonts\ionicons.svg" />
+    <Content Include="vegefoods\fonts\open-iconic\ionicons.svg" />
+    <Content Include="vegefoods\images\about1.JPG" />
+    <Content Include="vegefoods\images\about2.jpg" />
+    <Content Include="vegefoods\images\about3.jpg" />
+    <Content Include="vegefoods\images\about4 %282%29.jpg" />
+    <Content Include="vegefoods\images\acamol.JPG" />
+    <Content Include="vegefoods\images\optalgin.JPG" />
+    <Content Include="vegefoods\images\partner-1.png" />
+    <Content Include="vegefoods\images\partner-2.png" />
+    <Content Include="vegefoods\images\partner-3.png" />
+    <Content Include="vegefoods\images\partner-4.png" />
+    <Content Include="vegefoods\images\partner-5.png" />
+    <Content Include="vegefoods\images\person1.JPG" />
+    <Content Include="vegefoods\images\person2.JPG" />
+    <Content Include="vegefoods\images\person3.JPG" />
+    <Content Include="vegefoods\images\person4.JPG" />
+    <Content Include="vegefoods\images\person5.JPG" />
+    <Content Include="vegefoods\index.html" />
+    <Content Include="vegefoods\js\aos.js" />
+    <Content Include="vegefoods\js\bootstrap-datepicker.js" />
+    <Content Include="vegefoods\js\bootstrap.min.js" />
+    <Content Include="vegefoods\js\google-map.js" />
+    <Content Include="vegefoods\js\jquery-3.2.1.min.js" />
+    <Content Include="vegefoods\js\jquery-migrate-3.0.1.min.js" />
+    <Content Include="vegefoods\js\jquery.animateNumber.min.js" />
+    <Content Include="vegefoods\js\jquery.easing.1.3.js" />
+    <Content Include="vegefoods\js\jquery.magnific-popup.min.js" />
+    <Content Include="vegefoods\js\jquery.min.js" />
+    <Content Include="vegefoods\js\jquery.stellar.min.js" />
+    <Content Include="vegefoods\js\jquery.waypoints.min.js" />
+    <Content Include="vegefoods\js\main.js" />
+    <Content Include="vegefoods\js\owl.carousel.min.js" />
+    <Content Include="vegefoods\js\popper.min.js" />
+    <Content Include="vegefoods\js\range.js" />
+    <Content Include="vegefoods\js\scrollax.min.js" />
+    <Content Include="vegefoods\product-single.html" />
+    <Content Include="vegefoods\shop.html" />
+    <Content Include="vegefoods\wishlist.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministratorController.cs" />
+    <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicinesController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Data\PrescriptionUIContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\empty.cs" />
+    <Compile Include="htmlHelper.cs" />
+    <Compile Include="Models\AdministratorViewModel.cs" />
+    <Compile Include="Models\DoctorViewModel.cs" />
+    <Compile Include="Models\MedicineViewModel.cs" />
+    <Compile Include="Models\PatientViewModel.cs" />
+    <Compile Include="Models\PrescriptionForPatientModel.cs" />
+    <Compile Include="Models\PrescriptionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\MainLayout.cshtml" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="vegefoods\.DS_Store" />
+    <Content Include="vegefoods\prepros-6.config" />
+    <Content Include="vegefoods\css\.DS_Store" />
+    <Content Include="vegefoods\css\css\.DS_Store" />
+    <Content Include="vegefoods\css\css\mixins\.DS_Store" />
+    <Content Include="vegefoods\css\bootstrap\.DS_Store" />
+    <Content Include="vegefoods\fonts\flaticon\.DS_Store" />
+    <Content Include="vegefoods\fonts\flaticon\font\.DS_Store" />
+    <Content Include="vegefoods\fonts\flaticon\font\Flaticon.eot" />
+    <Content Include="vegefoods\fonts\flaticon\font\Flaticon.ttf" />
+    <Content Include="vegefoods\fonts\flaticon\font\Flaticon.woff" />
+    <Content Include="vegefoods\fonts\flaticon\font\Flaticon.woff2" />
+    <Content Include="vegefoods\fonts\flaticon\font\_flaticon.scss" />
+    <Content Include="vegefoods\fonts\flaticon\license\license.pdf" />
+    <Content Include="vegefoods\fonts\icomoon\icomoon.eot" />
+    <Content Include="vegefoods\fonts\icomoon\icomoon.ttf" />
+    <Content Include="vegefoods\fonts\icomoon\icomoon.woff" />
+    <Content Include="vegefoods\fonts\ionicons\css\_ionicons.scss" />
+    <Content Include="vegefoods\fonts\ionicons\fonts\.DS_Store" />
+    <Content Include="vegefoods\fonts\ionicons\fonts\ionicons.eot" />
+    <Content Include="vegefoods\fonts\ionicons\fonts\ionicons.ttf" />
+    <Content Include="vegefoods\fonts\ionicons\fonts\ionicons.woff" />
+    <Content Include="vegefoods\fonts\ionicons\fonts\ionicons.woff2" />
+    <Content Include="vegefoods\fonts\open-iconic\.DS_Store" />
+    <Content Include="vegefoods\fonts\open-iconic\ionicons.eot" />
+    <Content Include="vegefoods\fonts\open-iconic\ionicons.ttf" />
+    <Content Include="vegefoods\fonts\open-iconic\ionicons.woff" />
+    <Content Include="vegefoods\fonts\open-iconic\ionicons.woff2" />
+    <Content Include="vegefoods\fonts\.DS_Store" />
+    <Content Include="vegefoods\images\.DS_Store" />
+    <Content Include="vegefoods\js\.DS_Store" />
+    <Content Include="vegefoods\scss\.DS_Store" />
+    <Content Include="vegefoods\scss\style.scss" />
+    <Content Include="vegefoods\scss\bootstrap\.DS_Store" />
+    <Content Include="vegefoods\scss\bootstrap\bootstrap-grid.scss" />
+    <Content Include="vegefoods\scss\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="vegefoods\scss\bootstrap\bootstrap.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_alert.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_badge.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_breadcrumb.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_button-group.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_buttons.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_card.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_carousel.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_close.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_code.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_custom-forms.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_dropdown.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_forms.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_functions.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_grid.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_images.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_input-group.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_jumbotron.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_list-group.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_media.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_mixins.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_modal.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_nav.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_navbar.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_pagination.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_popover.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_print.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_progress.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_reboot.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_root.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_spinners.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_tables.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_toasts.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_tooltip.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_transitions.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_type.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_utilities.scss" />
+    <Content Include="vegefoods\scss\bootstrap\_variables.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_alert.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_badge.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_buttons.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_caret.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_float.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_forms.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_gradients.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_grid.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_hover.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_image.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_list-group.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_lists.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_pagination.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_resize.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_size.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_table-row.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_transition.scss" />
+    <Content Include="vegefoods\scss\bootstrap\mixins\_visibility.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_align.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_background.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_borders.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_display.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_embed.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_flex.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_float.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_overflow.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_position.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_shadows.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_sizing.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_spacing.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_text.scss" />
+    <Content Include="vegefoods\scss\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Views\Shared\OptionsLayout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\AdministratorEntrance.cshtml" />
+    <Content Include="Views\Administrator\Create.cshtml" />
+    <Content Include="Views\Administrator\Delete.cshtml" />
+    <Content Include="Views\Administrator\Details.cshtml" />
+    <Content Include="Views\Administrator\Edit.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Medicines\Create.cshtml" />
+    <Content Include="Views\Medicines\Delete.cshtml" />
+    <Content Include="Views\Medicines\Details.cshtml" />
+    <Content Include="Views\Medicines\Edit.cshtml" />
+    <Content Include="Views\Medicines\Index.cshtml" />
+    <Content Include="Views\Doctors\Create.cshtml" />
+    <Content Include="Views\Doctors\Delete.cshtml" />
+    <Content Include="Views\Doctors\Details.cshtml" />
+    <Content Include="Views\Doctors\Edit.cshtml" />
+    <Content Include="Views\Doctors\Index.cshtml" />
+    <Content Include="Views\Home\AdministratorOptions.cshtml" />
+    <Content Include="Views\Home\DoctorEntrance.cshtml" />
+    <Content Include="Views\Home\DoctorOptions.cshtml" />
+    <Content Include="Views\Shared\DoctorLayout.cshtml" />
+    <Content Include="Views\Home\prescriptionIssuance.cshtml" />
+    <Content Include="Views\Patients\Create.cshtml" />
+    <Content Include="Views\Patients\Index.cshtml" />
+    <Content Include="Views\Patients\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -120,6 +377,10 @@
     <ProjectReference Include="..\PrescriptionBL\PrescriptionBL.csproj">
       <Project>{3ea0d44c-79b4-416b-b774-fa826c1053ab}</Project>
       <Name>PrescriptionBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PrescriptionDAL\PrescriptionDAL.csproj">
+      <Project>{236CA256-3837-4D5E-AA1F-3586FC293F10}</Project>
+      <Name>PrescriptionDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

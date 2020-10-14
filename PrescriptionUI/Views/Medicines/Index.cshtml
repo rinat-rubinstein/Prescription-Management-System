@@ -1,0 +1,76 @@
+﻿@model IEnumerable<PrescriptionUI.Models.MedicineViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/OptionsLayout.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { @class = "nav=link" })
+</p>
+
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>Name</th>
+                                <th>Producer</th>
+                                <th>Generic Name</th>
+                                <th>Picture</th>
+                                <th>Portion Properties</th>
+                                <th>Active Ingredients</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Producer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GenericName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayImage(item.Picture)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PortionProperties)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActiveIngredients)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit Picture", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+                                    </td>
+                                 </tr>
+                                }
+                         </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

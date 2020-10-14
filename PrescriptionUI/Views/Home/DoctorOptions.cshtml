@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PrescriptionUI.Models.PatientViewModel>
+
+@{
+    ViewBag.Title = "DoctorOptions";
+    Layout = "~/Views/Shared/DoctorLayout.cshtml";
+}
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("prescription Issuance", "prescriptionIssuance",new { id = item.Id }) 
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
