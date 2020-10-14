@@ -67,8 +67,17 @@ namespace PrescriptionUI.Controllers
                     Prescriptions = pvm.Prescriptions
                 };
                 IBL bl = new BLImplement();
-                bl.addPatient(patient);
-                return RedirectToAction("Index");
+                try
+                {
+                    bl.addPatient(patient);
+                    ViewBag.Message = String.Format("The patient {0} is successfully added", pvm.Name);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = String.Format(ex.Message);
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(pvm);
@@ -83,16 +92,12 @@ namespace PrescriptionUI.Controllers
             }
             IBL bl = new BLImplement();
             Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
-            PatientViewModel patientViewModel = new PatientViewModel()
-            {
-                Name = patient.Name,
-                Prescriptions = patient.Prescriptions
-            };
-            if (patientViewModel == null)
+            PatientViewModel pvm = new PatientViewModel(patient);
+            if (pvm == null)
             {
                 return HttpNotFound();
             }
-            return View(patientViewModel);
+            return View(pvm);
         }
 
         // POST: Patient/Edit/5
@@ -111,7 +116,7 @@ namespace PrescriptionUI.Controllers
                     Name = pvm.Name
                 };
                 bl.updatePatient(patient);
-                ViewBag.Message = String.Format("{0} is successfully updated",pvm.Name);
+                ViewBag.Message = String.Format("The patient {0} is successfully updated",pvm.Name);
             }
             catch (Exception ex)
             {
@@ -124,18 +129,20 @@ namespace PrescriptionUI.Controllers
 
 
         // GET: Patient/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PatientViewModel patientViewModel = new PatientViewModel();
-            if (patientViewModel == null)
+            IBL bl = new BLImplement();
+            Patient patient = bl.getAllPatients().FirstOrDefault(x => x.Id == id);
+            PatientViewModel pvm = new PatientViewModel(patient);
+            if (pvm == null)
             {
                 return HttpNotFound();
             }
-            return View(patientViewModel);
+            return View(pvm);
         }
 
         // POST: Patient/Delete/5
@@ -148,7 +155,7 @@ namespace PrescriptionUI.Controllers
                 IBL bl = new BLImplement();
                 Patient patient = new Patient();
                 bl.deletePatient(patient);
-                ViewBag.Message = String.Format("The patient {0} is successfully delete",patient.Name);
+                ViewBag.Message = String.Format("The patient {0} is successfully delete.",patient.Name);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
