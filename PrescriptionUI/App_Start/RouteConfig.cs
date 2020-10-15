@@ -14,7 +14,6 @@ namespace PrescriptionUI
         {
             IBL bl = new BLImplement();
             bl.ImportDataFromExcel();
-            bl.addDoctor(new Doctor { Name = "Ruthi", Id = "322630252", LicenseExpirationDate = DateTime.Today });
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "Default",
