@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using PrescriptionBL;
 using PrescriptionUI.Data;
 using PrescriptionUI.Models;
+using PrescriptionBE;
+using System.Net;
 
 namespace PrescriptionUI.Controllers
 {
@@ -59,7 +62,18 @@ namespace PrescriptionUI.Controllers
         // GET: Medicine/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IBL bl = new BLImplement();
+            Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+            if (medicine == null)
+            {
+                return HttpNotFound();
+            }
+            MedicineViewModel mvm = new MedicineViewModel(medicine);
+            return View(mvm);
         }
 
         // POST: Medicine/Edit/5
