@@ -16,7 +16,7 @@ namespace PrescriptionBL
 
     public class BLImplement : IBL
     {
-         
+
         //------------ Administrators ---------------
         public void addAdministrator(Administrator administrator)
         {
@@ -113,9 +113,7 @@ namespace PrescriptionBL
         //------------ Medicines ---------------
         public Medicine getMedicine(int medicineID)
         {
-            return (from i in this.getAllMedicines()
-                    where i.Id == medicineID
-                    select i).FirstOrDefault();
+            return this.getAllMedicines().Where(medicine => medicine.Id == medicineID).FirstOrDefault();
         }
         public void addMedicine(Medicine medicine)
         {
@@ -177,9 +175,10 @@ namespace PrescriptionBL
                 Path.GetFileName(file.FileName));
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
+
+
                 IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateMedicinePicture(medicineId, file);
-
             }
             catch (Exception ex)
             {
@@ -401,7 +400,15 @@ namespace PrescriptionBL
         public int[][] MedicinesStatistics(IEnumerable<int> medicinesID, int numMonthAgo, ref string[] medicineNamesArr)
         {
             medicineNamesArr = new string[medicinesID.Count()];
-            return medicinTokenXMonthAgo(medicinesID, numMonthAgo, ref medicineNamesArr);
+            return medicinTokenXMonthAgo(medicinesID, numMonthAgo, ref medicineNamesArr);          
+        }
+
+
+        public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
+        {
+            IDal dal = new PrescriptionDAL.DalImplement();
+            int medicineId = dal.getAllMedicines().FirstOrDefault(m => m.Name == medicine).Id;
+            return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine==medicineId);
 
         }
             public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
@@ -411,8 +418,10 @@ namespace PrescriptionBL
                 return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine.Exists(m => m == medicineId));
             }
 
-            public bool isAdministrator(string password, string username)
-            {
+
+        public bool isAdministrator(string username, string password)
+        {
+
             IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllAdministrators().ToList().Exists(admin => admin.Password == password && admin.UserName == username);
             }
