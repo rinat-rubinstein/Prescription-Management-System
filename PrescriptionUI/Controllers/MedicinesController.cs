@@ -76,7 +76,7 @@ namespace PrescriptionUI.Controllers
                 var path = Server.MapPath(Url.Content($"~/images/{img}"));
                 try
                 {
-                    bl.addMedicine(medicine, path);
+                  //  bl.addMedicine(medicine, path);
                     bl.addMedicine(medicine);
                     ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);
                     return RedirectToAction("Index");
@@ -135,7 +135,7 @@ namespace PrescriptionUI.Controllers
                     var path = Server.MapPath(Url.Content($"~/images/{img}"));
                 try
                 {
-                    bl.updateMedicine(medicine, path);
+                   // bl.updateMedicine(medicine, path);
                     ViewBag.Message = String.Format("The Medicine {0} successfully updated",medicine.Name);
                     return RedirectToAction("Index");
                 }

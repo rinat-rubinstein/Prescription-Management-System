@@ -187,6 +187,7 @@ namespace PrescriptionBL
         }
         public string getMedicinePicture(int medicinId)
         {
+            return "about2.jpg";
             try
             {
                 IDal dal = new PrescriptionDAL.DalImplement();
@@ -411,12 +412,12 @@ namespace PrescriptionBL
             return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine==medicineId);
 
         }
-            public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
+         /*   public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
             {
-            IDal dal = new PrescriptionDAL.DalImplement();
+           IDal dal = new PrescriptionDAL.DalImplement();
             int medicineId = dal.getAllMedicines().FirstOrDefault(m => m.Name == medicine).Id;
                 return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine.Exists(m => m == medicineId));
-            }
+            }*/
 
 
         public bool isAdministrator(string username, string password)
