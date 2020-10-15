@@ -443,7 +443,9 @@ namespace PrescriptionBL
         public void ImportDataFromExcel()
         {
             {
-                string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
+                string filename = @"medicine.xlsx";
+                string FilePath = AppDomain.CurrentDomain.BaseDirectory + filename;
+                //string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
                 _Application excel = new _Excel.Application();
                 Workbook wb = excel.Workbooks.Open(FilePath);
                 Worksheet ws = wb.Worksheets[1];
