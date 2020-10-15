@@ -3,6 +3,7 @@ using PrescriptionBE;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -135,7 +136,7 @@ namespace PrescriptionDAL
         {
             this.addMedicine(medicine);
             GoogleDriveAPIHelper gd = new GoogleDriveAPIHelper();
-            gd.UplaodFileOnDriveInFolder(file, medicine.Id.ToString(), "cloudComputing");
+            gd.UplaodFileOnDriveInFolder(file, medicine.Id.ToString(), ConfigurationManager.AppSettings["FolderNameOnDrive"].ToString());
         }
         public void deleteMedicine(Medicine medicine)
         {

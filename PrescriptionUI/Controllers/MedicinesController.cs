@@ -58,27 +58,29 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection collection)//[Bind(Include = "Id,Name,Producer,GenericName,ActiveIngredients,PortionProperties")] MedicineViewModel mvm)
+        public ActionResult Create(MedicineViewModel mvm)//[Bind(Include = "Id,Name,Producer,GenericName,ActiveIngredients,PortionProperties")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
                 IBL bl = new BLImplement();
                 Medicine medicine = new Medicine()
                 {
-                    Name = collection["Name"],
-                    GenericName = collection["GenericName"],
-                    ActiveIngredients = collection["ActiveIngredients"],
-                    PortionProperties = collection["PortionProperties"],
-                    Producer = collection["Producer"]
-                    
+                    //Name = collection["Name"],
+                    //GenericName = collection["GenericName"],
+                    //ActiveIngredients = collection["ActiveIngredients"],
+                    //PortionProperties = collection["PortionProperties"],
+                    //Producer = collection["Producer"]
+                    Name = mvm.Name,
+                    GenericName = mvm.GenericName,
+                    ActiveIngredients = mvm.ActiveIngredients,
+                    PortionProperties = mvm.PortionProperties,
+                    Producer = mvm.Producer
+
                 };
-                var img = collection["MImage"].ToString();
-                var path = Server.MapPath(Url.Content($"~/images/{img}"));
                 try
                 {
-                    bl.addMedicine(medicine, path);
-                    bl.addMedicine(medicine);
-                    ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);
+                    bl.addMedicine(medicine, mvm.ImageFile);
+                    ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);               
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -86,7 +88,6 @@ namespace PrescriptionUI.Controllers
                     ViewBag.Message = String.Format(ex.Message);
                     return RedirectToAction("Index");
                 }
-
             }
 
             return View(new MedicineViewModel());
@@ -115,27 +116,23 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(FormCollection collection)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
+        public ActionResult Edit(MedicineViewModel mvm)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
                 IBL bl = new BLImplement();
                 Medicine medicine = new Medicine()
                 {
-                    Name = collection["Name"],
-                    GenericName = collection["GenericName"],
-                    ActiveIngredients = collection["ActiveIngredients"],
-                    PortionProperties = collection["PortionProperties"],
-                    Producer = collection["Producer"]
+                    Name = mvm.Name,
+                    GenericName = mvm.GenericName,
+                    ActiveIngredients = mvm.ActiveIngredients,
+                    PortionProperties = mvm.PortionProperties,
+                    Producer = mvm.Producer
 
                 };
-                var img = collection["MImage"].ToString();
-               
-                
-                    var path = Server.MapPath(Url.Content($"~/images/{img}"));
                 try
                 {
-                    bl.updateMedicine(medicine, path);
+                    bl.addMedicine(medicine, mvm.ImageFile);
                     ViewBag.Message = String.Format("The Medicine {0} successfully updated",medicine.Name);
                     return RedirectToAction("Index");
                 }
