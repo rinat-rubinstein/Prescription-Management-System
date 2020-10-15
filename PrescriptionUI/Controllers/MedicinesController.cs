@@ -123,11 +123,6 @@ namespace PrescriptionUI.Controllers
                 IBL bl = new BLImplement();
                 Medicine medicine = new Medicine()
                 {
-                    //Name = collection["Name"],
-                    //GenericName = collection["GenericName"],
-                    //ActiveIngredients = collection["ActiveIngredients"],
-                    //PortionProperties = collection["PortionProperties"],
-                    //Producer = collection["Producer"]
                     Name = mvm.Name,
                     GenericName = mvm.GenericName,
                     ActiveIngredients = mvm.ActiveIngredients,
@@ -135,10 +130,6 @@ namespace PrescriptionUI.Controllers
                     Producer = mvm.Producer
 
                 };
-                //var img = collection["MImage"].ToString();
-               
-                
-                //    var path = Server.MapPath(Url.Content($"~/images/{img}"));
                 try
                 {
                     bl.addMedicine(medicine, mvm.ImageFile);
