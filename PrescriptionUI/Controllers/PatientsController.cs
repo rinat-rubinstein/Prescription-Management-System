@@ -59,6 +59,7 @@ namespace PrescriptionUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name")] PatientViewModel pvm)
         {
+           
             if (ModelState.IsValid)
             {
                 Patient patient = new Patient()
@@ -91,6 +92,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
+
             Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
             PatientViewModel pvm = new PatientViewModel(patient);
             if (pvm == null)
