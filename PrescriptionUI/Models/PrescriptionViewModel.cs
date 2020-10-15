@@ -23,11 +23,11 @@ namespace PrescriptionUI.Models
         {
             IBL bl = new BLImplement();
             this.Id = p.Id;
-            this.medicine = bl.getAllMedicines().Where(m => m.Id == p.medicine).FirstOrDefault().Name;
+            this.medicine = bl.getMedicine(p.medicine).Name;
             this.StartDate = p.StartDate;
             this.EndDate = p.EndDate;
-            this.Doctor= bl.getAllDoctors().Where(d => d.Id == p.Doctor).FirstOrDefault().Name;
-            this.Patient = bl.getAllPatients().Where(x => x.Id == p.Patient).FirstOrDefault().Name;
+            this.Doctor=bl.getDoctor( p.Doctor).Name;
+            this.Patient = bl.getPatient( p.Patient).Name;
             this.Cause = p.Cause;
         }
     }

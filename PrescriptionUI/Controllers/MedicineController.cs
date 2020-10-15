@@ -45,18 +45,33 @@ namespace PrescriptionUI.Controllers
 
         // POST: Medicine/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(MedicineViewModel mvm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                IBL bl = new BLImplement();
+                Medicine medicine = new Medicine()
+                {
+                    Name = mvm.Name,
+                    GenericName = mvm.GenericName,
+                    ActiveIngredients = mvm.ActiveIngredients,
+                    PortionProperties = mvm.PortionProperties,
+                    Producer = mvm.Producer
+                };
+                try
+                {
+                    bl.addMedicine(medicine, mvm.ImageFile);
+                    ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = String.Format(ex.Message);
+                    return RedirectToAction("Index");
+                }
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(new MedicineViewModel());
         }
 
         // GET: Medicine/Edit/5

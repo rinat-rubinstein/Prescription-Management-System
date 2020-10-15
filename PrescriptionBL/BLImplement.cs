@@ -460,7 +460,6 @@ namespace PrescriptionBL
 
         public void ImportDataFromExcel()
         {
-            {
                 string filename = @"medicine.xlsx";
                 string FilePath = AppDomain.CurrentDomain.BaseDirectory + filename;
                 //string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
@@ -484,7 +483,6 @@ namespace PrescriptionBL
                         context.SaveChanges();
                     }
                 }
-            }
         }
 
         public Administrator getAdministrator()
