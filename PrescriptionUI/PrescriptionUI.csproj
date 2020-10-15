@@ -192,6 +192,7 @@
     <Compile Include="htmlHelper.cs" />
     <Compile Include="Models\AdministratorViewModel.cs" />
     <Compile Include="Models\DoctorViewModel.cs" />
+    <Compile Include="Models\GraphModel.cs" />
     <Compile Include="Models\MedicineViewModel.cs" />
     <Compile Include="Models\PatientViewModel.cs" />
     <Compile Include="Models\PrescriptionForPatientModel.cs" />
@@ -336,11 +337,7 @@
     <Content Include="Views\Shared\OptionsLayout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\AdministratorEntrance.cshtml" />
-    <Content Include="Views\Administrator\Create.cshtml" />
-    <Content Include="Views\Administrator\Delete.cshtml" />
-    <Content Include="Views\Administrator\Details.cshtml" />
     <Content Include="Views\Administrator\Edit.cshtml" />
-    <Content Include="Views\Administrator\Index.cshtml" />
     <Content Include="Views\Medicines\Create.cshtml" />
     <Content Include="Views\Medicines\Delete.cshtml" />
     <Content Include="Views\Medicines\Details.cshtml" />
@@ -359,6 +356,8 @@
     <Content Include="Views\Patients\Create.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
+    <Content Include="Views\Patients\Edit.cshtml" />
+    <Content Include="Views\Patients\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

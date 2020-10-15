@@ -5,6 +5,7 @@ using PrescriptionUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -47,9 +48,30 @@ namespace PrescriptionUI.Controllers
                 return View("AdministratorEntrance");
             }
         }
-        public ActionResult AdministratorOptions(/*string id*/)
+        public ActionResult AdministratorOptions(GraphModel gm=null)
         {
-            return View();
+            IBL bl = new BLImplement();
+            var categories =bl.getAllMedicines().Select(c => new {
+                    CategoryID = c.Id,
+                    CategoryName = c.Name
+                }).ToList();
+                ViewBag.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
+            if (gm != null)
+            {
+                var medicinesId = bl.getAllMedicines().Select(x => x.Id);
+                var medicinesNames = bl.getAllMedicines().Select(x => x.Name).ToArray();
+                gm.mat = bl.MedicinesStatistics(gm.CategoryId, gm.month, ref medicinesNames);
+            }
+            else
+            {
+                gm = new GraphModel();
+            }
+            return View(gm);
+        }
+  
+        public ActionResult EditAdministrator(int id)
+        {
+           return RedirectToAction("Edit", "Administrator");        
         }
 
         //DOCTOR (LOGIN and prescriptionIssuance)
@@ -66,7 +88,7 @@ namespace PrescriptionUI.Controllers
             try
             {
                 IBL bl = new BLImplement();
-               // bl.isDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
+               bl.IsDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
                 return RedirectToAction("DoctorOptions");
             }
             catch (Exception ex)
@@ -75,7 +97,7 @@ namespace PrescriptionUI.Controllers
                 return View("DoctorEntrance");
             }
         }
-        public ActionResult DoctorOptions(/*string id*/)
+        public ActionResult DoctorOptions()
         {
             return View();
         }
@@ -105,7 +127,7 @@ namespace PrescriptionUI.Controllers
                     Cause = pfpm.prescription.Cause
                 };
                 bl.addPrescription(prescription);
-                ViewBag.Message = String.Format("The prescription is successfully added.");
+                ViewBag.Message = String.Format("The prescription for {0} is successfully added.",pfpm.Patient.Name);
                 return RedirectToAction("DoctorOptions");
             }
             catch (Exception ex)
@@ -113,6 +135,20 @@ namespace PrescriptionUI.Controllers
                 ViewBag.Message = String.Format(ex.Message);
                 return View("prescriptionIssuance");
             }
+        }
+        public ActionResult medicalHistory(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IBL bl = new BLImplement();
+            //-----------
+            //var lst=bl.getPrescriptionById(id);
+            //return RedirectToAction("Index",Prescription,lst);
+            //----------
+            //TODO: create the right Prescription Controller
+            return View();
         }
     }
 }

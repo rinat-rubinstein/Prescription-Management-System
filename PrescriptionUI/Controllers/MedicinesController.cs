@@ -80,7 +80,7 @@ namespace PrescriptionUI.Controllers
                 try
                 {
                     bl.addMedicine(medicine, mvm.ImageFile);
-                    ViewBag.Message = String.Format("The Medicine successfully added");
+                    ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);               
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -133,7 +133,7 @@ namespace PrescriptionUI.Controllers
                 try
                 {
                     bl.addMedicine(medicine, mvm.ImageFile);
-                    ViewBag.Message = String.Format("The Medicine successfully updated");
+                    ViewBag.Message = String.Format("The Medicine {0} successfully updated",medicine.Name);
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -171,6 +171,7 @@ namespace PrescriptionUI.Controllers
                 IBL bl = new BLImplement();
                 Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
                 bl.deleteMedicine(medicine);
+                ViewBag.Message = String.Format("The medicine {0} is successfully deleted", medicine.Name);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
