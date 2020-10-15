@@ -1,4 +1,5 @@
 ﻿using PrescriptionBE;
+using PrescriptionBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace PrescriptionUI.Models
         }
         public PatientViewModel(Patient patient)
         {
+            IBL bl = new BLImplement();
             Id = patient.Id;
             Name = patient.Name;
-            Prescriptions = patient.Prescriptions;
+            Prescriptions = bl.allPrescriptionFromPatient(patient).Select(p=>p.Id).ToList();
         }
         public PatientViewModel()
         {

@@ -1,4 +1,5 @@
-﻿using PrescriptionBE;
+﻿using Microsoft.Office.Interop.Excel;
+using PrescriptionBE;
 using PrescriptionDAL;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
+using _Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace PrescriptionBL
 {
@@ -21,7 +24,7 @@ namespace PrescriptionBL
         {
             try
             {
-                IDal dal = new PrescriptionDAL.DalImplement();
+                IDal dal = new DalImplement();
                 dal.addAdministrator(administrator);
             }
             catch (Exception ex)
@@ -412,6 +415,73 @@ namespace PrescriptionBL
         {
             IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllAdministrators().ToList().Exists(admin => admin.Password == password && admin.UserName == username);
+        }
+        public Administrator getAdministrator(string id)
+        {
+            return getAllAdministrators().FirstOrDefault(administrator => administrator.Id == id);
+        }
+
+        public Doctor getDoctor(string id)
+        {
+            return getAllDoctors().FirstOrDefault(doc => doc.Id == id);
+        }
+        
+        public Prescription getPrescription(int id)
+        {
+            return getAllPrescriptions().FirstOrDefault(p => p.Id == id);
+
+        }
+        public Specialty getSpecialty(int id)
+        {
+            return getAllSpecialties().FirstOrDefault(s => s.Id == id);
+        }
+        public Patient getPatient(string id)
+        {
+            return getAllPatients().FirstOrDefault(patient => patient.Id == id);
+        }
+
+        public void ImportDataFromExcel()
+        {
+            {
+                string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
+                _Application excel = new _Excel.Application();
+                Workbook wb = excel.Workbooks.Open(FilePath);
+                Worksheet ws = wb.Worksheets[1];
+
+                string name = string.Empty, genericName = string.Empty, producer = string.Empty, active = string.Empty, properties = string.Empty, ndc = string.Empty;
+                for (int i = 2; i < 1001; i++)
+                {
+                    name = Convert.ToString(ws.Cells[1][i].Value2);
+                    genericName = Convert.ToString(ws.Cells[2][i].Value2);
+                    producer = Convert.ToString(ws.Cells[3][i].Value2);
+                    active = Convert.ToString(ws.Cells[4][i].Value2);
+                    properties = Convert.ToString(ws.Cells[5][i].Value2);
+                    ndc = Convert.ToString(ws.Cells[7][i].Value2);
+                    using (var context = new PrescriptionContext())
+                    {
+                        var medicine = new Medicine { PortionProperties = properties, ActiveIngredients = active, GenericName = ndc, Name = name, Producer = producer };
+                        context.Medicines.Add(medicine);
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public Administrator getAdministrator()
+        {
+            return getAllAdministrators().FirstOrDefault();
+        }
+        public void doctorEntrance(string name, string id)
+        {
+            if (getAllDoctors().ToList().Exists(d => d.Id == id && d.Name == name))
+            {
+                if (!getAllDoctors().ToList().Exists(d => d.Id == id && d.LicenseExpirationDate >= DateTime.Today))
+                {
+                    throw new Exception("The license has expired");
+                }
+            }
+            else
+                throw new Exception("Incorrect Details");
         }
     }
 }

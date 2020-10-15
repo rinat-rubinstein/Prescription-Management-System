@@ -11,7 +11,6 @@ namespace PrescriptionBE
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<int> Prescriptions { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name}";

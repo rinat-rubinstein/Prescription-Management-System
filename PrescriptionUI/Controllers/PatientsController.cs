@@ -59,13 +59,14 @@ namespace PrescriptionUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name")] PatientViewModel patientViewModel)
         {
+           
             if (ModelState.IsValid)
             {
                 Patient patient = new Patient()
                 {
                     Name = patientViewModel.Name,
-                    Prescriptions = patientViewModel.Prescriptions
-                };
+                  //  Prescriptions = bl.allPrescriptionFromPatient(patientViewModel).Select(p => p.Id).ToList();
+            };
                 IBL bl = new BLImplement();
                 bl.addPatient(patient);
                 return RedirectToAction("Index");
@@ -86,8 +87,8 @@ namespace PrescriptionUI.Controllers
             PatientViewModel patientViewModel = new PatientViewModel()
             {
                 Name = patient.Name,
-                Prescriptions = patient.Prescriptions
-            };
+                Prescriptions = bl.allPrescriptionFromPatient(patient).Select(p => p.Id).ToList()
+        };
             if (patientViewModel == null)
             {
                 return HttpNotFound();
