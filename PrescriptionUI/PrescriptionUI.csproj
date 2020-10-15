@@ -359,6 +359,7 @@
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Medicine\Index.cshtml" />
+    <Content Include="Views\Medicine\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

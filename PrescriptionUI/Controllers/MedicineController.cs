@@ -36,7 +36,8 @@ namespace PrescriptionUI.Controllers
         // GET: Medicine/Create
         public ActionResult Create()
         {
-            return View();
+            var mvm = new MedicineViewModel();
+            return View(mvm);
         }
 
         // POST: Medicine/Create

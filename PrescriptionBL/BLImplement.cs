@@ -284,6 +284,10 @@ namespace PrescriptionBL
                 throw new Exception("The the doctor's license is not valid ");
             }
         }
+        public IEnumerable<Prescription> GetAllPrescriptionsToPatient(string patientId)
+        {
+            return this.getAllPrescriptions().Where(p => p.Patient == patientId);
+        }
         public IEnumerable<Prescription> getAllPrescriptions()
         {
             IDal dal = new PrescriptionDAL.DalImplement();
