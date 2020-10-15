@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -175,6 +176,7 @@ namespace PrescriptionBL
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
 
+
                 IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateMedicinePicture(medicineId, file);
             }
@@ -208,7 +210,7 @@ namespace PrescriptionBL
         private bool validMedicinePicture(string path)
         {
             RecognitionPicture r = new RecognitionPicture();
-            List<string> tagsPictures =r.GetPicturesTags(path);
+            List<string> tagsPictures = r.GetPicturesTags(path);
             foreach (var item in tagsPictures)
             {
                 if (item == "medicine" || item == "drug" || item == "pill" || item == "medicines" || item == "drugs" || item == "pills")
@@ -216,7 +218,7 @@ namespace PrescriptionBL
             }
             return false;
         }
-       
+
         //------------ Patients ---------------
         public void addPatient(Patient patient)
         {
@@ -401,17 +403,28 @@ namespace PrescriptionBL
             return medicinTokenXMonthAgo(medicinesID, numMonthAgo, ref medicineNamesArr);          
         }
 
+
         public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
         {
             IDal dal = new PrescriptionDAL.DalImplement();
             int medicineId = dal.getAllMedicines().FirstOrDefault(m => m.Name == medicine).Id;
             return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine==medicineId);
+
         }
+            public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
+            {
+            IDal dal = new PrescriptionDAL.DalImplement();
+            int medicineId = dal.getAllMedicines().FirstOrDefault(m => m.Name == medicine).Id;
+                return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine.Exists(m => m == medicineId));
+            }
+
 
         public bool isAdministrator(string username, string password)
         {
+
             IDal dal = new PrescriptionDAL.DalImplement();
             return dal.getAllAdministrators().ToList().Exists(admin => admin.Password == password && admin.UserName == username);
-        }
+            }
+
     }
 }
