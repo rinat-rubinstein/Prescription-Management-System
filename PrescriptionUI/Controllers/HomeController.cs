@@ -88,8 +88,11 @@ namespace PrescriptionUI.Controllers
             try
             {
                 IBL bl = new BLImplement();
-               bl.IsDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
-                return RedirectToAction("DoctorOptions");
+                if (bl.IsDoctor(dvm.Name, dvm.Id, dvm.LicenseExpirationDate))
+                {
+                    return RedirectToAction("DoctorOptions");
+                }
+                return View("DoctorEntrance");
             }
             catch (Exception ex)
             {
@@ -141,14 +144,11 @@ namespace PrescriptionUI.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IBL bl = new BLImplement();
-            //-----------
-            //var lst=bl.getPrescriptionById(id);
-            //return RedirectToAction("Index",Prescription,lst);
-            //----------
+            }          
+            return RedirectToAction("Index","Prescription",id);
+           
             //TODO: create the right Prescription Controller
-            return View();
+            
         }
     }
 }
