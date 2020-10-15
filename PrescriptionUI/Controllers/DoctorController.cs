@@ -1,48 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using PrescriptionBL;
-using PrescriptionUI.Data;
 using PrescriptionUI.Models;
-using PrescriptionBE;
-using System.Net;
 
 namespace PrescriptionUI.Controllers
 {
-    //tryyyyyyy--------------------------------------------------------------------------
-    public class MedicineController : Controller
+    public class DoctorController : Controller
     {
-        // GET: Medicine
+        // GET: Doctor
         public ActionResult Index()
         {
             IBL bl = new BLImplement();
-            List<MedicineViewModel> lst = new List<MedicineViewModel>();
-            foreach (var item in bl.getAllMedicines())
+            List<DoctorViewModel> lst = new List<DoctorViewModel>();
+            foreach (var item in bl.getAllDoctors())
             {
-                lst.Add(new MedicineViewModel(item));
+                lst.Add(new DoctorViewModel(item));
             }
-            lst.Add(new MedicineViewModel(new PrescriptionBE.Medicine() { Id = 1, Name = "acamol", ActiveIngredients = "attt", GenericName = "122-654", PortionProperties = "sdf", Producer = "f" }));
-            lst.Add(new MedicineViewModel(new PrescriptionBE.Medicine() { Id = 2, Name = "nerufen", ActiveIngredients = "attt", GenericName = "165-876", PortionProperties = "sdf", Producer = "f" }));
-
+            lst.Add(new DoctorViewModel(new PrescriptionBE.Doctor() { Id = "1", LicenseExpirationDate = DateTime.Now, Name = "Chain Mochr", Special = 4 }));
+            lst.Add(new DoctorViewModel(new PrescriptionBE.Doctor() { Id = "1", LicenseExpirationDate = DateTime.Now, Name = "Rinar Robin", Special = 5 }));
+            lst.Add(new DoctorViewModel(new PrescriptionBE.Doctor() { Id = "1", LicenseExpirationDate = DateTime.Now, Name = "Roti Fri", Special = 8 }));
             return View(lst);
         }
 
-        // GET: Medicine/Details/5
-        public ActionResult Details(int id)
+        // GET: Doctor/Details/5
+        public ActionResult Details()
         {
             return View();
         }
 
-        // GET: Medicine/Create
+        // GET: Doctor/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Medicine/Create
+        // POST: Doctor/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -58,24 +53,13 @@ namespace PrescriptionUI.Controllers
             }
         }
 
-        // GET: Medicine/Edit/5
+        // GET: Doctor/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IBL bl = new BLImplement();
-            Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
-            if (medicine == null)
-            {
-                return HttpNotFound();
-            }
-            MedicineViewModel mvm = new MedicineViewModel(medicine);
-            return View(mvm);
+            return View();
         }
 
-        // POST: Medicine/Edit/5
+        // POST: Doctor/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -91,13 +75,13 @@ namespace PrescriptionUI.Controllers
             }
         }
 
-        // GET: Medicine/Delete/5
+        // GET: Doctor/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Medicine/Delete/5
+        // POST: Doctor/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
