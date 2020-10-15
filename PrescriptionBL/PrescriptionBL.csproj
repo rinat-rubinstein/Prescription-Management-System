@@ -48,6 +48,7 @@
     <Compile Include="BLImplement.cs" />
     <Compile Include="IBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecognitionPicture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrescriptionBE\PrescriptionBE.csproj">

@@ -1,0 +1,66 @@
+﻿@model PrescriptionUI.Models.MedicineViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/OptionsLayout.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}
+
+<div>
+    <h4>Medicine Details:</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GenericName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenericName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveIngredients)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveIngredients)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PortionProperties)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortionProperties)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -12,8 +12,8 @@ namespace PrescriptionBE
         public string Name { get; set; }
         public string Producer { get; set; }
         public string GenericName { get; set; }
-        public List<string> ActiveIngredients { get; set; }
-        public List<string> PortionProperties { get; set; }
+        public string ActiveIngredients { get; set; }
+        public string PortionProperties { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name}";

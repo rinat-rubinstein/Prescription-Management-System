@@ -30,7 +30,6 @@ namespace PrescriptionDAL
         public void updateMedicinePicture(int medicineId, HttpPostedFileBase file);
         public string getMedicinePicture(int medicinId);
         public IEnumerable<Medicine> getAllMedicines();
-        public void GetPicturesTags(ImageDetails curentImage);
 
         //------------ Patients ---------------
         public void addPatient(Patient patient);
