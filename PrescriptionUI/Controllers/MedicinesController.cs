@@ -77,10 +77,17 @@ namespace PrescriptionUI.Controllers
                     Producer = mvm.Producer
 
                 };
-                //var img = collection["MImage"];
-                //var path = Server.MapPath(Url.Content($"~/images/{img}"));
-                bl.addMedicine(medicine, mvm.ImageFile);
-                return RedirectToAction("Index");
+                try
+                {
+                    bl.addMedicine(medicine, mvm.ImageFile);
+                    ViewBag.Message = String.Format("The Medicine successfully added");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = String.Format(ex.Message);
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(new MedicineViewModel());
@@ -109,27 +116,32 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(FormCollection collection)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
+        public ActionResult Edit(MedicineViewModel mvm)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
                 IBL bl = new BLImplement();
                 Medicine medicine = new Medicine()
                 {
-                    Name = collection["Name"],
-                    GenericName = collection["GenericName"],
-                    ActiveIngredients = collection["ActiveIngredients"],
-                    PortionProperties = collection["PortionProperties"],
-                    Producer = collection["Producer"]
+                    //Name = collection["Name"],
+                    //GenericName = collection["GenericName"],
+                    //ActiveIngredients = collection["ActiveIngredients"],
+                    //PortionProperties = collection["PortionProperties"],
+                    //Producer = collection["Producer"]
+                    Name = mvm.Name,
+                    GenericName = mvm.GenericName,
+                    ActiveIngredients = mvm.ActiveIngredients,
+                    PortionProperties = mvm.PortionProperties,
+                    Producer = mvm.Producer
 
                 };
-                var img = collection["MImage"].ToString();
+                //var img = collection["MImage"].ToString();
                
                 
-                    var path = Server.MapPath(Url.Content($"~/images/{img}"));
+                //    var path = Server.MapPath(Url.Content($"~/images/{img}"));
                 try
                 {
-                    bl.updateMedicine(medicine, path);
+                    bl.addMedicine(medicine, mvm.ImageFile);
                     ViewBag.Message = String.Format("The Medicine successfully updated");
                     return RedirectToAction("Index");
                 }
