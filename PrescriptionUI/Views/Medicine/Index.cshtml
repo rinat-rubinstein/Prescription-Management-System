@@ -4,7 +4,16 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/OptionsLayout.cshtml";
 }
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
 
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}
 <div class="hero-wrap hero-bread" style="background-image: url('../vegefoods/images/about3.jpg');" alt="">
 
     <div class="container">
@@ -20,7 +29,15 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
+
 <section class="ftco-section">
+    <form class="form-control" asp-controller="Search" asp-action="Index">
+        <p>
+            <input type="text" name="SearchString">
+            <input class="btn" type="submit" value="Filter" />
+        </p>
+    </form>
+    <br /><br />
     <div class="container">
         <div class="row">
             @foreach (var item in Model)

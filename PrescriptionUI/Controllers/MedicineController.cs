@@ -16,13 +16,17 @@ namespace PrescriptionUI.Controllers
     public class MedicineController : Controller
     {
         // GET: Medicine
-        public ActionResult Index()
+        public ActionResult Index(string searchString="")
         {
             IBL bl = new BLImplement();
             List<MedicineViewModel> lst = new List<MedicineViewModel>();
             foreach (var item in bl.getAllMedicines())
             {
                 lst.Add(new MedicineViewModel(item));
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lst = lst.Where(s => s.Name.Contains(searchString) || s.GenericName.Contains(searchString) || s.PortionProperties.Contains(searchString) || s.Producer.Contains(searchString)).ToList();
             }
             lst.Add(new MedicineViewModel(new PrescriptionBE.Medicine() { Id = 1, Name = "acamol", ActiveIngredients = "attt", GenericName = "122-654", PortionProperties = "sdf", Producer = "f" }));
             lst.Add(new MedicineViewModel(new PrescriptionBE.Medicine() { Id = 2, Name = "nerufen", ActiveIngredients = "attt", GenericName = "165-876", PortionProperties = "sdf", Producer = "f" }));
@@ -33,7 +37,18 @@ namespace PrescriptionUI.Controllers
         // GET: Medicine/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IBL bl = new BLImplement();
+            Medicine medicine = bl.getMedicine(id);
+            if (medicine == null)
+            {
+                return HttpNotFound();
+            }
+            var mvm = new MedicineViewModel(medicine);
+            return View(mvm);
         }
 
         // GET: Medicine/Create
@@ -45,6 +60,7 @@ namespace PrescriptionUI.Controllers
 
         // POST: Medicine/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
@@ -77,12 +93,12 @@ namespace PrescriptionUI.Controllers
         // GET: Medicine/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Medicine medicine = bl.getAllMedicines().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+            Medicine medicine = bl.getMedicine(id);
             if (medicine == null)
             {
                 return HttpNotFound();
@@ -93,39 +109,71 @@ namespace PrescriptionUI.Controllers
 
         // POST: Medicine/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, MedicineViewModel mvm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                IBL bl = new BLImplement();
+                Medicine medicine = new Medicine()
+                {
+                    Name = mvm.Name,
+                    GenericName = mvm.GenericName,
+                    ActiveIngredients = mvm.ActiveIngredients,
+                    PortionProperties = mvm.PortionProperties,
+                    Producer = mvm.Producer
 
-                return RedirectToAction("Index");
+                };
+                try
+                {
+                    bl.updateMedicine(medicine);
+                    bl.updateMedicinePicture(medicine.Id, mvm.ImageFile);
+                    ViewBag.Message = String.Format("The Medicine {0} successfully updated", medicine.Name);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = String.Format(ex.Message);
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(new MedicineViewModel());
         }
 
         // GET: Medicine/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IBL bl = new BLImplement();
+            Medicine medicine = bl.getMedicine(id);
+            if (medicine == null)
+            {
+                return HttpNotFound();
+            }
+            MedicineViewModel mvm = new MedicineViewModel(medicine);
+            return View(mvm);
         }
 
         // POST: Medicine/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                IBL bl = new BLImplement();
+                Medicine medicine = bl.getMedicine(id);
+                bl.deleteMedicine(medicine);
+                ViewBag.Message = String.Format("The medicine {0} is successfully deleted", medicine.Name);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Message = String.Format(ex.Message);
+                return RedirectToAction("Index");
             }
         }
     }
