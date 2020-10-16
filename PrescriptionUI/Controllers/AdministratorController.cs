@@ -25,13 +25,13 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            var administrator=bl.getAdministrator(id);
-            var avm = new AdministratorViewModel(administrator);
-            if (avm == null)
-            {
+          //  var administrator=bl.getAdministrator(id);
+           // var avm = new AdministratorViewModel(administrator);
+           // if (avm == null)
+          //  {
                 return HttpNotFound();
-            }
-            return View(avm);
+          //  }
+          //  return View(avm);
         }
 
         // POST: Administrator/Edit/5

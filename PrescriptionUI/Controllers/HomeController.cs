@@ -88,7 +88,7 @@ namespace PrescriptionUI.Controllers
             try
             {
                 IBL bl = new BLImplement();
-               bl.IsDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
+             //  bl.IsDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
                 return RedirectToAction("DoctorOptions");
             }
             catch (Exception ex)

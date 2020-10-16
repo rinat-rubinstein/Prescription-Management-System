@@ -65,7 +65,6 @@ namespace PrescriptionUI.Controllers
                 Patient patient = new Patient()
                 {
                     Name = pvm.Name,
-                    Prescriptions = pvm.Prescriptions
                 };
                 IBL bl = new BLImplement();
                 try
