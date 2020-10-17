@@ -26,11 +26,8 @@ namespace PrescriptionUI.Controllers
             }
             if (!String.IsNullOrEmpty(searchString))
             {
-                lst = lst.Where(s => s.Name.Contains(searchString) || s.GenericName.Contains(searchString) || s.PortionProperties.Contains(searchString) || s.Producer.Contains(searchString)).ToList();
+                lst = lst.Where(s => s.Name.Contains(searchString) || s.GenericName.Contains(searchString)).ToList();
             }
-            lst.Add(new MedicineViewModel(new PrescriptionBE.Medicine() { Id = 1, Name = "acamol", ActiveIngredients = "attt", GenericName = "122-654", PortionProperties = "sdf", Producer = "f" }));
-            lst.Add(new MedicineViewModel(new PrescriptionBE.Medicine() { Id = 2, Name = "nerufen", ActiveIngredients = "attt", GenericName = "165-876", PortionProperties = "sdf", Producer = "f" }));
-
             return View(lst);
         }
 

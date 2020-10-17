@@ -5,63 +5,29 @@
     Layout = "~/Views/Shared/OptionsLayout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>MedicineViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Producer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Producer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GenericName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GenericName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ActiveIngredients)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ActiveIngredients)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PortionProperties)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PortionProperties)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-
-        <dd>
-            <img src="@Url.Content(Model.Picture)" alt="Sample Image" style="height:50px;width:100px;" />
-        </dd>
-
-    </dl>
-</div>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated">
+                <a class="image-popup"><img src="@Url.Content(Model.Picture)" class="img-fluid" alt="Colorlib Template"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
+                <h3>@Model.Name</h3>
+                <div class="rating d-flex">
+                    <p class="text-left mr-4">
+                        <a href="#" class="mr-2">Producer: @Model.Producer</a>
+                    </p>
+                </div>
+                <p class="price"><span>@Model.GenericName</span></p>
+                <p>
+                    More Details:
+                    The Medicine's active ingredients are: @Model.ActiveIngredients , and the portion properties is: @Model.PortionProperties .
+                </p>
+                <a class="btn btn-black py-3 px-5" @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) </a>
+            </div>
+        </div>
+    </div>
+</section>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
