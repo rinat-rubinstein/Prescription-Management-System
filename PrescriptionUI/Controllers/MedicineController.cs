@@ -23,6 +23,8 @@ namespace PrescriptionUI.Controllers
             {
                 lst.Add(new MedicineViewModel(item));
             }
+            lst.Add(new MedicineViewModel() { Id = 1, Name = "acamol", GenericName = "000-1111" }); 
+            lst.Add(new MedicineViewModel() { Id = 2, Name = "nurofen", GenericName = "3300-5432" });
             if (!String.IsNullOrEmpty(searchString))
             {
                 lst = lst.Where(s => s.Name.Contains(searchString) || s.GenericName.Contains(searchString)).ToList();
@@ -57,7 +59,7 @@ namespace PrescriptionUI.Controllers
         // POST: Medicine/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MedicineViewModel mvm)
+        public ActionResult Create(MedicineViewModel mvm, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +74,7 @@ namespace PrescriptionUI.Controllers
                 };
                 try
                 {
-                    bl.addMedicine(medicine, mvm.ImageFile);
+                    bl.addMedicine(medicine, ImageFile);
                     ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);
                     return RedirectToAction("Index");
                 }
@@ -95,24 +97,26 @@ namespace PrescriptionUI.Controllers
             }
             IBL bl = new BLImplement();
             Medicine medicine = bl.getMedicine(id);
-            if (medicine == null)
-            {
-                return HttpNotFound();
-            }
-            MedicineViewModel mvm = new MedicineViewModel(medicine);
+            //if (medicine == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //MedicineViewModel mvm = new MedicineViewModel(medicine);
+            MedicineViewModel mvm = new MedicineViewModel(new Medicine { Id = 2, Name = "nurofen", GenericName = "3300-5432" });
             return View(mvm);
         }
 
         // POST: Medicine/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, MedicineViewModel mvm)
+        public ActionResult Edit(int id, MedicineViewModel mvm, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
                 IBL bl = new BLImplement();
                 Medicine medicine = new Medicine()
                 {
+                    Id=mvm.Id,
                     Name = mvm.Name,
                     GenericName = mvm.GenericName,
                     ActiveIngredients = mvm.ActiveIngredients,
@@ -123,7 +127,7 @@ namespace PrescriptionUI.Controllers
                 try
                 {
                     bl.updateMedicine(medicine);
-                    bl.updateMedicinePicture(medicine.Id, mvm.ImageFile);
+                    bl.updateMedicinePicture(medicine.Id, ImageFile);
                     ViewBag.Message = String.Format("The Medicine {0} successfully updated", medicine.Name);
                     return RedirectToAction("Index");
                 }

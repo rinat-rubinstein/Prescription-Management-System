@@ -190,7 +190,6 @@ namespace PrescriptionBL
         }
         public string getMedicinePicture(int medicinId)
         {
-            return "about2.jpg";
             try
             {
                 IDal dal = new PrescriptionDAL.DalImplement();
@@ -460,29 +459,29 @@ namespace PrescriptionBL
 
         public void ImportDataFromExcel()
         {
-                string filename = @"medicine.xlsx";
-                string FilePath = AppDomain.CurrentDomain.BaseDirectory + filename;
-                //string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
-                _Application excel = new _Excel.Application();
-                Workbook wb = excel.Workbooks.Open(FilePath);
-                Worksheet ws = wb.Worksheets[1];
+            string filename = @"medicine.xlsx";
+            string FilePath = AppDomain.CurrentDomain.BaseDirectory + filename;
+            //string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
+            _Application excel = new _Excel.Application();
+            Workbook wb = excel.Workbooks.Open(FilePath);
+            Worksheet ws = wb.Worksheets[1];
 
-                string name = string.Empty, genericName = string.Empty, producer = string.Empty, active = string.Empty, properties = string.Empty, ndc = string.Empty;
-                for (int i = 2; i < 1001; i++)
+            string name = string.Empty, genericName = string.Empty, producer = string.Empty, active = string.Empty, properties = string.Empty, ndc = string.Empty;
+            for (int i = 2; i < 1001; i++)
+            {
+                name = Convert.ToString(ws.Cells[1][i].Value2);
+                genericName = Convert.ToString(ws.Cells[2][i].Value2);
+                producer = Convert.ToString(ws.Cells[3][i].Value2);
+                active = Convert.ToString(ws.Cells[4][i].Value2);
+                properties = Convert.ToString(ws.Cells[5][i].Value2);
+                ndc = Convert.ToString(ws.Cells[7][i].Value2);
+                using (var context = new PrescriptionContext())
                 {
-                    name = Convert.ToString(ws.Cells[1][i].Value2);
-                    genericName = Convert.ToString(ws.Cells[2][i].Value2);
-                    producer = Convert.ToString(ws.Cells[3][i].Value2);
-                    active = Convert.ToString(ws.Cells[4][i].Value2);
-                    properties = Convert.ToString(ws.Cells[5][i].Value2);
-                    ndc = Convert.ToString(ws.Cells[7][i].Value2);
-                    using (var context = new PrescriptionContext())
-                    {
-                        var medicine = new Medicine { PortionProperties = properties, ActiveIngredients = active, GenericName = ndc, Name = name, Producer = producer };
-                        context.Medicines.Add(medicine);
-                        context.SaveChanges();
-                    }
+                    var medicine = new Medicine { PortionProperties = properties, ActiveIngredients = active, GenericName = ndc, Name = name, Producer = producer };
+                    context.Medicines.Add(medicine);
+                    context.SaveChanges();
                 }
+            }
         }
 
         public Administrator getAdministrator()
