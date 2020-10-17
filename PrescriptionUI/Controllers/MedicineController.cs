@@ -12,7 +12,6 @@ using System.Net;
 
 namespace PrescriptionUI.Controllers
 {
-    //tryyyyyyy--------------------------------------------------------------------------
     public class MedicineController : Controller
     {
         // GET: Medicine
