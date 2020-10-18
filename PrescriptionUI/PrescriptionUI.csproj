@@ -151,6 +151,8 @@
     <Content Include="vegefoods\images\about4 %282%29.jpg" />
     <Content Include="vegefoods\images\aboutcolor.jpg" />
     <Content Include="vegefoods\images\acamol.JPG" />
+    <Content Include="vegefoods\images\admi2.jpg" />
+    <Content Include="vegefoods\images\administrator.jpg" />
     <Content Include="vegefoods\images\doctor.jpg.png" />
     <Content Include="vegefoods\images\doctorOption.jpg" />
     <Content Include="vegefoods\images\main1.jpg" />
@@ -167,6 +169,7 @@
     <Content Include="vegefoods\images\person3.JPG" />
     <Content Include="vegefoods\images\person4.JPG" />
     <Content Include="vegefoods\images\person5.JPG" />
+    <Content Include="vegefoods\images\prescription.jpg" />
     <Content Include="vegefoods\index.html" />
     <Content Include="vegefoods\js\aos.js" />
     <Content Include="vegefoods\js\bootstrap-datepicker.js" />

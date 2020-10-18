@@ -19,7 +19,8 @@ namespace PrescriptionUI.Controllers
         {
             IBL bl = new BLImplement();
             List<MedicineViewModel> lst = new List<MedicineViewModel>();
-            foreach (var item in bl.getAllMedicines())
+            var temp = bl.getAllMedicines();
+            foreach (var item in temp)
             {
                 lst.Add(new MedicineViewModel(item));
             }
