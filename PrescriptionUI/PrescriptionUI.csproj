@@ -149,6 +149,7 @@
     <Content Include="vegefoods\images\aboutcolor.jpg" />
     <Content Include="vegefoods\images\acamol.JPG" />
     <Content Include="vegefoods\images\doctor.jpg.png" />
+    <Content Include="vegefoods\images\doctorOption.jpg" />
     <Content Include="vegefoods\images\main1.jpg" />
     <Content Include="vegefoods\images\main2.jpg" />
     <Content Include="vegefoods\images\medicines.jpg" />
@@ -375,6 +376,7 @@
     <Content Include="Views\Medicine\Create.cshtml" />
     <Content Include="Views\Medicine\Delete.cshtml" />
     <Content Include="Views\Medicine\Details.cshtml" />
+    <Content Include="Views\Shared\MinistratorLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
