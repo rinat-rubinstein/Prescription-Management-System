@@ -146,10 +146,12 @@
     <Content Include="vegefoods\images\about2.jpg" />
     <Content Include="vegefoods\images\about3.jpg" />
     <Content Include="vegefoods\images\about4 %282%29.jpg" />
+    <Content Include="vegefoods\images\aboutcolor.jpg" />
     <Content Include="vegefoods\images\acamol.JPG" />
     <Content Include="vegefoods\images\doctor.jpg.png" />
     <Content Include="vegefoods\images\main1.jpg" />
     <Content Include="vegefoods\images\main2.jpg" />
+    <Content Include="vegefoods\images\medicines.jpg" />
     <Content Include="vegefoods\images\optalgin.JPG" />
     <Content Include="vegefoods\images\partner-1.png" />
     <Content Include="vegefoods\images\partner-2.png" />
