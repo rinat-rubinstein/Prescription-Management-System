@@ -1,55 +1,23 @@
-﻿@model PrescriptionUI.Models.GraphModel
-@{
-    ViewBag.Title = "AdministratorOptions";
-    Layout = "~/Views/Shared/OptionsLayout.cshtml";
-}
+﻿@model IEnumerable<PrescriptionUI.Models.PatientViewModel>
 
-datasets: [
-@for (int i = 0; i < Model.mat.Length; i++)
-{
+    @{
+        ViewBag.Title = "AdministratorOptions";
+        Layout = "~/Views/Shared/MinistratorLayout.cshtml";
+    }
+    <body>
+        <section id="home-section" class="hero">
+            <div class="home-slider owl-carousel">
+                <div class="slider-item" style="background-image: url('../vegefoods/images/doctorOption.jpg');" alt="">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
-    @:{
-    @:label: "data@(DateTime.Now.ToString())",
-    @:fill: false,
-    @:data:[@foreach (var t in Model.mat[i])
-    {@(t + ",")} ]
-    @: }
-    @:,
-}
-]
-
-<center>
-    <h1 style="font-family:'Agency FB'">Wellcome to the Administrator's Menu</h1>
-</center>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.month, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.month, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.month, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.ActionLink("Change range", "AdministratorOptions", new { item = Model })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div>
-            <div style="font-family:'Agency FB'">Filter desired medications:</div>
-            @Html.ListBoxFor(model => model.CategoryId, Model.Categories, new { multiple = "multiple" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.ActionLink("filter", "AdministratorOptions", new { item = Model })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.ActionLink("Update Your Details", "EditAdministrator", new { id = Model.AdministratorId })
-        </div>
-    </div>
-</div>
+                            <div class="col-md-12 ftco-animate text-center">
+                                <h1 class="mb-2">OK-PRESCRIPTION</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>

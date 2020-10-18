@@ -4,40 +4,21 @@
     ViewBag.Title = "DoctorOptions";
     Layout = "~/Views/Shared/DoctorLayout.cshtml";
 }
+<body>
+    <section id="home-section" class="hero">
+        <div class="home-slider owl-carousel">
+            <div class="slider-item" style="background-image: url('../vegefoods/images/doctorOption.jpg');" alt="">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
-<section class="ftco-section ftco-cart">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 ftco-animate">
-                <div class="cart-list">
-                    <table class="table">
-                        <thead class="thead-primary">
-                            <tr class="text-center">
-                                <th>Name</th>
-                                <th>Id</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("prescription Issuance", "prescriptionIssuance", new { id = item.Id }) |
-                                        @Html.ActionLink("medical history", "medicalHistory", new { id = item.Id })
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                        <div class="col-md-12 ftco-animate text-center">
+                            <h1 class="mb-2">Hi</h1>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+            </div>
+        </section>
+</body>
