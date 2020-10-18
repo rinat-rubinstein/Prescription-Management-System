@@ -1,0 +1,33 @@
+﻿@model PrescriptionUI.Models.MedicineViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/OptionsLayout.cshtml";
+}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated">
+                <a class="image-popup"><img src="@Url.Content(Model.Picture)" class="img-fluid" alt="Colorlib Template"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
+                <h3>@Model.Name</h3>
+                <div class="rating d-flex">
+                    <p class="text-left mr-4">
+                        <a href="#" class="mr-2">Producer: @Model.Producer</a>
+                    </p>
+                </div>
+                <p class="price"><span>@Model.GenericName</span></p>
+                <p>
+                    More Details:
+                    The Medicine's active ingredients are: @Model.ActiveIngredients , and the portion properties is: @Model.PortionProperties .
+                </p>
+                <a class="btn btn-black py-3 px-5" @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) </a>
+            </div>
+        </div>
+    </div>
+</section>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

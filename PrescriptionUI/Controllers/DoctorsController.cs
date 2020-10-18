@@ -61,7 +61,7 @@ namespace PrescriptionUI.Controllers
                 {
                     Name = dvm.Name,
                     LicenseExpirationDate = Convert.ToDateTime(dvm.LicenseExpirationDate),
-                    Special = dvm.Special
+                    Special = bl.getAllSpecialties().Where(s => s.SpecialtyName == dvm.SpecialName).FirstOrDefault().Id
                 };
                 try
                 {
@@ -113,7 +113,8 @@ namespace PrescriptionUI.Controllers
                         Id = dvm.Id,
                         Name = dvm.Name,
                         LicenseExpirationDate = Convert.ToDateTime(dvm.LicenseExpirationDate),
-                        Special = dvm.Special
+                        Special =bl.getAllSpecialties().Where(s => s.SpecialtyName == dvm.SpecialName).FirstOrDefault().Id
+
                     };                
                     bl.updateDoctor(doctor);
                     ViewBag.Message = String.Format("The doctor {0} is successfully updated", doctor.Name);

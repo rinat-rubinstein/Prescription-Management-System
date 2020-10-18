@@ -23,7 +23,6 @@ namespace PrescriptionUI.Models
 
         [DisplayName("Upload File")]
         public string Picture { get; set; }
-        public HttpPostedFileBase ImageFile { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name}";
@@ -40,12 +39,12 @@ namespace PrescriptionUI.Models
         public MedicineViewModel(Medicine medicine)
         {
             IBL bl = new BLImplement();
-            Id = medicine.Id;
-            Name = medicine.Name;
-            GenericName = medicine.GenericName;
+            this.Id = medicine.Id;
+            this.Name = medicine.Name;
+            this.GenericName = medicine.GenericName;
             this.PortionProperties = medicine.PortionProperties;
             this.Producer = medicine.Producer;
-            Picture = bl.getMedicinePicture(Id);
+            this.Picture = bl.getMedicinePicture(Id);
         }
     }
 }

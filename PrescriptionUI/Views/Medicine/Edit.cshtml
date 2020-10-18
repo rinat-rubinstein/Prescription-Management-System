@@ -1,0 +1,82 @@
+﻿@model PrescriptionUI.Models.MedicineViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/OptionsLayout.cshtml";
+}
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}
+@using (Html.BeginForm("Edit", "Medicine", FormMethod.Post ,new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated">
+                    <a class="image-popup"><img src="@Url.Content(Model.Picture)" class="img-fluid"></a>
+                </div>
+                <div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
+                    <p>
+                        Name:
+
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        Producer:
+
+                        @Html.EditorFor(model => model.Producer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Producer, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        Generic Name:
+                        @Html.EditorFor(model => model.GenericName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GenericName, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        Active Ingredients
+                        @Html.EditorFor(model => model.ActiveIngredients, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ActiveIngredients, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        Portion Properties:
+                        @Html.EditorFor(model => model.PortionProperties, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PortionProperties, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        Picture:
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="ImageFile" name="ImageFile" accept="image/*">
+                                <label class="custom-file-label" for="ImageFile">Choose file</label>
+                            </div>
+                        </div>
+                    </p>
+                    <div class="form-group">
+                        <div>
+                            <input type="submit" value="Save" class="btn btn-black py-3 px-5" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $('.custom-file-input').on('change', function () {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

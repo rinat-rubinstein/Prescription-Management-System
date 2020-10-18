@@ -173,7 +173,7 @@ namespace PrescriptionDAL
         {
             GoogleDriveAPIHelper gd = new GoogleDriveAPIHelper();
             gd.deleteAllFiles(medicineId.ToString());
-            gd.UplaodFileOnDriveInFolder(file, medicineId.ToString(), "cloudComputing");
+            gd.UplaodFileOnDriveInFolder(file, medicineId.ToString(), ConfigurationManager.AppSettings["FolderNameOnDrive"].ToString());
         }
         public string getMedicinePicture(int medicinId)
         {
