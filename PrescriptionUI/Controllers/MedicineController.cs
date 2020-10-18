@@ -23,8 +23,6 @@ namespace PrescriptionUI.Controllers
             {
                 lst.Add(new MedicineViewModel(item));
             }
-            lst.Add(new MedicineViewModel() { Id = 1, Name = "acamol", GenericName = "000-1111" }); 
-            lst.Add(new MedicineViewModel() { Id = 2, Name = "nurofen", GenericName = "3300-5432" });
             if (!String.IsNullOrEmpty(searchString))
             {
                 lst = lst.Where(s => s.Name.Contains(searchString) || s.GenericName.Contains(searchString)).ToList();
@@ -97,12 +95,11 @@ namespace PrescriptionUI.Controllers
             }
             IBL bl = new BLImplement();
             Medicine medicine = bl.getMedicine(id);
-            //if (medicine == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //MedicineViewModel mvm = new MedicineViewModel(medicine);
-            MedicineViewModel mvm = new MedicineViewModel(new Medicine { Id = 2, Name = "nurofen", GenericName = "3300-5432" });
+            if (medicine == null)
+            {
+                return HttpNotFound();
+            }
+            MedicineViewModel mvm = new MedicineViewModel(medicine);
             return View(mvm);
         }
 
@@ -126,8 +123,8 @@ namespace PrescriptionUI.Controllers
                 };
                 try
                 {
-                    bl.updateMedicine(medicine);
                     bl.updateMedicinePicture(medicine.Id, ImageFile);
+                    bl.updateMedicine(medicine);
                     ViewBag.Message = String.Format("The Medicine {0} successfully updated", medicine.Name);
                     return RedirectToAction("Index");
                 }

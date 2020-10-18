@@ -136,6 +136,7 @@ namespace PrescriptionBL
             {
                 string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
                 Path.GetFileName(file.FileName));
+                file.SaveAs(filePath);
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
                 IDal dal = new PrescriptionDAL.DalImplement();
@@ -176,6 +177,7 @@ namespace PrescriptionBL
             {
                 string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
                 Path.GetFileName(file.FileName));
+                file.SaveAs(filePath);
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
 
@@ -216,7 +218,7 @@ namespace PrescriptionBL
             List<string> tagsPictures = r.GetPicturesTags(path);
             foreach (var item in tagsPictures)
             {
-                if (item == "medicine" || item == "drug" || item == "pill" || item == "medicines" || item == "drugs" || item == "pills")
+                if (item.Contains("medicine") || item.Contains("drug") || item.Contains("pill") || item.Contains("medical"))
                     return true;
             }
             return false;

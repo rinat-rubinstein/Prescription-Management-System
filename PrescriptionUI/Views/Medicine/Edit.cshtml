@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 ftco-animate fadeInUp ftco-animated">
-                    <a class="image-popup"><img src="@Url.Content(Model.Picture)" class="img-fluid" alt="Colorlib Template"></a>
+                    <a class="image-popup"><img src="@Url.Content(Model.Picture)" class="img-fluid"></a>
                 </div>
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate fadeInUp ftco-animated">
                     <p>
@@ -70,6 +70,12 @@
             </div>
         </div>
     </section>
+    <script>
+        $('.custom-file-input').on('change', function () {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
 }
 <div>
     @Html.ActionLink("Back to List", "Index")

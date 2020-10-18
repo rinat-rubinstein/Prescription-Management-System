@@ -17,7 +17,7 @@ namespace PrescriptionBL
             ImageDetails DrugImage = new ImageDetails(path);
             PicuresTags p = new PicuresTags();
             p.GetPicturesTags(DrugImage);//DAL
-            var threshold = 50.0;
+            var threshold = 20.0;
             foreach (var item in DrugImage.Details)
             {
                 if (item.Value > threshold)
