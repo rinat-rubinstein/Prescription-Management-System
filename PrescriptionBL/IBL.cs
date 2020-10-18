@@ -64,7 +64,7 @@ namespace PrescriptionBL
 
         //------------ Statistics ---------------
         public int[][] MedicinesStatistics(IEnumerable<int> medicinesID, int numMonthAgo, ref string[] medicineNamesArr);
-
+        public Doctor IsDoctor(string name, DateTime licenseExpirationDate);
         public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate);
         public void ImportDataFromExcel();
 
