@@ -20,11 +20,11 @@ namespace PrescriptionDAL
         public void addAdministrator(Administrator administrator)
         {
             PrescriptionContext db = new PrescriptionContext();
-            if (db.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
-            {
-                throw new Exception("This administrator exists already");
-            }
-            else
+            //if (db.Administrators.ToList().Exists(admin => admin.Id == administrator.Id))
+            //{
+            //    throw new Exception("This administrator exists already");
+            //}
+            //else
             {
                 db.Administrators.Add(administrator);
                 db.SaveChanges();
@@ -122,11 +122,11 @@ namespace PrescriptionDAL
         public void addMedicine(Medicine medicine)
         {
             PrescriptionContext db = new PrescriptionContext();
-            if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
-            {
-                throw new Exception("This medicine exists already");
-            }
-            else
+            //if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+            //{
+            //    throw new Exception("This medicine exists already");
+            //}
+            //else
             {
                 db.Medicines.Add(medicine);
                 db.SaveChanges();

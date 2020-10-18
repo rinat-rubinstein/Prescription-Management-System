@@ -28,17 +28,20 @@ namespace PrescriptionUI.Controllers
 
         public ActionResult AdministratorEntrance()
         {
+
             return View(new AdministratorViewModel());
         }
         [HttpPost]
-        public ActionResult AdministratorEntrance(AdministratorViewModel avm)
+        //[ValidateAntiForgeryToken]
+        public ActionResult AdministratorEntrance(string UserName, string Password)
         {
             try
             {
                 IBL bl = new BLImplement();
-               if( bl.isAdministrator(avm.UserName,avm.Password))
-                return RedirectToAction("AdministratorOptions");
-               else
+               if( bl.isAdministrator(UserName,Password))
+                 return RedirectToAction("Index","Administrator",bl.getAllAdministrators().FirstOrDefault(a=> a.UserName==UserName && a.Password==Password));
+                //return RedirectToAction("AdministratorOptions");
+                else
                     return View("AdministratorEntrance");
             }
             catch (Exception ex)
@@ -66,13 +69,21 @@ namespace PrescriptionUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DoctorEntrance([Bind(Include = "Id,Name,LicenseExpirationDate")] DoctorViewModel dvm)
+        public ActionResult DoctorEntrance(string Name, DateTime LicenseExpirationDate)
         {
             try
             {
                 IBL bl = new BLImplement();
-             //  bl.IsDoctor(dvm.Name,dvm.Id,dvm.LicenseExpirationDate);
-                return RedirectToAction("DoctorOptions");
+                var d = bl.IsDoctor(Name, LicenseExpirationDate);
+                if (d != null)
+                {
+                    return RedirectToAction("Index", "Doctor", d);
+                }
+                else
+                {
+                    return View("DoctorEntrance");
+                }
+
             }
             catch (Exception ex)
             {
