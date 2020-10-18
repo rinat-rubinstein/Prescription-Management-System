@@ -31,8 +31,7 @@ namespace PrescriptionUI.Controllers
             return View(new AdministratorViewModel());
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AdministratorEntrance([Bind(Include = "Name,Password")] AdministratorViewModel avm)
+        public ActionResult AdministratorEntrance(AdministratorViewModel avm)
         {
             try
             {
