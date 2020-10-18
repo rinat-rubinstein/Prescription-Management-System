@@ -17,10 +17,19 @@ namespace PrescriptionUI.Controllers
     {
 
         // GET: Doctors
-        public ActionResult Index()
+        public ActionResult Index(string searchString="")
         {
             IBL bl = new BLImplement();
-            return View(bl.getAllDoctors().ToList());
+            List<DoctorViewModel> lst = new List<DoctorViewModel>();
+            foreach (var item in bl.getAllDoctors())
+            {
+                lst.Add(new DoctorViewModel(item));
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lst = lst.Where(s => s.Name.Contains(searchString) || s.SpecialName.Contains(searchString)).ToList();
+            }
+            return View(lst);
         }
 
         // GET: Doctors/Details/5
