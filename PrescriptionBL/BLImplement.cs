@@ -192,7 +192,6 @@ namespace PrescriptionBL
         }
         public string getMedicinePicture(int medicinId)
         {
-            return "";
             try
             {
                 IDal dal = new PrescriptionDAL.DalImplement();
