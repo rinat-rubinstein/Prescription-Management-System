@@ -19,7 +19,7 @@ namespace PrescriptionUI.Controllers
         {
             IBL bl = new BLImplement();
             List<MedicineViewModel> lst = new List<MedicineViewModel>();             
-            var temp = bl.getAllMedicines().Where(a => a.Id <= 4).ToList();
+            var temp = bl.getAllMedicines().Where(a => a.Id <= 50).ToList();
             foreach (var item in temp)
             {
                 lst.Add(new MedicineViewModel(item));
