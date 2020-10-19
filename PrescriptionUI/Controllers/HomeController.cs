@@ -77,7 +77,7 @@ namespace PrescriptionUI.Controllers
                 var d = bl.IsDoctor(Name, LicenseExpirationDate);
                 if (d != null)
                 {
-                    return RedirectToAction("Index", "Doctor", d);
+                    return RedirectToAction("Index", "Doctors", d);
                 }
                 else
                 {

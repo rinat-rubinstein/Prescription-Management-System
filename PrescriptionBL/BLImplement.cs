@@ -195,7 +195,8 @@ namespace PrescriptionBL
             try
             {
                 IDal dal = new PrescriptionDAL.DalImplement();
-                return dal.getMedicinePicture(medicinId);
+                //return dal.getMedicinePicture(medicinId);
+                return Path.Combine("~/GoogleDriveFiles",Path.GetFileName( dal.getMedicinePicture(medicinId)));
             }
             catch (Exception ex)
             {

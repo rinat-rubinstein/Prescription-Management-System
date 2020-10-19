@@ -103,6 +103,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="GoogleDriveFiles\1.jpg" />
+    <Content Include="GoogleDriveFiles\2.jpg" />
     <Content Include="images\icons\favicon.ico" />
     <Content Include="images\img-01.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -393,7 +395,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="GoogleDriveFiles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrescriptionBE\PrescriptionBE.csproj">
