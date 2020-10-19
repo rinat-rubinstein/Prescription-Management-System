@@ -20,13 +20,17 @@ namespace PrescriptionUI.Controllers
             IBL bl = new BLImplement();
             List<MedicineViewModel> lst = new List<MedicineViewModel>();             
             var temp = bl.getAllMedicines().ToList();
+            temp.Add(new Medicine() { Id = 1, Name = "blabla" });
+            temp.Add(new Medicine() { Id = 2, Name = "banana" });
+            temp.Add(new Medicine() { Id = 3, Name = "acamol" });
+            temp.Add(new Medicine() { Id = 4, Name = "nurofen" });
             foreach (var item in temp)
             {
                 lst.Add(new MedicineViewModel(item));
             }
             if (!String.IsNullOrEmpty(searchString))
             {
-                lst = lst.Where(s => s.Name.Contains(searchString) || s.GenericName.Contains(searchString)).ToList();
+                lst = lst.Where(s => (s.Name!=null && s.Name.Contains(searchString)) ||(s.GenericName!=null && s.GenericName.Contains(searchString))).ToList();
             }
             return View(lst);
         }
