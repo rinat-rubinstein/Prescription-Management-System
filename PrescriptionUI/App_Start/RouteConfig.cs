@@ -12,6 +12,8 @@ namespace PrescriptionUI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            //IBL bl = new BLImplement();
+            //bl.ImportDataFromExcel();
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "Default",

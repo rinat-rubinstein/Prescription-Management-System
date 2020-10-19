@@ -305,13 +305,12 @@ namespace PrescriptionDAL
         public DbSet<Specialty> Specialties { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<PrescriptionContext>(new DropCreateDatabaseIfModelChanges<PrescriptionContext>());
+            //Database.SetInitializer<PrescriptionContext>(new DropCreateDatabaseIfModelChanges<PrescriptionContext>());
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
         private void FixEfProviderServicesProblem()
         {
             var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
-
     }
 }

@@ -18,8 +18,8 @@ namespace PrescriptionUI.Controllers
         public ActionResult Index(string searchString="")
         {
             IBL bl = new BLImplement();
-            List<MedicineViewModel> lst = new List<MedicineViewModel>();
-            var temp = bl.getAllMedicines();
+            List<MedicineViewModel> lst = new List<MedicineViewModel>();             
+            var temp = bl.getAllMedicines().ToList();
             foreach (var item in temp)
             {
                 lst.Add(new MedicineViewModel(item));
