@@ -31,6 +31,6 @@ namespace PrescriptionUI.Controllers
             IBL bl = new BLImplement();
             var pvm = new PrescriptionViewModel(bl.getAllPrescriptions().FirstOrDefault(x => x.Id == id));
             return View(pvm);
-        }‏
+        }
     }
 }

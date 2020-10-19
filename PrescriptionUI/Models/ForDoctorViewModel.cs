@@ -16,9 +16,8 @@ namespace PrescriptionUI.Models
         {
 
         }
-        public ForDoctorViewModel(Doctor d)
-        {
-            doctor = d;
+        public ForDoctorViewModel(Doctor d){
+            this.doctor = d;
             IBL bl = new BLImplement();
             var p = bl.getAllPatients();
             patients = new List<PatientViewModel>();
@@ -26,9 +25,7 @@ namespace PrescriptionUI.Models
             {
                 patients.Add(new PatientViewModel(item));
             }
-            patients.Add(new PatientViewModel(new Patient() { Name = "Ruvi", Id = "123456" }));
-            patients.Add(new PatientViewModel(new Patient() { Name = "Shimi", Id = "123456" }));
-            patients.Add(new PatientViewModel(new Patient() { Name = "Levi", Id = "123456" }));
-        }‏
+        }
+
     }
 }

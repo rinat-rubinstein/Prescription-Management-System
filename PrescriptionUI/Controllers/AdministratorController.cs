@@ -34,7 +34,7 @@ namespace PrescriptionUI.Controllers
                 gm = new GraphModel();
             }
             return View(gm);
-        }‏
+        }
         // GET: Administrator/Edit/5
          public ActionResult Edit(string id)
         {

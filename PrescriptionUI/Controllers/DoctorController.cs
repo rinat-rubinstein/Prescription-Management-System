@@ -61,6 +61,6 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             return RedirectToAction("Index", "Prescription", id);
-        }‏
+        }
     }
 }

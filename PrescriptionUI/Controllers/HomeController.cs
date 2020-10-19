@@ -45,9 +45,10 @@ namespace PrescriptionUI.Controllers
             }
             catch (Exception ex)
             {
+
                 ViewBag.Message = String.Format(ex.Message);
                 return RedirectToAction("AdministratorEntrance");
-            }‏
+            }
         }
           
         //DOCTOR (LOGIN and prescriptionIssuance)
@@ -59,7 +60,6 @@ namespace PrescriptionUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult DoctorEntrance(string Name, DateTime LicenseExpirationDate)
         {
             try
@@ -74,13 +74,13 @@ namespace PrescriptionUI.Controllers
                 {
                     return RedirectToAction("DoctorEntrance");
                 }
-
             }
             catch (Exception ex)
             {
+
                 ViewBag.Message = String.Format(ex.Message);
                 return RedirectToAction("DoctorEntrance");
             }
-        }‏       
+        }  
     }
 }
