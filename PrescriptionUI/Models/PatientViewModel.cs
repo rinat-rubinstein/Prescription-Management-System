@@ -19,7 +19,7 @@ namespace PrescriptionUI.Models
         public PatientViewModel(Patient patient)
         {
             IBL bl = new BLImplement();
-            Id = patient.Id;
+            Id = patient.PatientId;
             Name = patient.Name;
             Prescriptions = bl.allPrescriptionFromPatient(patient).Select(p=>p.Id).ToList();
         }

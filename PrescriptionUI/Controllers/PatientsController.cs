@@ -36,7 +36,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
+            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.PatientId == id);
             PatientViewModel patientViewModel = new PatientViewModel(patient);
             if (patient == null)
             {
@@ -65,6 +65,7 @@ namespace PrescriptionUI.Controllers
                 Patient patient = new Patient()
                 {
                     Name = pvm.Name,
+                    PatientId=pvm.Id
                 };
                 IBL bl = new BLImplement();
                 try
@@ -92,7 +93,7 @@ namespace PrescriptionUI.Controllers
             }
             IBL bl = new BLImplement();
 
-            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
+            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.PatientId == id);
             PatientViewModel pvm = new PatientViewModel(patient);
             if (pvm == null)
             {
@@ -113,7 +114,7 @@ namespace PrescriptionUI.Controllers
             {
                 var patient = new Patient()
                 {
-                    Id = pvm.Id,
+                    PatientId = pvm.Id,
                     Name = pvm.Name
                 };
                 bl.updatePatient(patient);
@@ -137,7 +138,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Patient patient = bl.getAllPatients().FirstOrDefault(x => x.Id == id);
+            Patient patient = bl.getAllPatients().FirstOrDefault(x => x.PatientId == id);
             PatientViewModel pvm = new PatientViewModel(patient);
             if (pvm == null)
             {

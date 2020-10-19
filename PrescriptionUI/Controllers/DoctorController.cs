@@ -15,7 +15,7 @@ namespace PrescriptionUI.Controllers
         public ActionResult DoctorOptions(Doctor doctor)
         {
             /*for exe: */
-            doctor = new Doctor() { Id = "123", Name = "Danni" };
+            doctor = new Doctor() { DoctorId = "123", Name = "Danni" };
             var fdvm = new ForDoctorViewModel(doctor);
             return View(fdvm);
         }
@@ -25,7 +25,7 @@ namespace PrescriptionUI.Controllers
             IBL bl = new BLImplement();
             var pfpm = new PrescriptionForPatientModel();
             pfpm.prescription.Patient = id;
-            pfpm.prescription.Doctor = doctor.Id;
+            pfpm.prescription.Doctor = doctor.DoctorId;
             return View(pfpm);
         }
         [HttpPost]

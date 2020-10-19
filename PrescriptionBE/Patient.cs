@@ -9,11 +9,12 @@ namespace PrescriptionBE
 {
     public class Patient
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string PatientId { get; set; }
         public string Name { get; set; }
         public override string ToString()
         {
-            return $"id:{Id} name:{Name}";
+            return $"id:{PatientId} name:{Name}";
         }
     }
 }

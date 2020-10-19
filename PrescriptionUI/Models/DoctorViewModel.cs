@@ -22,7 +22,7 @@ namespace PrescriptionUI.Models
         public DoctorViewModel(Doctor doctor)
         {
             IBL bl = new BLImplement();
-            Id = doctor.Id;
+            Id = doctor.DoctorId;
             Name = doctor.Name;
             SpecialName =bl.getAllSpecialties().Where(s=>s.Id== doctor.Special).FirstOrDefault().SpecialtyName;
             LicenseExpirationDate = doctor.LicenseExpirationDate;

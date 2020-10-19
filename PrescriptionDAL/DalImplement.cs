@@ -73,7 +73,7 @@ namespace PrescriptionDAL
         public void addDoctor(Doctor doctor)
         {
             PrescriptionContext db = new PrescriptionContext();
-            if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+            if (db.Doctors.ToList().Exists(doc => doc.DoctorId == doctor.DoctorId))
             {
                 throw new Exception("This doctor exists already");
             }
@@ -87,9 +87,9 @@ namespace PrescriptionDAL
         {
             using (var context = new PrescriptionContext())
             {
-                if (context.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+                if (context.Doctors.ToList().Exists(doc => doc.DoctorId == doctor.DoctorId))
                 {
-                    var deletedDoctor = context.Doctors.Where(doc => doc.Id == doctor.Id).FirstOrDefault();
+                    var deletedDoctor = context.Doctors.Where(doc => doc.DoctorId == doctor.DoctorId).FirstOrDefault();
                     context.Doctors.Remove(deletedDoctor);
                     context.SaveChanges();
                 }
@@ -102,7 +102,7 @@ namespace PrescriptionDAL
         public void updateDoctor(Doctor doctor)
         {
             PrescriptionContext db = new PrescriptionContext();
-            if (db.Doctors.ToList().Exists(doc => doc.Id == doctor.Id))
+            if (db.Doctors.ToList().Exists(doc => doc.DoctorId == doctor.DoctorId))
             {
                 db.Doctors.AddOrUpdate(doctor);
                 db.SaveChanges();
@@ -190,7 +190,7 @@ namespace PrescriptionDAL
         public void addPatient(Patient patient)
         {
             PrescriptionContext db = new PrescriptionContext();
-            if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+            if (db.Patients.ToList().Exists(pt => pt.PatientId == patient.PatientId))
             {
                 throw new Exception("This patient exists already");
             }
@@ -204,9 +204,9 @@ namespace PrescriptionDAL
         {
             using (var context = new PrescriptionContext())
             {
-                if (context.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+                if (context.Patients.ToList().Exists(pt => pt.PatientId == patient.PatientId))
                 {
-                    var deletedPatient = context.Patients.Where(pt => pt.Id == patient.Id).FirstOrDefault();
+                    var deletedPatient = context.Patients.Where(pt => pt.PatientId == patient.PatientId).FirstOrDefault();
                     context.Patients.Remove(deletedPatient);
                     context.SaveChanges();
                 }
@@ -220,7 +220,7 @@ namespace PrescriptionDAL
         public void updatePatient(Patient patient)
         {
             PrescriptionContext db = new PrescriptionContext();
-            if (db.Patients.ToList().Exists(pt => pt.Id == patient.Id))
+            if (db.Patients.ToList().Exists(pt => pt.PatientId == patient.PatientId))
             {
                 db.Patients.AddOrUpdate(patient);
                 db.SaveChanges();
@@ -305,12 +305,13 @@ namespace PrescriptionDAL
         public DbSet<Specialty> Specialties { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //Database.SetInitializer<PrescriptionContext>(new DropCreateDatabaseIfModelChanges<PrescriptionContext>());
+           // Database.SetInitializer<PrescriptionContext>(new DropCreateDatabaseIfModelChanges<PrescriptionContext>());
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
         private void FixEfProviderServicesProblem()
         {
             var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
+        
     }
 }

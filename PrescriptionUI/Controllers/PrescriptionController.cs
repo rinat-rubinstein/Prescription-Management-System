@@ -15,7 +15,7 @@ namespace PrescriptionUI.Controllers
         public ActionResult Index(string id)//IEnumerable<Prescription> prescriptions)
         {
             IBL bl = new BLImplement();
-            var patient = bl.getAllPatients().FirstOrDefault(x => x.Id == id);
+            var patient = bl.getAllPatients().FirstOrDefault(x => x.PatientId == id);
             var prescriptions = bl.allPrescriptionFromPatient(patient);
             var lst = new List<PrescriptionViewModel>();
             foreach (var item in prescriptions)

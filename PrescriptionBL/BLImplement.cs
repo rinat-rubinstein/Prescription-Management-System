@@ -110,7 +110,7 @@ namespace PrescriptionBL
         public IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor)
         {
             IDal dal = new PrescriptionDAL.DalImplement();
-            return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.Id);
+            return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.DoctorId);
         }
 
         //------------ Medicines ---------------
@@ -271,7 +271,7 @@ namespace PrescriptionBL
         {
             IDal dal = new PrescriptionDAL.DalImplement();
             //Checks if the doctor's license is valid
-            if (dal.getAllDoctors().ToList().Find(d => d.Id == prescription.Doctor).LicenseExpirationDate >= DateTime.Today)
+            if (dal.getAllDoctors().ToList().Find(d => d.DoctorId == prescription.Doctor).LicenseExpirationDate >= DateTime.Today)
             {
                 try
                 {
@@ -299,7 +299,7 @@ namespace PrescriptionBL
         public IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient)
         {
             IDal dal = new PrescriptionDAL.DalImplement();
-            return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.Id);
+            return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.PatientId);
         }
 
 
@@ -441,7 +441,7 @@ namespace PrescriptionBL
 
         public Doctor getDoctor(string id)
         {
-            return getAllDoctors().FirstOrDefault(doc => doc.Id == id);
+            return getAllDoctors().FirstOrDefault(doc => doc.DoctorId == id);
         }
         
         public Prescription getPrescription(int id)
@@ -455,7 +455,7 @@ namespace PrescriptionBL
         }
         public Patient getPatient(string id)
         {
-            return getAllPatients().FirstOrDefault(patient => patient.Id == id);
+            return getAllPatients().FirstOrDefault(patient => patient.PatientId == id);
         }
 
         public void ImportDataFromExcel()
@@ -491,9 +491,9 @@ namespace PrescriptionBL
         }
         public void doctorEntrance(string name, string id)
         {
-            if (getAllDoctors().ToList().Exists(d => d.Id == id && d.Name == name))
+            if (getAllDoctors().ToList().Exists(d => d.DoctorId == id && d.Name == name))
             {
-                if (!getAllDoctors().ToList().Exists(d => d.Id == id && d.LicenseExpirationDate >= DateTime.Today))
+                if (!getAllDoctors().ToList().Exists(d => d.DoctorId == id && d.LicenseExpirationDate >= DateTime.Today))
                 {
                     throw new Exception("The license has expired");
                 }
