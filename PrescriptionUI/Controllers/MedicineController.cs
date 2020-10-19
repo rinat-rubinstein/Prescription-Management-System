@@ -73,6 +73,14 @@ namespace PrescriptionUI.Controllers
                 };
                 try
                 {
+                    if (ImageFile != null)
+                    {
+                        bl.addMedicine(medicine);
+                    }
+                    else
+                    {
+                        bl.addMedicine(medicine, ImageFile);
+                    }
                     bl.addMedicine(medicine, ImageFile);
                     ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);
                     return RedirectToAction("Index");
@@ -124,7 +132,8 @@ namespace PrescriptionUI.Controllers
                 };
                 try
                 {
-                    bl.updateMedicinePicture(medicine.Id, ImageFile);
+                    if (ImageFile != null)
+                    { bl.updateMedicinePicture(medicine.Id, ImageFile); }                   
                     bl.updateMedicine(medicine);
                     ViewBag.Message = String.Format("The Medicine {0} successfully updated", medicine.Name);
                     return RedirectToAction("Index");

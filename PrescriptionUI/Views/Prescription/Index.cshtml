@@ -1,0 +1,74 @@
+﻿@model IEnumerable<PrescriptionUI.Models.PrescriptionViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/DoctorLayout.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+           window.onload = function () {
+               alert("@ViewBag.Message");
+           };
+    </script>
+
+}
+
+
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>medicine</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Doctor</th>
+                                <th>Patient</th>
+                                <th>Cause</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.medicine)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Doctor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Patient)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cause)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p>
+                        @Html.ActionLink("Back to patient list", "DoctorOptions", "Doctor")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>‏

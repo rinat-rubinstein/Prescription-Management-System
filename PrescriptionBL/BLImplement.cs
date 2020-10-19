@@ -174,14 +174,12 @@ namespace PrescriptionBL
         public void updateMedicinePicture(int medicineId, HttpPostedFileBase file)
         {
             try
-            {
+            {          
                 string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
                 Path.GetFileName(file.FileName));
                 file.SaveAs(filePath);
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
-
-
                 IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateMedicinePicture(medicineId, file);
             }

@@ -59,10 +59,14 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -204,6 +208,7 @@
     <Compile Include="Controllers\MedicineController.cs" />
     <Compile Include="Controllers\MedicinesController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Data\PrescriptionUIContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,6 +217,7 @@
     <Compile Include="htmlHelper.cs" />
     <Compile Include="Models\AdministratorViewModel.cs" />
     <Compile Include="Models\DoctorViewModel.cs" />
+    <Compile Include="Models\ForDoctorViewModel.cs" />
     <Compile Include="Models\GraphModel.cs" />
     <Compile Include="Models\MedicineViewModel.cs" />
     <Compile Include="Models\PatientViewModel.cs" />
@@ -368,24 +374,24 @@
     <Content Include="Views\Doctors\Details.cshtml" />
     <Content Include="Views\Doctors\Edit.cshtml" />
     <Content Include="Views\Doctors\Index.cshtml" />
-    <Content Include="Views\Home\AdministratorOptions.cshtml" />
     <Content Include="Views\Home\DoctorEntrance.cshtml" />
-    <Content Include="Views\Home\DoctorOptions.cshtml" />
     <Content Include="Views\Shared\DoctorLayout.cshtml" />
-    <Content Include="Views\Home\prescriptionIssuance.cshtml" />
     <Content Include="Views\Patients\Create.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Medicine\Index.cshtml" />
-    <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\Medicine\Edit.cshtml" />
     <Content Include="Views\Medicine\Create.cshtml" />
     <Content Include="Views\Medicine\Delete.cshtml" />
     <Content Include="Views\Medicine\Details.cshtml" />
     <Content Include="Views\Shared\MinistratorLayout.cshtml" />
+    <Content Include="Views\Administrator\AdministratorOptions.cshtml" />
+    <Content Include="Views\Doctor\DoctorOptions.cshtml" />
+    <Content Include="Views\Doctor\prescriptionIssuance.cshtml" />
+    <Content Include="Views\Prescription\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

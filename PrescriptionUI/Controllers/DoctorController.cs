@@ -5,96 +5,62 @@ using System.Web;
 using System.Web.Mvc;
 using PrescriptionBL;
 using PrescriptionUI.Models;
+using PrescriptionBE;
+using System.Net;
 
 namespace PrescriptionUI.Controllers
 {
     public class DoctorController : Controller
     {
-        // GET: Doctor
-        public ActionResult Index()
+        public ActionResult DoctorOptions(Doctor doctor)
+        {
+            /*for exe: */
+            doctor = new Doctor() { Id = "123", Name = "Danni" };
+            var fdvm = new ForDoctorViewModel(doctor);
+            return View(fdvm);
+        }
+
+        public ActionResult prescriptionIssuance(string id, Doctor doctor)
         {
             IBL bl = new BLImplement();
-            List<DoctorViewModel> lst = new List<DoctorViewModel>();
-            foreach (var item in bl.getAllDoctors())
-            {
-                lst.Add(new DoctorViewModel(item));
-            }
-            lst.Add(new DoctorViewModel(new PrescriptionBE.Doctor() { Id = "1", LicenseExpirationDate = DateTime.Now, Name = "Chain Mochr", Special = 4 }));
-            lst.Add(new DoctorViewModel(new PrescriptionBE.Doctor() { Id = "1", LicenseExpirationDate = DateTime.Now, Name = "Rinar Robin", Special = 5 }));
-            lst.Add(new DoctorViewModel(new PrescriptionBE.Doctor() { Id = "1", LicenseExpirationDate = DateTime.Now, Name = "Roti Fri", Special = 8 }));
-            return View(lst);
+            var pfpm = new PrescriptionForPatientModel();
+            pfpm.prescription.Patient = id;
+            pfpm.prescription.Doctor = doctor.Id;
+            return View(pfpm);
         }
-
-        // GET: Doctor/Details/5
-        public ActionResult Details()
-        {
-            return View();
-        }
-
-        // GET: Doctor/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Doctor/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult prescriptionIssuance(string medicine, DateTime StartDate, DateTime EndDate, string Doctor, string Patient, string Cause)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                IBL bl = new BLImplement();
+                var prescription = new Prescription()
+                {
+                    medicine = bl.getAllMedicines().FirstOrDefault(x => x.Name == medicine).Id,//change the name to the id
+                    StartDate = StartDate,
+                    EndDate = EndDate,
+                    Doctor = Doctor,
+                    Patient = Patient,
+                    Cause = Cause
+                };
+                bl.addPrescription(prescription);
+                ViewBag.Message = String.Format("The prescription for {0} is successfully added. You can watch {1}'s medical history for full details. ", medicine /*bl.getMedicine(prescription.medicine).Name*/, bl.getPatient(Patient).Name);
+                return RedirectToAction("DoctorOptions");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Message = String.Format(ex.Message);
+                return RedirectToAction("prescriptionIssuance");
             }
         }
-
-        // GET: Doctor/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult medicalHistory(string id)
         {
-            return View();
-        }
-
-        // POST: Doctor/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (id == null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Doctor/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Doctor/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            return RedirectToAction("Index", "Prescription", id);
+        }‏
     }
 }

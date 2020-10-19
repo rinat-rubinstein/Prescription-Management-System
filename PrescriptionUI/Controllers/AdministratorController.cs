@@ -15,27 +15,45 @@ namespace PrescriptionUI.Controllers
 {
     public class AdministratorController : Controller
     {
-
-
+        public ActionResult AdministratorOptions(Administrator administrator, GraphModel gm = null)
+        {
+            IBL bl = new BLImplement();
+            var categories = bl.getAllMedicines().Select(c => new {
+                CategoryID = c.Id,
+                CategoryName = c.Name
+            }).ToList();
+            ViewBag.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
+            if (gm != null)
+            {
+                var medicinesId = bl.getAllMedicines().Select(x => x.Id);
+                var medicinesNames = bl.getAllMedicines().Select(x => x.Name).ToArray();
+                gm.mat = bl.MedicinesStatistics(gm.CategoryId, gm.month, ref medicinesNames);
+            }
+            else
+            {
+                gm = new GraphModel();
+            }
+            return View(gm);
+        }‏
         // GET: Administrator/Edit/5
-        public ActionResult Edit(int? id)
+         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-          //  var administrator=bl.getAdministrator(id);
-           // var avm = new AdministratorViewModel(administrator);
-           // if (avm == null)
-          //  {
+            var administrator = bl.getAdministrator(id);
+            var avm = new AdministratorViewModel(administrator);
+            if (avm == null)
+            {
                 return HttpNotFound();
-          //  }
-          //  return View(avm);
+            }
+            return View(avm);
         }
 
         // POST: Administrator/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,7 +80,7 @@ namespace PrescriptionUI.Controllers
                 }
                 return RedirectToAction("AdministratorEntrance");
             }
-            return View("AdministratorEntrance");
-        }
+            return RedirectToAction("AdministratorEntrance");
+        }       
     }
 }
