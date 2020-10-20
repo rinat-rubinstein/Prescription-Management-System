@@ -504,7 +504,7 @@ namespace PrescriptionBL
 
         public Doctor IsDoctor(string name, DateTime licenseExpirationDate)
         {
-            return this.getAllDoctors().FirstOrDefault(d => d.Name == name && d.LicenseExpirationDate == licenseExpirationDate);
+            return this.getAllDoctors().FirstOrDefault(d => d.Name == name && d.LicenseExpirationDate.Date == licenseExpirationDate.Date);
         }
     }
 }

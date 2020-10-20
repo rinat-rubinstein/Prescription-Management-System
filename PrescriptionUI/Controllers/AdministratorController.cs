@@ -23,16 +23,16 @@ namespace PrescriptionUI.Controllers
                 CategoryName = c.Name
             }).ToList();
             ViewBag.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
-            //if (gm != null)
+            if (gm != null)
             {
                 var medicinesId = bl.getAllMedicines().Select(x => x.Id);
                 var medicinesNames = bl.getAllMedicines().Select(x => x.Name).ToArray();
                 gm.mat = bl.MedicinesStatistics(gm.CategoryId, gm.month, ref medicinesNames);
             }
-            //else
-            //{
-            //    gm = new GraphModel();
-            //}
+            else
+            {
+                gm = new GraphModel();
+            }
             return View(gm);
         }
         // GET: Administrator/Edit/5
