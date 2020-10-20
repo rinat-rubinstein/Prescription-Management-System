@@ -9,7 +9,8 @@ namespace PrescriptionUI.Models
 {
     public class PatientViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string PatientId { get; set; }
         public string Name { get; set; }
         public List<int> Prescriptions { get; set; }
         public override string ToString()
@@ -19,8 +20,9 @@ namespace PrescriptionUI.Models
         public PatientViewModel(Patient patient)
         {
             IBL bl = new BLImplement();
-            Id = patient.PatientId;
+            Id = patient.Id;
             Name = patient.Name;
+            PatientId = patient.PatientId;
             Prescriptions = bl.allPrescriptionFromPatient(patient).Select(p=>p.Id).ToList();
         }
         public PatientViewModel()

@@ -45,11 +45,12 @@
                                             @Html.DisplayFor(modelItem => item.Name)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Id)
+                                            @Html.DisplayFor(modelItem => item.PatientId)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("prescription Issuance", "prescriptionIssuance", new { id = item.Id, doctor = Model.doctor }) |
-                                            @Html.ActionLink("medical history", "medicalHistory", new { id = item.Id })
+                                            @Html.ActionLink("prescription Issuance", "prescriptionIssuance", new { id = item.Id, doctor = Model.doctor.DoctorId }) |
+                                            @*@Html.ActionLink("medical history", "medicalHistory", new { id = item.PatientId })*@
+                                            @Html.ActionLink("medical history", "Index","Prescription", new { id = item.PatientId },null)
                                         </td>
                                     </tr>
                                 }

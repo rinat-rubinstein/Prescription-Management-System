@@ -12,41 +12,48 @@ namespace PrescriptionUI.Controllers
 {
     public class DoctorController : Controller
     {
-        public ActionResult DoctorOptions(Doctor doctor)
+        public ActionResult DoctorOptions(Doctor doctor=null)
         {
-            /*for exe: */
-            doctor = new Doctor() { DoctorId = "123", Name = "Danni" };
             var fdvm = new ForDoctorViewModel(doctor);
             return View(fdvm);
         }
 
-        public ActionResult prescriptionIssuance(string id, Doctor doctor)
+        public ActionResult prescriptionIssuance(string id, string doctor)
         {
             IBL bl = new BLImplement();
+            var d= bl.getDoctor(doctor);
+            if(doctor==null)
+            {
+                ViewBag.Message = String.Format("please enter again");
+                return RedirectToAction("DoctorEntrance","Home");
+            }
+            
             var pfpm = new PrescriptionForPatientModel();
             pfpm.prescription.Patient = id;
-            pfpm.prescription.Doctor = doctor.DoctorId;
+            pfpm.prescription.Doctor = doctor;
+            pfpm.patient = id;
+            pfpm.doctor = doctor;
             return View(pfpm);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult prescriptionIssuance(string medicine, DateTime StartDate, DateTime EndDate, string Doctor, string Patient, string Cause)
+        public ActionResult prescriptionIssuance(FormCollection collection)///*string medicine*/, DateTime StartDate, DateTime EndDate, string Doctor, string Patient, string Cause)
         {
             try
             {
                 IBL bl = new BLImplement();
-                var prescription = new Prescription()
+                Prescription prescription = new Prescription()
                 {
-                    medicine = bl.getAllMedicines().FirstOrDefault(x => x.Name == medicine).Id,//change the name to the id
-                    StartDate = StartDate,
-                    EndDate = EndDate,
-                    Doctor = Doctor,
-                    Patient = Patient,
-                    Cause = Cause
+                    medicine = bl.getAllMedicines().FirstOrDefault(x => x.Name == collection["medicine"]).Id,//change the name to the id
+                    StartDate =Convert.ToDateTime( collection["StartDate"]),
+                    EndDate = Convert.ToDateTime(collection["EndDate"]),
+                    Doctor = collection["Doctor"],
+                    Patient = collection["Patient"],
+                    Cause = collection["prescription.Cause"]
                 };
                 bl.addPrescription(prescription);
-                ViewBag.Message = String.Format("The prescription for {0} is successfully added. You can watch {1}'s medical history for full details. ", medicine /*bl.getMedicine(prescription.medicine).Name*/, bl.getPatient(Patient).Name);
-                return RedirectToAction("DoctorOptions");
+                ViewBag.Message = String.Format("The prescription for {0} is successfully added. You can watch {1}'s medical history for full details. ", collection["medicine"].ToString() /*, bl.getPatient(prescription.Patient).Name.ToString()*/);
+                return RedirectToAction("DoctorOptions",prescription.Doctor);
             }
             catch (Exception ex)
             {
@@ -54,13 +61,13 @@ namespace PrescriptionUI.Controllers
                 return RedirectToAction("prescriptionIssuance");
             }
         }
-        public ActionResult medicalHistory(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            return RedirectToAction("Index", "Prescription", id);
-        }
+        //public ActionResult medicalHistory(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    return RedirectToAction("Index", "Prescription", id);
+        //}
     }
 }

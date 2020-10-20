@@ -14,7 +14,7 @@ namespace PrescriptionUI.Models
 
         public ForDoctorViewModel()
         {
-
+            doctor = new Doctor() { Name = "" };
         }
         public ForDoctorViewModel(Doctor d){
             this.doctor = d;

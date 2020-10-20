@@ -40,7 +40,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.DoctorId == id).FirstOrDefault();
+            Doctor doctor = bl.getDoctor(id);
             if (doctor == null)
             {
                 return HttpNotFound();
@@ -61,7 +61,7 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
+        public ActionResult Create([Bind(Include = "DoctorId,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.DoctorId == id).FirstOrDefault();
+            Doctor doctor = bl.getDoctor(id);
             if (doctor == null)
             {
                 return HttpNotFound();
@@ -122,7 +122,7 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
+        public ActionResult Edit([Bind(Include = "Id,DoctorId,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +131,7 @@ namespace PrescriptionUI.Controllers
                     IBL bl = new BLImplement();
                     var doctor = new Doctor()
                     {
-                        DoctorId = dvm.Id,
+                        DoctorId = dvm.DoctorId,
                         Name = dvm.Name,
                         LicenseExpirationDate = Convert.ToDateTime(dvm.LicenseExpirationDate),
                         Special =bl.getAllSpecialties().Where(s => s.SpecialtyName == dvm.SpecialName).FirstOrDefault().Id
@@ -159,7 +159,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.DoctorId == id).FirstOrDefault();
+            Doctor doctor = bl.getDoctor(id);
             if (doctor == null)
             {
                 return HttpNotFound();
@@ -176,7 +176,7 @@ namespace PrescriptionUI.Controllers
             try
             {
                 IBL bl = new BLImplement();
-                Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.DoctorId == id).FirstOrDefault();
+                Doctor doctor = bl.getDoctor(id);
                 bl.deleteDoctor(doctor);
                 ViewBag.Message = String.Format("The doctor {0} is successfully deledted", doctor.Name);
                 return RedirectToAction("Index");
@@ -188,14 +188,5 @@ namespace PrescriptionUI.Controllers
             }
 
         }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

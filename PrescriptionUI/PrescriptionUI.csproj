@@ -214,7 +214,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="htmlHelper.cs" />
+    <Compile Include="CustomHtmlHelper.cs" />
     <Compile Include="Models\AdministratorViewModel.cs" />
     <Compile Include="Models\DoctorViewModel.cs" />
     <Compile Include="Models\ForDoctorViewModel.cs" />

@@ -31,6 +31,11 @@ namespace PrescriptionUI.Models
             this.Patient = bl.getPatient(p.Patient).Name;
             this.Cause = p.Cause;
         }
+        public PrescriptionViewModel()
+        {
+           
+
+        }
     }
 
 }
