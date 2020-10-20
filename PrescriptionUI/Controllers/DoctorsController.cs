@@ -27,7 +27,7 @@ namespace PrescriptionUI.Controllers
             }
             if (!String.IsNullOrEmpty(searchString))
             {
-                lst = lst.Where(s => s.Name.Contains(searchString) || s.SpecialName.Contains(searchString)).ToList();
+                lst = lst.Where(s => s.Name.ToLower().Contains(searchString.ToLower()) || s.SpecialName.ToLower().Contains(searchString.ToLower())).ToList();
             }
             return View(lst);
         }
