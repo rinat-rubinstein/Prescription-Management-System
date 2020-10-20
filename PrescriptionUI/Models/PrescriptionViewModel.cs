@@ -9,6 +9,7 @@ namespace PrescriptionUI.Models
 {
     public class PrescriptionViewModel
     {
+
         public int Id { get; set; }
         public string medicine { get; set; }
         [DisplayName("Start Date")]
@@ -26,8 +27,8 @@ namespace PrescriptionUI.Models
             this.medicine = bl.getMedicine(p.medicine).Name;
             this.StartDate = p.StartDate;
             this.EndDate = p.EndDate;
-            this.Doctor=bl.getDoctor( p.Doctor).Name;
-            this.Patient = bl.getPatient( p.Patient).Name;
+            this.Doctor = bl.getDoctor(p.Doctor).Name;
+            this.Patient = bl.getPatient(p.Patient).Name;
             this.Cause = p.Cause;
         }
     }

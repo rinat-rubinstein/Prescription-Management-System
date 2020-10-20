@@ -392,6 +392,7 @@
     <Content Include="Views\Doctor\DoctorOptions.cshtml" />
     <Content Include="Views\Doctor\prescriptionIssuance.cshtml" />
     <Content Include="Views\Prescription\Index.cshtml" />
+    <Content Include="Views\Prescription\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

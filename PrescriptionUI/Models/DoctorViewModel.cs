@@ -15,6 +15,7 @@ namespace PrescriptionUI.Models
         public string SpecialName { get; set; }
         [DisplayName("License Expiration Date")]
         public DateTime LicenseExpirationDate { get; set; }
+        public List<string> specials { get; set; }
         public override string ToString()
         {
             return $"id:{Id} name:{Name} special:{SpecialName}";
@@ -26,12 +27,15 @@ namespace PrescriptionUI.Models
             Name = doctor.Name;
             SpecialName =bl.getAllSpecialties().Where(s=>s.Id== doctor.Special).FirstOrDefault().SpecialtyName;
             LicenseExpirationDate = doctor.LicenseExpirationDate;
+            specials = bl.getAllSpecialties().Select(x => x.SpecialtyName).ToList();
         }
         public DoctorViewModel()
         {
+            IBL bl = new BLImplement();
             Id = null;
             Name = null;
             LicenseExpirationDate = DateTime.MinValue;
+            specials = bl.getAllSpecialties().Select(x => x.SpecialtyName).ToList();
         }
     }
 }
