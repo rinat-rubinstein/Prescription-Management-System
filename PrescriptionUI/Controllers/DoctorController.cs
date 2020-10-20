@@ -52,8 +52,8 @@ namespace PrescriptionUI.Controllers
                     Cause = collection["prescription.Cause"]
                 };
                 bl.addPrescription(prescription);
-                ViewBag.Message = String.Format("The prescription for {0} is successfully added. You can watch {1}'s medical history for full details. ", collection["medicine"].ToString() /*, bl.getPatient(prescription.Patient).Name.ToString()*/);
-                return RedirectToAction("DoctorOptions",prescription.Doctor);
+                ViewBag.Message = String.Format("The prescription for {0} is successfully added. You can watch {1}'s medical history for full details. ", collection["medicine"].ToString(), bl.getPatient(prescription.Patient).Name.ToString());
+                return RedirectToAction("DoctorOptions"/*, prescription.Doctor*/);
             }
             catch (Exception ex)
             {
