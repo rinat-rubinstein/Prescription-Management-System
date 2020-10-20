@@ -15,25 +15,9 @@ namespace PrescriptionUI.Controllers
 {
     public class AdministratorController : Controller
     {
-        public ActionResult AdministratorOptions(Administrator administrator, GraphModel gm = null)
+        public ActionResult AdministratorOptions(Administrator administrator)
         {
-            IBL bl = new BLImplement();
-            var categories = bl.getAllMedicines().Select(c => new {
-                CategoryID = c.Id,
-                CategoryName = c.Name
-            }).ToList();
-            ViewBag.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
-            if (gm != null)
-            {
-                var medicinesId = bl.getAllMedicines().Select(x => x.Id);
-                var medicinesNames = bl.getAllMedicines().Select(x => x.Name).ToArray();
-                gm.mat = bl.MedicinesStatistics(gm.CategoryId, gm.month, ref medicinesNames);
-            }
-            else
-            {
-                gm = new GraphModel();
-            }
-            return View(gm);
+            return View();
         }
         // GET: Administrator/Edit/5
          public ActionResult Edit(int id)
