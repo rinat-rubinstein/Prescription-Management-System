@@ -122,11 +122,11 @@ namespace PrescriptionDAL
         public void addMedicine(Medicine medicine)
         {
             PrescriptionContext db = new PrescriptionContext();
-            //if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
-            //{
-            //    throw new Exception("This medicine exists already");
-            //}
-            //else
+            if (db.Medicines.ToList().Exists(mdn => mdn.Id == medicine.Id))
+            {
+                throw new Exception("This medicine exists already");
+            }
+            else
             {
                 db.Medicines.Add(medicine);
                 db.SaveChanges();

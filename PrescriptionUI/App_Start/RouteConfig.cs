@@ -12,8 +12,7 @@ namespace PrescriptionUI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-           // IBL bl = new BLImplement();
-           // bl.addDoctor(new Doctor { DoctorId = "426636296",LicenseExpirationDate = new DateTime(2023,03,18), Name = "Yossi", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Cardiology").Id });
+            IBL bl = new BLImplement();
             //bl.addAdministrator(new Administrator { UserName = "Manager", Password = "12345678" });
             //bl.ImportDataFromExcel();
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Anesthesiology" });
@@ -42,7 +41,7 @@ namespace PrescriptionUI
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Radiology" });
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Rheumatology" });
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Urologist" });
-            //bl.addDoctor(new Doctor { DoctorId = "326636296",LicenseExpirationDate = new DateTime(2023,03,18), Name = "Racheli Bloch", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Cardiology").Id });
+            //bl.addDoctor(new Doctor { DoctorId = "326636296", LicenseExpirationDate = DateTime.Now.AddDays(879), Name = "Racheli Bloch", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Cardiology").Id });
             //bl.addDoctor(new Doctor { DoctorId = "212456785", LicenseExpirationDate = DateTime.Now.AddDays(333), Name = "Rinat Rubinstein", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Dermatology").Id });
             //bl.addDoctor(new Doctor { DoctorId = "012359638", LicenseExpirationDate = DateTime.Now.AddDays(298), Name = "Chana Indig", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Anesthesiology").Id });
             //bl.addDoctor(new Doctor { DoctorId = "322630252", LicenseExpirationDate = DateTime.Now.AddDays(150), Name = "Ruth Fridman", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Ophthalmology").Id });
