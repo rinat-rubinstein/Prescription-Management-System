@@ -59,13 +59,13 @@ namespace PrescriptionUI.Controllers
         }    
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DoctorEntrance(string Name, DateTime LicenseExpirationDate)
+       // [ValidateAntiForgeryToken]
+        public ActionResult DoctorEntrance(FormCollection collection)//string Name, DateTime LicenseExpirationDate)
         {
             try
             {
                 IBL bl = new BLImplement();
-                var d = bl.IsDoctor(Name, LicenseExpirationDate);
+                var d = bl.IsDoctor(collection["Name"], Convert.ToDateTime(collection["LicenseExpirationDate"]));
                 if (d != null)
                 {
                     return RedirectToAction("DoctorOptions", "Doctor", d);
