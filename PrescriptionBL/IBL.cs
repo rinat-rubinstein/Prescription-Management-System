@@ -18,7 +18,7 @@ namespace PrescriptionBL
         public void deleteAdministrator(Administrator administrator);
         public void updateAdministrator(Administrator administrator);
         public bool isAdministrator(string username, string password);
-        public Administrator getAdministrator(string id);
+        public Administrator getAdministrator(int id);
         public Administrator getAdministrator();  
         public IEnumerable<Administrator> getAllAdministrators();
 

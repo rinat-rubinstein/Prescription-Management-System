@@ -434,7 +434,7 @@ namespace PrescriptionBL
             return dal.getAllAdministrators().ToList().Exists(admin => admin.Password == password && admin.UserName == username);
 
         }
-        public Administrator getAdministrator(string id)
+        public Administrator getAdministrator(int id)
         {
             return getAllAdministrators().FirstOrDefault(administrator => administrator.Id == id);
         }

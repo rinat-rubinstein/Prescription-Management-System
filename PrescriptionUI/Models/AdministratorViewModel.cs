@@ -12,7 +12,7 @@ namespace PrescriptionUI.Models
     /// </summary>
     public class AdministratorViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         [DisplayName("Name")]
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -22,7 +22,7 @@ namespace PrescriptionUI.Models
         }
         public AdministratorViewModel()
         {
-            Id = null;
+            Id = 0;
             UserName = null;
             Password = null;
         }

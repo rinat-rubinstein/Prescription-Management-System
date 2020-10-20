@@ -36,9 +36,9 @@ namespace PrescriptionUI.Controllers
             return View(gm);
         }
         // GET: Administrator/Edit/5
-         public ActionResult Edit(string id)
+         public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

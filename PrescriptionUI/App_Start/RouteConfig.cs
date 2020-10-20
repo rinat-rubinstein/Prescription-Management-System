@@ -13,6 +13,7 @@ namespace PrescriptionUI
         public static void RegisterRoutes(RouteCollection routes)
         {
             //IBL bl = new BLImplement();
+            //bl.addAdministrator(new Administrator { UserName = "Manager", Password = "12345678" });
             //bl.ImportDataFromExcel();
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Anesthesiology" });
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Cardiology" });
@@ -55,13 +56,13 @@ namespace PrescriptionUI
             //bl.addDoctor(new Doctor { DoctorId = "128919329", LicenseExpirationDate = DateTime.Now.AddDays(650), Name = "Isaac Newton", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Cardiology").Id });
             //bl.addDoctor(new Doctor { DoctorId = "252036223", LicenseExpirationDate = DateTime.Now.AddDays(950), Name = "Shimon Peres", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Podiatrist").Id });
             //bl.addDoctor(new Doctor { DoctorId = "381298710", LicenseExpirationDate = DateTime.Now.AddDays(1467), Name = "Sara Netanyahu", Special = bl.getAllSpecialties().FirstOrDefault(s => s.SpecialtyName == "Psychiatry").Id });
-            ////bl.addPatient(new Patient { PatientId = "286564248", Name = "Reuven Cohen" });
-            ////bl.addPatient(new Patient { PatientId = "023497427", Name = "Ofra Efroni" });
-            ////bl.addPatient(new Patient { PatientId = "342683839", Name = "Shay Man" });
-            ////bl.addPatient(new Patient { PatientId = "386564248", Name = "Sheli Lev" });
-            ////bl.addPatient(new Patient { PatientId = "281564248", Name = "Debi Weiss" });
-            ////bl.addPatient(new Patient { PatientId = "023457427", Name = "Sara Ram" });
-            ////bl.addPatient(new Patient { PatientId = "344683839", Name = "Dani Ordman" });
+            //bl.addPatient(new Patient { PatientId = "286564248", Name = "Reuven Cohen" });
+            //bl.addPatient(new Patient { PatientId = "023497427", Name = "Ofra Efroni" });
+            //bl.addPatient(new Patient { PatientId = "342683839", Name = "Shay Man" });
+            //bl.addPatient(new Patient { PatientId = "386564248", Name = "Sheli Lev" });
+            //bl.addPatient(new Patient { PatientId = "281564248", Name = "Debi Weiss" });
+            //bl.addPatient(new Patient { PatientId = "023457427", Name = "Sara Ram" });
+            //bl.addPatient(new Patient { PatientId = "344683839", Name = "Dani Ordman" });
             //bl.addPatient(new Patient { PatientId = "383569248", Name = "Shevi Levi" });
             //bl.addPatient(new Patient { PatientId = "016564248", Name = "Tamar Braun" });
             //bl.addPatient(new Patient { PatientId = "323497427", Name = "Eli Gafni" });
