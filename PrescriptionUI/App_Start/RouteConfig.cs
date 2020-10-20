@@ -12,7 +12,7 @@ namespace PrescriptionUI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            //IBL bl = new BLImplement();
+            IBL bl = new BLImplement();
             //bl.addAdministrator(new Administrator { UserName = "Manager", Password = "12345678" });
             //bl.ImportDataFromExcel();
             //bl.addSpecialty(new Specialty() { SpecialtyName = "Anesthesiology" });

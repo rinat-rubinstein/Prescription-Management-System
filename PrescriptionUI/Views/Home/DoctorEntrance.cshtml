@@ -14,12 +14,18 @@
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Your Name *" value=""
                            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { } })
+                           @Html.ValidationMessageFor(model => model.Name, "", new { @class = "form-danger text-dark" })
                 </div>
+
+
                 <div class="form-group">
-                    @*<input type="password" class="form-control" placeholder="Your License Expiration Date *" value=""*@
-                        @*@Html.EditorFor(m => m.LicenseExpirationDate, new { htmlAttributes = new { } })*@
-                    <input class="text-box single-line" data-val="true" data-val-date="The field Dining Date must be a date." data-val-required="The Dining Date field is required." id="LicenseExpirationDate" name="DiningDate" type="date" value="20/10/2020">
+                    @Html.LabelFor(model => model.LicenseExpirationDate, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        <input type="date" id="LicenseExpirationDate" name="LicenseExpirationDate" required="" style="position:relative; width:315px;" class="form-control text-dark" placeholder="start" />
+                    </div>
+
                 </div>
+
                 <div>
                     <input type="submit" value="Login" class="btn btn-black py-3 px-5" />
                 </div>
