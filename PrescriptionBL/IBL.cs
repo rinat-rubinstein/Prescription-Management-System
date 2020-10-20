@@ -67,6 +67,7 @@ namespace PrescriptionBL
         public Doctor IsDoctor(string name, DateTime licenseExpirationDate);
         public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate);
         public void ImportDataFromExcel();
+        public List<int> info(string MedicineName, int year);
 
     }
 }

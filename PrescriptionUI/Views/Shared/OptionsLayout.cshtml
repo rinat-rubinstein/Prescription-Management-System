@@ -1,6 +1,35 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/utils.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+
+        a.my-class {
+            color: #6ec000
+        }
+
+            a.my-class:active {
+                color: #6ec000
+            }
+
+            a.my-class:link {
+                color: #6ec000
+            }
+
+            a.my-class:visited {
+                color: #6ec000
+            }
+    </style>
+    <meta name="NetsparkQuiltingResult" total-length="4215" removed="0" rules-found="w2339,w2713,w3914,w3082,w5163" />‏
+
+
+
     <title>OK Prescription</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,6 +100,8 @@
                     <li class="nav-link"><center class="nav-link">@Html.ActionLink("Patients", "Index", "Patients")</center></li>
                     <li class="nav-link"><center class="nav-link">@Html.ActionLink("Doctors", "Index", "Doctors")</center></li>
                     <li class="nav-link"><center class="nav-link">@Html.ActionLink("Medicine", "Index", "Medicine")</center></li>‏
+                    <li class="nav-link"><center class="nav-link">@Html.ActionLink("Graphs", "Graph", "Graph")</center></li>‏‏
+
                 </ul>
             </div>
         </div>

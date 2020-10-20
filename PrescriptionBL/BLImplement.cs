@@ -506,5 +506,11 @@ namespace PrescriptionBL
         {
             return this.getAllDoctors().FirstOrDefault(d => d.Name == name && d.LicenseExpirationDate.Date == licenseExpirationDate.Date);
         }
+        public List<int> info(string MedicineName,int year)
+        {
+            IDal dal = new DalImplement();
+            return dal.info(MedicineName, year);
+        }
+
     }
 }

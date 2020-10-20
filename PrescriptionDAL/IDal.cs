@@ -45,5 +45,7 @@ namespace PrescriptionDAL
         public void addSpecialty(Specialty specialty);
         public void deleteSpecialty(Specialty specialty);
         public IEnumerable<Specialty> getAllSpecialties();
+        public List<int> info(string medicineName, int year);
+
     }
 }
