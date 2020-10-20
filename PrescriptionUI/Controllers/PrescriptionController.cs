@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PrescriptionBL;
 using PrescriptionBE;
 using PrescriptionUI.Models;
+using System.Web.UI.WebControls;
 
 namespace PrescriptionUI.Controllers
 {
@@ -28,8 +29,9 @@ namespace PrescriptionUI.Controllers
         // GET: Prescription/Details/5
         public ActionResult Details(int id)
         {
-            IBL bl = new BLImplement();
+            IBL bl = new BLImplement();           
             var pvm = new PrescriptionViewModel(bl.getAllPrescriptions().FirstOrDefault(x => x.Id == id));
+            ViewBag.Patient = bl.getPatient(pvm.Patient).Name;
             return View(pvm);
         }
     }
