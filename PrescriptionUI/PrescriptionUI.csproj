@@ -114,11 +114,13 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\utils.js" />
     <Content Include="vegefoods\about.html" />
     <Content Include="vegefoods\blog-single.html" />
     <Content Include="vegefoods\blog.html" />
@@ -204,6 +206,7 @@
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicineController.cs" />
     <Compile Include="Controllers\MedicinesController.cs" />
@@ -219,6 +222,7 @@
     <Compile Include="Models\DoctorViewModel.cs" />
     <Compile Include="Models\ForDoctorViewModel.cs" />
     <Compile Include="Models\GraphModel.cs" />
+    <Compile Include="Models\MedicineInfo.cs" />
     <Compile Include="Models\MedicineViewModel.cs" />
     <Compile Include="Models\PatientViewModel.cs" />
     <Compile Include="Models\PrescriptionForPatientModel.cs" />
@@ -393,6 +397,7 @@
     <Content Include="Views\Doctor\prescriptionIssuance.cshtml" />
     <Content Include="Views\Prescription\Index.cshtml" />
     <Content Include="Views\Prescription\Details.cshtml" />
+    <Content Include="Views\Graph\Graph.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

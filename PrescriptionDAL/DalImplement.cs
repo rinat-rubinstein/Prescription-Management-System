@@ -291,7 +291,27 @@ namespace PrescriptionDAL
             PrescriptionContext db = new PrescriptionContext();
             return db.Specialties;
         }
+        public List<int> info(string medicineName, int year)
+        {
+            PrescriptionContext db = new PrescriptionContext();
+            List<int> month = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            List<Prescription> pres = new List<Prescription>();
+            foreach (Prescription item in db.Prescriptions)
+            {
+                var a = this.getAllMedicines().FirstOrDefault(x => x.Id == item.medicine);
+                if (a != null && a.Name == medicineName)
+                    pres.Add(item);
+            }
+            foreach (var item in pres)
+            {
+                if (item.StartDate.Year == year)
+                    month[item.StartDate.Month - 1]++;
+            }
+            return month;
 
+
+
+        }
 
     }
     public class PrescriptionContext : DbContext
@@ -312,6 +332,6 @@ namespace PrescriptionDAL
         {
             var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
-        
+
+               }
     }
-}
