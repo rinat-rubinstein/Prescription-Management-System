@@ -30,11 +30,12 @@ namespace PrescriptionDAL
             UserCredential credential;
             //Root Folder of project
             var CSPath = System.Web.Hosting.HostingEnvironment.MapPath("~/");
-            using (var stream =
-                           new FileStream(@"C:\Users\רחלי\Desktop\googleDrive\WebApplication\bin\credentials.json", FileMode.Open, FileAccess.Read))
+            //using (var stream =
+            //               new FileStream(@"C:\Users\רחלי\Desktop\googleDrive\WebApplication\bin\credentials.json", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(Path.Combine(CSPath, "credentials.json"), FileMode.Open, FileAccess.Read))
             {
                 string[] Scopes = { Google.Apis.Drive.v3.DriveService.Scope.Drive };
-                String FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/"); ;
+                String FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/");
                 String FilePath = Path.Combine(FolderPath, "DriveServiceCredentials.json");
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(stream).Secrets,

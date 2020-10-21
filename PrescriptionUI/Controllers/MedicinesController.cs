@@ -49,7 +49,7 @@ namespace PrescriptionUI.Controllers
         // GET: Medicines/Create
         public ActionResult Create()
         {
-            var mvm = new MedicineViewModel();   
+            var mvm = new MedicineViewModel();
             return View(mvm);
         }
 
@@ -58,7 +58,7 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MedicineViewModel mvm)//[Bind(Include = "Id,Name,Producer,GenericName,ActiveIngredients,PortionProperties")] MedicineViewModel mvm)
+        public ActionResult Create(MedicineViewModel mvm,HttpPostedFileBase ImageFile)//[Bind(Include = "Id,Name,Producer,GenericName,ActiveIngredients,PortionProperties")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
@@ -79,8 +79,8 @@ namespace PrescriptionUI.Controllers
                 };
                 try
                 {
-                    bl.addMedicine(medicine, mvm.ImageFile);
-                    ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);               
+                    bl.addMedicine(medicine, ImageFile);
+                    ViewBag.Message = String.Format("The medicine {0} is successfully added", medicine.Name);
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -92,7 +92,7 @@ namespace PrescriptionUI.Controllers
 
             return View(new MedicineViewModel());
         }
- 
+
 
         // GET: Medicines/Edit/5
         public ActionResult Edit(int? id)
@@ -116,7 +116,7 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(MedicineViewModel mvm)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
+        public ActionResult Edit(MedicineViewModel mvm, HttpPostedFileBase ImageFile)//[Bind(Include = "Id,Name,Producer,GenericName")] MedicineViewModel mvm)
         {
             if (ModelState.IsValid)
             {
@@ -132,8 +132,8 @@ namespace PrescriptionUI.Controllers
                 };
                 try
                 {
-                    bl.addMedicine(medicine, mvm.ImageFile);
-                    ViewBag.Message = String.Format("The Medicine {0} successfully updated",medicine.Name);
+                    bl.addMedicine(medicine, ImageFile);
+                    ViewBag.Message = String.Format("The Medicine {0} successfully updated", medicine.Name);
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -180,6 +180,6 @@ namespace PrescriptionUI.Controllers
                 return RedirectToAction("Index");
             }
         }
-            
+
     }
 }

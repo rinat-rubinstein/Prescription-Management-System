@@ -17,10 +17,19 @@ namespace PrescriptionUI.Controllers
     {
 
         // GET: Doctors
-        public ActionResult Index()
+        public ActionResult Index(string searchString="")
         {
             IBL bl = new BLImplement();
-            return View(bl.getAllDoctors().ToList());
+            List<DoctorViewModel> lst = new List<DoctorViewModel>();
+            foreach (var item in bl.getAllDoctors())
+            {
+                lst.Add(new DoctorViewModel(item));
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lst = lst.Where(s => s.Name.ToLower().Contains(searchString.ToLower()) || s.SpecialName.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+            return View(lst);
         }
 
         // GET: Doctors/Details/5
@@ -31,7 +40,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+            Doctor doctor = bl.getDoctor(id);
             if (doctor == null)
             {
                 return HttpNotFound();
@@ -52,16 +61,28 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
+        public ActionResult Create([Bind(Include = "DoctorId,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
         {
             if (ModelState.IsValid)
             {
                 IBL bl = new BLImplement();
+                try
+                {
+                    if (!bl.getAllSpecialties().ToList().Exists(a => a.SpecialtyName == dvm.SpecialName))
+                        bl.addSpecialty(new Specialty { SpecialtyName = dvm.SpecialName });
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = String.Format(ex.Message);
+                    return RedirectToAction("Create");
+                }
+                if (!bl.getAllSpecialties().ToList().Exists(a => a.SpecialtyName == dvm.SpecialName))
+                    bl.addSpecialty(new Specialty { SpecialtyName = dvm.SpecialName });
                 Doctor doctor = new Doctor()
                 {
                     Name = dvm.Name,
                     LicenseExpirationDate = Convert.ToDateTime(dvm.LicenseExpirationDate),
-                    Special = dvm.Special
+                    Special = bl.getAllSpecialties().Where(s => s.SpecialtyName == dvm.SpecialName).FirstOrDefault().Id
                 };
                 try
                 {
@@ -87,7 +108,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+            Doctor doctor = bl.getDoctor(id);
             if (doctor == null)
             {
                 return HttpNotFound();
@@ -101,7 +122,7 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
+        public ActionResult Edit([Bind(Include = "Id,DoctorId,Name,Special,LicenseExpirationDate")] DoctorViewModel dvm)
         {
             if (ModelState.IsValid)
             {
@@ -110,10 +131,11 @@ namespace PrescriptionUI.Controllers
                     IBL bl = new BLImplement();
                     var doctor = new Doctor()
                     {
-                        Id = dvm.Id,
+                        DoctorId = dvm.DoctorId,
                         Name = dvm.Name,
                         LicenseExpirationDate = Convert.ToDateTime(dvm.LicenseExpirationDate),
-                        Special = dvm.Special
+                        Special =bl.getAllSpecialties().Where(s => s.SpecialtyName == dvm.SpecialName).FirstOrDefault().Id
+
                     };                
                     bl.updateDoctor(doctor);
                     ViewBag.Message = String.Format("The doctor {0} is successfully updated", doctor.Name);
@@ -137,7 +159,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+            Doctor doctor = bl.getDoctor(id);
             if (doctor == null)
             {
                 return HttpNotFound();
@@ -154,7 +176,7 @@ namespace PrescriptionUI.Controllers
             try
             {
                 IBL bl = new BLImplement();
-                Doctor doctor = bl.getAllDoctors().ToList().FindAll(x => x.Id == id).FirstOrDefault();
+                Doctor doctor = bl.getDoctor(id);
                 bl.deleteDoctor(doctor);
                 ViewBag.Message = String.Format("The doctor {0} is successfully deledted", doctor.Name);
                 return RedirectToAction("Index");
@@ -166,14 +188,5 @@ namespace PrescriptionUI.Controllers
             }
 
         }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

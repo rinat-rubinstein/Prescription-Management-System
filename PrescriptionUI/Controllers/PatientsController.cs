@@ -36,7 +36,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
+            Patient patient = bl.getPatient(id);
             PatientViewModel patientViewModel = new PatientViewModel(patient);
             if (patient == null)
             {
@@ -57,7 +57,7 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] PatientViewModel pvm)
+        public ActionResult Create([Bind(Include = "PatientId,Name")] PatientViewModel pvm)
         {
            
             if (ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace PrescriptionUI.Controllers
                 Patient patient = new Patient()
                 {
                     Name = pvm.Name,
-                    Prescriptions = pvm.Prescriptions
+                    PatientId=pvm.PatientId                   
                 };
                 IBL bl = new BLImplement();
                 try
@@ -93,7 +93,7 @@ namespace PrescriptionUI.Controllers
             }
             IBL bl = new BLImplement();
 
-            Patient patient = bl.getAllPatients().FirstOrDefault(x=>x.Id==id);
+            Patient patient = bl.getPatient(id);
             PatientViewModel pvm = new PatientViewModel(patient);
             if (pvm == null)
             {
@@ -107,14 +107,14 @@ namespace PrescriptionUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-       public ActionResult Edit([Bind(Include = "Id,Name")] PatientViewModel pvm)
+       public ActionResult Edit([Bind(Include = "PatientId,Name")] PatientViewModel pvm)
         {
             IBL bl = new BLImplement();
             try
             {
                 var patient = new Patient()
                 {
-                    Id = pvm.Id,
+                    PatientId = pvm.PatientId,
                     Name = pvm.Name
                 };
                 bl.updatePatient(patient);
@@ -138,7 +138,7 @@ namespace PrescriptionUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            Patient patient = bl.getAllPatients().FirstOrDefault(x => x.Id == id);
+            Patient patient = bl.getPatient(id);
             PatientViewModel pvm = new PatientViewModel(patient);
             if (pvm == null)
             {
@@ -150,12 +150,12 @@ namespace PrescriptionUI.Controllers
         // POST: Patient/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             try
             {
                 IBL bl = new BLImplement();
-                Patient patient = new Patient();
+                Patient patient = bl.getPatient(id);
                 bl.deletePatient(patient);
                 ViewBag.Message = String.Format("The patient {0} is successfully delete.",patient.Name);
                 return RedirectToAction("Index");
@@ -167,14 +167,5 @@ namespace PrescriptionUI.Controllers
             }
 
         }
-
-      /*  protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }*/
     }
 }

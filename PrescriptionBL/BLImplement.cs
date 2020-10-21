@@ -110,7 +110,7 @@ namespace PrescriptionBL
         public IEnumerable<Prescription> allPrescriptionByDoctor(Doctor doctor)
         {
             IDal dal = new PrescriptionDAL.DalImplement();
-            return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.Id);
+            return dal.getAllPrescriptions().Where(prescription => prescription.Doctor == doctor.DoctorId);
         }
 
         //------------ Medicines ---------------
@@ -136,6 +136,7 @@ namespace PrescriptionBL
             {
                 string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
                 Path.GetFileName(file.FileName));
+                file.SaveAs(filePath);
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
                 IDal dal = new PrescriptionDAL.DalImplement();
@@ -173,13 +174,12 @@ namespace PrescriptionBL
         public void updateMedicinePicture(int medicineId, HttpPostedFileBase file)
         {
             try
-            {
+            {          
                 string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
                 Path.GetFileName(file.FileName));
+                file.SaveAs(filePath);
                 if (!validMedicinePicture(filePath))
                     throw new Exception("the picture does not contain a medicine");
-
-
                 IDal dal = new PrescriptionDAL.DalImplement();
                 dal.updateMedicinePicture(medicineId, file);
             }
@@ -193,7 +193,8 @@ namespace PrescriptionBL
             try
             {
                 IDal dal = new PrescriptionDAL.DalImplement();
-                return dal.getMedicinePicture(medicinId);
+                //return dal.getMedicinePicture(medicinId);
+                return Path.Combine("~/GoogleDriveFiles",Path.GetFileName( dal.getMedicinePicture(medicinId)));
             }
             catch (Exception ex)
             {
@@ -216,7 +217,7 @@ namespace PrescriptionBL
             List<string> tagsPictures = r.GetPicturesTags(path);
             foreach (var item in tagsPictures)
             {
-                if (item == "medicine" || item == "drug" || item == "pill" || item == "medicines" || item == "drugs" || item == "pills")
+                if (item.Contains("medicine") || item.Contains("drug") || item.Contains("pill") || item.Contains("medical"))
                     return true;
             }
             return false;
@@ -270,7 +271,7 @@ namespace PrescriptionBL
         {
             IDal dal = new PrescriptionDAL.DalImplement();
             //Checks if the doctor's license is valid
-            if (dal.getAllDoctors().ToList().Find(d => d.Id == prescription.Doctor).LicenseExpirationDate >= DateTime.Today)
+            if (dal.getAllDoctors().ToList().Find(d => d.DoctorId == prescription.Doctor).LicenseExpirationDate >= DateTime.Today)
             {
                 try
                 {
@@ -286,6 +287,10 @@ namespace PrescriptionBL
                 throw new Exception("The the doctor's license is not valid ");
             }
         }
+        public IEnumerable<Prescription> GetAllPrescriptionsToPatient(string patientId)
+        {
+            return this.getAllPrescriptions().Where(p => p.Patient == patientId);
+        }
         public IEnumerable<Prescription> getAllPrescriptions()
         {
             IDal dal = new PrescriptionDAL.DalImplement();
@@ -294,7 +299,7 @@ namespace PrescriptionBL
         public IEnumerable<Prescription> allPrescriptionFromPatient(Patient patient)
         {
             IDal dal = new PrescriptionDAL.DalImplement();
-            return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.Id);
+            return dal.getAllPrescriptions().Where(prescription => prescription.Patient == patient.PatientId);
         }
 
 
@@ -414,12 +419,12 @@ namespace PrescriptionBL
             return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine==medicineId);
 
         }
-            public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
+         /*   public int medicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
             {
-            IDal dal = new PrescriptionDAL.DalImplement();
+           IDal dal = new PrescriptionDAL.DalImplement();
             int medicineId = dal.getAllMedicines().FirstOrDefault(m => m.Name == medicine).Id;
                 return dal.getAllPrescriptions().Count(prescription => prescription.StartDate >= startDate && prescription.StartDate <= endDate && prescription.medicine.Exists(m => m == medicineId));
-            }
+            }*/
 
 
         public bool isAdministrator(string username, string password)
@@ -429,14 +434,14 @@ namespace PrescriptionBL
             return dal.getAllAdministrators().ToList().Exists(admin => admin.Password == password && admin.UserName == username);
 
         }
-        public Administrator getAdministrator(string id)
+        public Administrator getAdministrator(int id)
         {
             return getAllAdministrators().FirstOrDefault(administrator => administrator.Id == id);
         }
 
         public Doctor getDoctor(string id)
         {
-            return getAllDoctors().FirstOrDefault(doc => doc.Id == id);
+            return getAllDoctors().FirstOrDefault(doc => doc.DoctorId == id);
         }
         
         public Prescription getPrescription(int id)
@@ -450,34 +455,32 @@ namespace PrescriptionBL
         }
         public Patient getPatient(string id)
         {
-            return getAllPatients().FirstOrDefault(patient => patient.Id == id);
+            return getAllPatients().FirstOrDefault(patient => patient.PatientId == id);
         }
 
         public void ImportDataFromExcel()
         {
-            {
-                string filename = @"medicine.xlsx";
-                string FilePath = AppDomain.CurrentDomain.BaseDirectory + filename;
-                //string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
-                _Application excel = new _Excel.Application();
-                Workbook wb = excel.Workbooks.Open(FilePath);
-                Worksheet ws = wb.Worksheets[1];
+            string filename = @"medicine.xlsx";
+            string FilePath = AppDomain.CurrentDomain.BaseDirectory + filename;
+            //string FilePath = "C:\\Users\\aannr\\Desktop\\‏‏תיקיה חדשה\\prescription-management-system\\medicine.xlsx";
+            _Application excel = new _Excel.Application();
+            Workbook wb = excel.Workbooks.Open(FilePath);
+            Worksheet ws = wb.Worksheets[1];
 
-                string name = string.Empty, genericName = string.Empty, producer = string.Empty, active = string.Empty, properties = string.Empty, ndc = string.Empty;
-                for (int i = 2; i < 1001; i++)
+            string name = string.Empty, genericName = string.Empty, producer = string.Empty, active = string.Empty, properties = string.Empty, ndc = string.Empty;
+            for (int i = 2; i < 1001; i++)
+            {
+                name = Convert.ToString(ws.Cells[1][i].Value2);
+                genericName = Convert.ToString(ws.Cells[2][i].Value2);
+                producer = Convert.ToString(ws.Cells[3][i].Value2);
+                active = Convert.ToString(ws.Cells[4][i].Value2);
+                properties = Convert.ToString(ws.Cells[5][i].Value2);
+                ndc = Convert.ToString(ws.Cells[7][i].Value2);
+                using (var context = new PrescriptionContext())
                 {
-                    name = Convert.ToString(ws.Cells[1][i].Value2);
-                    genericName = Convert.ToString(ws.Cells[2][i].Value2);
-                    producer = Convert.ToString(ws.Cells[3][i].Value2);
-                    active = Convert.ToString(ws.Cells[4][i].Value2);
-                    properties = Convert.ToString(ws.Cells[5][i].Value2);
-                    ndc = Convert.ToString(ws.Cells[7][i].Value2);
-                    using (var context = new PrescriptionContext())
-                    {
-                        var medicine = new Medicine { PortionProperties = properties, ActiveIngredients = active, GenericName = ndc, Name = name, Producer = producer };
-                        context.Medicines.Add(medicine);
-                        context.SaveChanges();
-                    }
+                    var medicine = new Medicine { PortionProperties = properties, ActiveIngredients = active, GenericName = ndc, Name = name, Producer = producer };
+                    context.Medicines.Add(medicine);
+                    context.SaveChanges();
                 }
             }
         }
@@ -488,15 +491,25 @@ namespace PrescriptionBL
         }
         public void doctorEntrance(string name, string id)
         {
-            if (getAllDoctors().ToList().Exists(d => d.Id == id && d.Name == name))
+            if (getAllDoctors().ToList().Exists(d => d.DoctorId == id && d.Name == name))
             {
-                if (!getAllDoctors().ToList().Exists(d => d.Id == id && d.LicenseExpirationDate >= DateTime.Today))
+                if (!getAllDoctors().ToList().Exists(d => d.DoctorId == id && d.LicenseExpirationDate >= DateTime.Today))
                 {
                     throw new Exception("The license has expired");
                 }
             }
             else
                 throw new Exception("Incorrect Details");
+        }
+
+        public Doctor IsDoctor(string name, DateTime licenseExpirationDate)
+        {
+            return this.getAllDoctors().FirstOrDefault(d => d.Name == name && d.LicenseExpirationDate.Date == licenseExpirationDate.Date);
+        }
+        public List<int> info(string MedicineName,int year)
+        {
+            IDal dal = new DalImplement();
+            return dal.info(MedicineName, year);
         }
 
     }

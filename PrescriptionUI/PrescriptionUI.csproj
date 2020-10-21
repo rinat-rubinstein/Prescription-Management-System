@@ -52,14 +52,21 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mirosoft.Utilities.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mirosoft.Utilities.Mvc.1.0.2\lib\net45\Mirosoft.Utilities.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -96,17 +103,24 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="GoogleDriveFiles\1.jpg" />
+    <Content Include="GoogleDriveFiles\2.jpg" />
+    <Content Include="images\icons\favicon.ico" />
+    <Content Include="images\img-01.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\utils.js" />
     <Content Include="vegefoods\about.html" />
     <Content Include="vegefoods\blog-single.html" />
     <Content Include="vegefoods\blog.html" />
@@ -143,7 +157,15 @@
     <Content Include="vegefoods\images\about2.jpg" />
     <Content Include="vegefoods\images\about3.jpg" />
     <Content Include="vegefoods\images\about4 %282%29.jpg" />
+    <Content Include="vegefoods\images\aboutcolor.jpg" />
     <Content Include="vegefoods\images\acamol.JPG" />
+    <Content Include="vegefoods\images\admi2.jpg" />
+    <Content Include="vegefoods\images\administrator.jpg" />
+    <Content Include="vegefoods\images\doctor.jpg.png" />
+    <Content Include="vegefoods\images\doctorOption.jpg" />
+    <Content Include="vegefoods\images\main1.jpg" />
+    <Content Include="vegefoods\images\main2.jpg" />
+    <Content Include="vegefoods\images\medicines.jpg" />
     <Content Include="vegefoods\images\optalgin.JPG" />
     <Content Include="vegefoods\images\partner-1.png" />
     <Content Include="vegefoods\images\partner-2.png" />
@@ -155,6 +177,7 @@
     <Content Include="vegefoods\images\person3.JPG" />
     <Content Include="vegefoods\images\person4.JPG" />
     <Content Include="vegefoods\images\person5.JPG" />
+    <Content Include="vegefoods\images\prescription.jpg" />
     <Content Include="vegefoods\index.html" />
     <Content Include="vegefoods\js\aos.js" />
     <Content Include="vegefoods\js\bootstrap-datepicker.js" />
@@ -181,18 +204,25 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministratorController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicineController.cs" />
     <Compile Include="Controllers\MedicinesController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Data\PrescriptionUIContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="htmlHelper.cs" />
+    <Compile Include="HtmlExtensions.cs" />
+    <Compile Include="CustomHtmlHelper.cs" />
     <Compile Include="Models\AdministratorViewModel.cs" />
     <Compile Include="Models\DoctorViewModel.cs" />
+    <Compile Include="Models\ForDoctorViewModel.cs" />
     <Compile Include="Models\GraphModel.cs" />
+    <Compile Include="Models\MedicineInfo.cs" />
     <Compile Include="Models\MedicineViewModel.cs" />
     <Compile Include="Models\PatientViewModel.cs" />
     <Compile Include="Models\PrescriptionForPatientModel.cs" />
@@ -348,16 +378,26 @@
     <Content Include="Views\Doctors\Details.cshtml" />
     <Content Include="Views\Doctors\Edit.cshtml" />
     <Content Include="Views\Doctors\Index.cshtml" />
-    <Content Include="Views\Home\AdministratorOptions.cshtml" />
     <Content Include="Views\Home\DoctorEntrance.cshtml" />
-    <Content Include="Views\Home\DoctorOptions.cshtml" />
     <Content Include="Views\Shared\DoctorLayout.cshtml" />
-    <Content Include="Views\Home\prescriptionIssuance.cshtml" />
     <Content Include="Views\Patients\Create.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
+    <Content Include="Views\Medicine\Index.cshtml" />
+    <Content Include="Views\LogIn\Index.cshtml" />
+    <Content Include="Views\Medicine\Edit.cshtml" />
+    <Content Include="Views\Medicine\Create.cshtml" />
+    <Content Include="Views\Medicine\Delete.cshtml" />
+    <Content Include="Views\Medicine\Details.cshtml" />
+    <Content Include="Views\Shared\MinistratorLayout.cshtml" />
+    <Content Include="Views\Administrator\AdministratorOptions.cshtml" />
+    <Content Include="Views\Doctor\DoctorOptions.cshtml" />
+    <Content Include="Views\Doctor\prescriptionIssuance.cshtml" />
+    <Content Include="Views\Prescription\Index.cshtml" />
+    <Content Include="Views\Prescription\Details.cshtml" />
+    <Content Include="Views\Graph\Graph.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -367,7 +407,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="GoogleDriveFiles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrescriptionBE\PrescriptionBE.csproj">

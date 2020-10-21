@@ -23,7 +23,7 @@ namespace PrescriptionUI.Models
             IBL bl = new BLImplement();
             mat = null;
             month = 3;
-            AdministratorId = bl.getAdministrator().Id;
+        //    AdministratorId = bl.getAdministrator().Id;
             CategoryId = bl.getAllMedicines().Select(x => x.Id).ToArray();
         }
     }

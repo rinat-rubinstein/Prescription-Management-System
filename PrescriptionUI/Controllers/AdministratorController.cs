@@ -15,17 +15,19 @@ namespace PrescriptionUI.Controllers
 {
     public class AdministratorController : Controller
     {
-
-
-        // GET: Administrator/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult AdministratorOptions(Administrator administrator)
         {
-            if (id == null)
+            return View();
+        }
+        // GET: Administrator/Edit/5
+         public ActionResult Edit(int id)
+        {
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             IBL bl = new BLImplement();
-            var administrator=bl.getAdministrator(id);
+            var administrator = bl.getAdministrator(id);
             var avm = new AdministratorViewModel(administrator);
             if (avm == null)
             {
@@ -35,7 +37,7 @@ namespace PrescriptionUI.Controllers
         }
 
         // POST: Administrator/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,7 +64,7 @@ namespace PrescriptionUI.Controllers
                 }
                 return RedirectToAction("AdministratorEntrance");
             }
-            return View("AdministratorEntrance");
-        }
+            return RedirectToAction("AdministratorEntrance");
+        }       
     }
 }

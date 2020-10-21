@@ -15,51 +15,61 @@
     </script>
 
 }
+<div class="hero-wrap hero-bread" style="        background-image: url('../vegefoods/images/aboutcolor.jpg');" alt="">
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { @class = "nav=link" })
-</p>
-
-
-<section class="ftco-section ftco-cart">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 ftco-animate">
-                <div class="cart-list">
-                    <table class="table">
-                        <thead class="thead-primary">
-                            <tr class="text-center">
-                                <th>Name</th>
-                                <th>Special</th>
-                                <th>License Expiration Date</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Special)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseExpirationDate)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                    </td>
-                                </tr>
-                                
-                            }
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center fadeInUp ftco-animated">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Doctors</span></p>
+                <h1 class="mb-0 bread">Doctors</h1>
             </div>
         </div>
     </div>
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<section class="ftco-section">
+    <form class="form-control" asp-controller="Search" asp-action="Index">
+        <p>
+            <input type="text" name="SearchString">
+            <input class="btn" type="submit" value="Filter" />
+        </p>
+    </form>
+    <br /><br />
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="~/vegefoods/images/doctor.jpg.png" alt="">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">@item.Name</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span class="price-sale">@item.SpecialName</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.DoctorId }, new { @class = "glyphicon glyphicon-trash" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.DoctorId }, new { @class = "ion-ios-menu" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.DoctorId }, new { @class = "ion-ios-menu" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row mt-5">
+        </div>
+    </div>
 </section>
+
